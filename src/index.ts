@@ -1,9 +1,12 @@
-/* eslint-disable no-console */
-import express from 'express';
+import { ApolloServer } from 'apollo-server';
+import typeDefs from './schema';
 
-const app = express();
-const port = 3000;
-app.get('/', (req, res) => {
-  res.send('The sedulous hyena ate the antelope!');
+const server = new ApolloServer({ typeDefs });
+
+server.listen().then(() => {
+  console.log(`
+    Server is running!
+    Listening on port 4000
+    Explore at https://studio.apollographql.com/dev
+  `);
 });
-app.listen(port, () => console.log(`server is listening on http://localhost:${port}`));
