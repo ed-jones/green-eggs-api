@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Ed Jones <edjones1999@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "tsc && node build"
+  },
   "dependencies": {
     "@types/express": "^4.17.11",
     "@types/node": "^14.14.37",
