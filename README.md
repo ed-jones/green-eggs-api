@@ -2,5 +2,6 @@
 
 This is a GraphQL API designed to be consumed by the Green Eggs mobile app.
 
-## Useful Commands
-Start: `yarn start`
+Start: `docker-compose up -d`
+
+Playground: http://localhost:4000

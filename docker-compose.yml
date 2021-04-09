@@ -3,7 +3,7 @@ version: "3.8"
 services:
   app:
     image: node:15.14.0-alpine3.10
-    command: sh -c "yarn install --production && yarn start"
+    command: sh -c "yarn install && yarn dev -L"
     ports:
       - 4000:4000
     working_dir: /app

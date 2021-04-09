@@ -49,6 +49,13 @@ const typeDefs = gql`
     SMALL
     LARGE
   }
+
+  type Recipe {
+    title: String!
+    description: String!
+    author: String!
+    test: String
+  }
 `;
 
 export default typeDefs;
