@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  app:
+    image: node:15.14.0-alpine3.10
+    command: sh -c "yarn install --production && yarn start"
+    ports:
+      - 4000:4000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: green-eggs
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - green-eggs-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: green-eggs
+
+volumes:
+  green-eggs-mysql-data:
