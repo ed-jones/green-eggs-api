@@ -1,9 +1,9 @@
 import { ApolloServer } from 'apollo-server';
-import { PrismaClient } from '@prisma/client'
 
 import typeDefs from './schema';
+import resolvers from './resolvers';
 
-const server = new ApolloServer({ typeDefs });
+const server = new ApolloServer({ typeDefs, resolvers });
 
 server.listen().then(() => {
   console.log(`
@@ -12,19 +12,3 @@ server.listen().then(() => {
     Explore at https://studio.apollographql.com/dev
   `);
 });
-
-const prisma = new PrismaClient()
-
-async function main() {
-  const allRecipes = await prisma.recipe.findMany();
-
-  console.log(allRecipes);
-}
-
-main()
-  .catch(e => {
-    throw e
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  })

@@ -12,9 +12,11 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://prisma:secret@postgres:5432/green_eggs?schema=public
   prisma:
     image: node:15.14.0-alpine3.10
-    command: sh -c "yarn prisma migrate reset --force && yarn prisma studio"
+    command: sh -c "yarn prisma studio"
     ports:
       - 5555:5555
     working_dir: /app
