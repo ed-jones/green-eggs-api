@@ -1,32 +1,45 @@
 version: "3.8"
 
 services:
-  app:
+  apollo:
     image: node:15.14.0-alpine3.10
-    command: sh -c "yarn install && yarn dev -L"
+    command: sh -c "yarn dev -L"
     ports:
       - 4000:4000
     working_dir: /app
     volumes:
       - ./:/app
-    environment:
-      PRISMA_CONFIG: |
-        managementApiSecret: my-server-secret-123
-        port: 4466
-        databases:
-          default:
-            connector: mysql
-            host: mysql-db
-            port: 3306
-            user: root
-            password: prisma-secret
-  mysql:
-    image: mysql:5.7
+    depends_on:
+      postgres:
+        condition: service_healthy
+  prisma:
+    image: node:15.14.0-alpine3.10
+    command: sh -c "yarn prisma migrate reset --force && yarn prisma studio"
+    ports:
+      - 5555:5555
+    working_dir: /app
     volumes:
-      - green-eggs-mysql-data:/var/lib/mysql
+      - ./:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
     environment:
-      MYSQL_ROOT_PASSWORD: prisma-secret
-      MYSQL_DATABASE: green-eggs
+      DATABASE_URL: postgresql://prisma:secret@postgres:5432/green_eggs?schema=public
+  postgres:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d green_eggs -U prisma"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    image: postgres:13.1
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: green_eggs
+    ports: 
+      - 5433:5432
 
 volumes:
-  green-eggs-mysql-data:
+  postgres:
