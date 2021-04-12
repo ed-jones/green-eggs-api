@@ -10,16 +10,22 @@ services:
     volumes:
       - ./:/app
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: secret
-      MYSQL_DB: green-eggs
+      PRISMA_CONFIG: |
+        managementApiSecret: my-server-secret-123
+        port: 4466
+        databases:
+          default:
+            connector: mysql
+            host: mysql-db
+            port: 3306
+            user: root
+            password: prisma-secret
   mysql:
     image: mysql:5.7
     volumes:
       - green-eggs-mysql-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: prisma-secret
       MYSQL_DATABASE: green-eggs
 
 volumes:
