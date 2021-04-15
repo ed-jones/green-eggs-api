@@ -11,7 +11,23 @@ generator client {
 }
 
 model Recipe {
-  id          Int    @id @default(autoincrement())
-  title       String
-  description String
+  id            String   @id @default(uuid())
+  title         String
+  description   String
+  submittedBy   User     @relation(fields: [submittedById], references: [id])
+  submittedById String
+  commentCount  Int      @default(0)
+  likeCount     Int      @default(0)
+  createdAt     DateTime @default(now())
+  servingCount  Int
+  timeEstimate  DateTime
+}
+
+model User {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  avatarURI String?
+  Recipe    Recipe[]
 }
