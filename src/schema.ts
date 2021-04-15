@@ -1,31 +1,52 @@
 import { gql } from 'apollo-server';
 
 const typeDefs = gql`
-  fragment RecipeFragment on Recipe {
-    title
-    description
+  type User {
+    id: String!
+    firstName: String!
+    lastName: String!
+    email: String!
+    avatarURI: String
+  }
+
+  input UserInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    avatarURI: String
   }
 
   type Recipe {
+    id: String!
     title: String!
     description: String!
+    submittedBy: User!
+    commentCount: Int!
+    likeCount: Int!
+    createdAt: String!
+    servingCount: Int!
+    timeEstimate: String!
+    previewURI: String!
   }
 
   type Query {
-    allRecipes: [Recipe!]!
+    recipes: [Recipe!]!
   }
 
-  input AddRecipeInput {
+  input RecipeInput {
     title: String!
     description: String!
+    servingCount: Int!
+    timeEstimate: String!
+    previewURI: String!
   }
 
-  type AddRecipeResult {
+  type RecipeResult {
     data: Recipe!
   }
 
   type Mutation {
-    addRecipe(recipe: AddRecipeInput!): AddRecipeResult!
+    addRecipe(recipe: RecipeInput!): RecipeResult!
   }
 `;
 

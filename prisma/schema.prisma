@@ -21,6 +21,7 @@ model Recipe {
   createdAt     DateTime @default(now())
   servingCount  Int
   timeEstimate  DateTime
+  previewURI    String
 }
 
 model User {
