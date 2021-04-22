@@ -12,12 +12,12 @@ const resolvers: IResolvers = {
   },
   Mutation: {
     addRecipe: async (_, {recipe}) => {
-      const submittedBy = '1603a6e2-8951-4e8c-96c1-2ec1f59cda53';
+      const firstUser = await prisma.user.findFirst();
       const recipeInput = {
         ...recipe,
         submittedBy: {
           connect: {
-            id: submittedBy,
+            id: firstUser?.id,
           }
         },
         timeEstimate: UnixToISO(recipe.timeEstimate),
