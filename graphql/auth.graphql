@@ -1,0 +1,21 @@
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input SignupInput {
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  confirmPassword: String!
+}
+
+type AuthResultData {
+  token: String!
+}
+
+type AuthResult {
+  data: AuthResultData
+  error: Error
+}

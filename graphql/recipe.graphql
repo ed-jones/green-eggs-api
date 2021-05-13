@@ -1,8 +1,10 @@
+type IngredientsFilter {
+  includes: [String]
+  excludes: [String]
+}
+
 type RecipeFilter {
-  # ingredients: {
-  #   includes: [String]
-  #   excludes: [String]
-  # }
+  ingredients: IngredientsFilter
   categories: [String]
   allergies: [String]
   diets: [String]
@@ -38,4 +40,9 @@ type Recipe {
 
 type RecipeResult {
   data: Recipe!
+}
+
+fragment RecipeFragment on Recipe {
+  title
+  description
 }

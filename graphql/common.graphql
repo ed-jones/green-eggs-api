@@ -14,3 +14,7 @@ enum Visibility {
   FRIENDS
   PRIVATE
 }
+
+type Error {
+  message: String!
+}

@@ -8,7 +8,7 @@ import * as Mutation from './mutations';
 
 const resolvers: IResolvers = { Query, Mutation };
 
-const schema = loadSchema('./graphql/**/*.graphql', {
+export const schema = loadSchema('./graphql/**/*.graphql', {
   loaders: [
     new GraphQLFileLoader()
   ]
@@ -16,6 +16,8 @@ const schema = loadSchema('./graphql/**/*.graphql', {
 
 schema.then((schema) => {
   const server = new ApolloServer({ schema, resolvers });
+
+  const TypeMap = schema.getTypeMap();
 
   server.listen().then(() => {
     console.log(`
