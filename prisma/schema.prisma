@@ -11,72 +11,44 @@ generator client {
 }
 
 model Recipe {
-  id             String          @id @default(uuid())
+  id             String             @id @default(uuid())
   title          String
   description    String
-  submittedBy    User            @relation("submittedRecipes", fields: [userId], references: [id])
-  userId         String
+  submittedBy    User               @relation("submittedRecipes", fields: [submittedById], references: [id])
   submittedById  String
-  commentCount   Int             @default(0)
-  likeCount      Int             @default(0)
-  createdAt      DateTime        @default(now())
+  commentCount   Int                @default(0)
+  likeCount      Int                @default(0)
+  createdAt      DateTime           @default(now())
   servingCount   Int
   timeEstimate   DateTime
   previewURI     String
   recipeSteps    RecipeStep[]
-  ingredients    Ingredient[]
+  ingredients    RecipeIngredient[]
   recipeComments RecipeComment[]
-  likedBy        User[]          @relation("likedRecipes")
-  visibility     Privacy         @default(PRIVATE)
-  commentability Privacy         @default(PRIVATE)
-  likeability    Privacy         @default(PRIVATE)
+  likedBy        User[]             @relation("likedRecipes")
+  visibility     Privacy            @default(FRIENDS)
+  commentability Privacy            @default(PRIVATE)
+  likeability    Privacy            @default(PRIVATE)
+  categories     Category[]
+  diets          Diet[]
+}
+
+model Category {
+  id     String   @id @default(uuid())
+  name   String
+  recipe Recipe[]
+}
+
+model Diet {
+  id     String   @id @default(uuid())
+  name   String
+  recipe Recipe[]
 }
 
 enum Privacy {
   PRIVATE
   FRIENDS
   PUBLIC
-}
-
-model RecipeCategories {
-  id        String  @id @default(uuid())
-  breakfast Boolean
-  lunch     Boolean
-  dinner    Boolean
-  soup      Boolean
-  salad     Boolean
-  dessert   Boolean
-  curry     Boolean
-}
-
-model RecipeDiets {
-  id                String  @id @default(uuid())
-  isSpicy           Boolean @default(false)
-  isHealthy         Boolean @default(false)
-  isVegetarian      Boolean @default(false)
-  isVegan           Boolean @default(false)
-  isPescetarian     Boolean @default(false)
-  isKeto            Boolean @default(false)
-  isGlutenFree      Boolean @default(false)
-  isPaleo           Boolean @default(false)
-  isSugarFree       Boolean @default(false)
-  isDairyFree       Boolean @default(false)
-  isLowFODMAP       Boolean @default(false)
-  isHalal           Boolean @default(false)
-  isKosher          Boolean @default(false)
-  isLactoVegetarian Boolean @default(false)
-}
-
-model RecipeAllergens {
-  id                String  @id @default(uuid())
-  containsMilk      Boolean
-  containsEggs      Boolean
-  containsTreeNuts  Boolean
-  containsPeanuts   Boolean
-  containsShellfish Boolean
-  containsWheat     Boolean
-  containsSoy       Boolean
-  containsFish      Boolean
 }
 
 model RecipeStep {
@@ -98,12 +70,22 @@ model RecipeComment {
   likedBy  User[] @relation("likedComments")
 }
 
+model RecipeIngredient {
+  id           String      @id @default(uuid())
+  name         String
+  descriptor   String
+  quantity     Int
+  unit         String
+  recipe       Recipe      @relation(fields: [recipeId], references: [id])
+  recipeId     String
+  Ingredient   Ingredient? @relation(fields: [ingredientId], references: [id])
+  ingredientId String?
+}
+
 model Ingredient {
-  id       String @id @default(uuid())
-  name     String
-  quantity String
-  recipes  Recipe @relation(fields: [recipeId], references: [id])
-  recipeId String
+  id                  String             @id @default(uuid())
+  name                String
+  ingredientInstances RecipeIngredient[]
 }
 
 model User {
