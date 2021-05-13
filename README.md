@@ -16,6 +16,14 @@ GraphQL Playground: http://localhost:4000
 
 Prisma Studio: http://localhost:5555
 
+## Folder Structure
+
+`./graphql` contains GraphQL schema files
+
+`./prisma` contains Prisma schema files and migration files
+
+`./src` contains all TypeScript source code
+
 ## Connecting to database from host machine
 
 Avoid updating the database this way, as database updates should be done through Prisma migrations.

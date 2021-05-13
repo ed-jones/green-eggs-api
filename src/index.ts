@@ -1,14 +1,29 @@
 import { ApolloServer } from 'apollo-server';
+import { loadSchema, GraphQLFileLoader } from 'graphql-tools';
+import { IResolvers } from 'apollo-server';
+import { PrismaClient } from '@prisma/client';
 
-import typeDefs from './schema';
-import resolvers from './resolvers';
+import * as Query from './queries';
+import * as Mutation from './mutations';
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const resolvers: IResolvers = { Query, Mutation };
 
-server.listen().then(() => {
-  console.log(`
-    Server is running!
-    Listening on port 4000
-    Explore at https://studio.apollographql.com/dev
-  `);
+const schema = loadSchema('./graphql/**/*.graphql', {
+  loaders: [
+    new GraphQLFileLoader()
+  ]
+})
+
+schema.then((schema) => {
+  const server = new ApolloServer({ schema, resolvers });
+
+  server.listen().then(() => {
+    console.log(`
+      Server is running!
+      Listening on port 4000
+      Explore at https://studio.apollographql.com/dev
+    `);
+  });
 });
+
+export const prisma = new PrismaClient();

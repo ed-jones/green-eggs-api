@@ -6,8 +6,13 @@
   ],
   "watch": [
     "src",
-    "prisma"
+    "prisma",
+    "graphql"
   ],
   "exec": "yarn start",
-  "ext": "ts"
+  "ext": [
+    "ts",
+    "prisma",
+    "graphql"
+  ]
 }

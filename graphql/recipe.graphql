@@ -1,0 +1,41 @@
+type RecipeFilter {
+  # ingredients: {
+  #   includes: [String]
+  #   excludes: [String]
+  # }
+  categories: [String]
+  allergies: [String]
+  diets: [String]
+  cookTime: String
+}
+
+enum RecipeStatus {
+  PUBLISHED
+  DRAFT
+  ARCHIVED
+}
+
+input RecipeInput {
+  title: String!
+  description: String!
+  servingCount: Int!
+  timeEstimate: String!
+  previewURI: String!
+}
+
+type Recipe {
+  id: String!
+  title: String!
+  description: String!
+  submittedBy: User!
+  commentCount: Int!
+  likeCount: Int!
+  createdAt: String!
+  servingCount: Int!
+  timeEstimate: String!
+  previewURI: String!
+}
+
+type RecipeResult {
+  data: Recipe!
+}

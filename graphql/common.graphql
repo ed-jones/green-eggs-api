@@ -1,0 +1,16 @@
+type Pagination {
+  offset: Int
+  limit: Int
+}
+
+enum Sort {
+  RELEVANT
+  POPULAR
+  NEW
+}
+
+enum Visibility {
+  PUBLIC
+  FRIENDS
+  PRIVATE
+}
