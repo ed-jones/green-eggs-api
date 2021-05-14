@@ -7,13 +7,14 @@ import * as Mutation from './mutations';
 const resolvers: IResolvers = { Query, Mutation };
 
 const schemaPromise = loadSchema('./graphql/**/*.graphql', {
+  resolvers,
   loaders: [
     new GraphQLFileLoader(),
   ],
 });
 
 schemaPromise.then((schema) => {
-  const server = new ApolloServer({ schema, resolvers });
+  const server = new ApolloServer({ schema });
 
   server.listen().then(() => {
     // eslint-disable-next-line no-console
