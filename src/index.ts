@@ -1,13 +1,11 @@
-import { ApolloServer, IResolvers } from 'apollo-server';
+import { ApolloServer } from 'apollo-server';
 import { loadSchema, GraphQLFileLoader } from 'graphql-tools';
 
 import * as Query from './queries';
 import * as Mutation from './mutations';
 
-const resolvers: IResolvers = { Query, Mutation };
-
 const schemaPromise = loadSchema('./graphql/**/*.graphql', {
-  resolvers,
+  resolvers: { Query, Mutation },
   loaders: [
     new GraphQLFileLoader(),
   ],
