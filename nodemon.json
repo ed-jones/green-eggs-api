@@ -10,9 +10,5 @@
     "graphql"
   ],
   "exec": "yarn start",
-  "ext": [
-    "ts",
-    "prisma",
-    "graphql"
-  ]
+  "ext": "ts"
 }
