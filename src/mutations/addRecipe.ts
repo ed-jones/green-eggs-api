@@ -1,10 +1,12 @@
 import { Recipe as PrismaRecipe, Prisma } from '@prisma/client';
 
-import { prisma } from '..';
+import prisma from '../prisma';
 import { unixToISO } from '../utils';
 import { MutationAddRecipeArgs, RecipeResult, Recipe as ApolloRecipe } from '../generated/graphql';
 
-const addRecipe = async (_: any, { recipe }: MutationAddRecipeArgs): Promise<RecipeResult> => {
+const addRecipe = async (
+  _: any, { recipe }: MutationAddRecipeArgs,
+): Promise<RecipeResult> => {
   const firstUser = await prisma.user.findFirst();
   const recipeInput: Prisma.RecipeCreateInput = {
     ...recipe,

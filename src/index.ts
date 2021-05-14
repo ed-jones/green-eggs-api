@@ -1,14 +1,12 @@
 import { ApolloServer, IResolvers } from 'apollo-server';
 import { loadSchema, GraphQLFileLoader } from 'graphql-tools';
 
-import { PrismaClient } from '@prisma/client';
-
 import * as Query from './queries';
 import * as Mutation from './mutations';
 
 const resolvers: IResolvers = { Query, Mutation };
 
-export const schemaPromise = loadSchema('./graphql/**/*.graphql', {
+const schemaPromise = loadSchema('./graphql/**/*.graphql', {
   loaders: [
     new GraphQLFileLoader(),
   ],
@@ -26,5 +24,3 @@ schemaPromise.then((schema) => {
     `);
   });
 });
-
-export const prisma = new PrismaClient();

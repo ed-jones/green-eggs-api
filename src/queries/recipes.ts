@@ -1,7 +1,5 @@
-import { prisma } from '..';
+import prisma from '../prisma';
 
-const recipes = () => {
-    return prisma.recipe.findMany({include: {submittedBy: true}});
-}
+const recipes = () => prisma.recipe.findMany({ include: { submittedBy: true } });
 
 export default recipes;
