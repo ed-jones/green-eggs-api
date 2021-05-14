@@ -1,21 +1,24 @@
-import { gql } from 'apollo-server-core';
-import { prisma } from '..';
-import UnixToISO from '../utils';
-import { MutationAddRecipeArgs } from '../generated/graphql';
+import { Recipe as PrismaRecipe, Prisma } from '@prisma/client';
 
-const addRecipe = async (_: any, {recipe}: MutationAddRecipeArgs) => {
+import { prisma } from '..';
+import { unixToISO } from '../utils';
+import { MutationAddRecipeArgs, RecipeResult, Recipe as ApolloRecipe } from '../generated/graphql';
+
+const addRecipe = async (_: any, { recipe }: MutationAddRecipeArgs): Promise<RecipeResult> => {
   const firstUser = await prisma.user.findFirst();
-  const recipeInput = {
+  const recipeInput: Prisma.RecipeCreateInput = {
     ...recipe,
     submittedBy: {
       connect: {
         id: firstUser?.id,
-      }
+      },
     },
-    timeEstimate: UnixToISO(recipe.timeEstimate),
-  }
-  const submittedRecipe = await prisma.recipe.create({data: recipeInput, include: {submittedBy: true}});
-  return {data: submittedRecipe};
-}
+    timeEstimate: unixToISO(recipe.timeEstimate),
+  };
+  const submittedRecipe: PrismaRecipe = await prisma.recipe.create({
+    data: recipeInput, include: { submittedBy: true },
+  });
+  return { data: submittedRecipe as unknown as ApolloRecipe };
+};
 
 export default addRecipe;

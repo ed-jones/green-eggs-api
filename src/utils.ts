@@ -1,5 +1,3 @@
-const UnixToISO = (unixTimestamp: string | number) => {
+export const unixToISO = (unixTimestamp: string | number) => {
   return new Date(Number(unixTimestamp)).toISOString();
 }
-
-export default UnixToISO;

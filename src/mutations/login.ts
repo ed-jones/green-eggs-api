@@ -1,7 +1,6 @@
-import { schema } from '..';
-import { LoginInput } from '../generated/graphql';
+import { MutationLoginArgs, AuthResult } from '../generated/graphql';
 
-const login = (_: any, { LoginInput }: any) => {
+const login = (_: any, { loginDetails }: MutationLoginArgs): AuthResult => {
   return { data: { token: 'hello' } }
 }
 
