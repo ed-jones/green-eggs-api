@@ -39,7 +39,7 @@ const signup = async (_: any, { signupDetails }: MutationSignupArgs): Promise<Au
   return {
     data: {
       token: jwt.sign(
-        { email: createdUser.email }, secret,
+        { id: createdUser.id }, secret,
       ),
     },
   };
