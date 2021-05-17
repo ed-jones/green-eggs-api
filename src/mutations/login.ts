@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 
 import { MutationLoginArgs, AuthResult } from '../generated/graphql';
 import prisma from '../prisma';
+import Errors from '../errors';
 
 const secret = process.env.SECRET;
 
@@ -15,14 +16,14 @@ const login = async (_: any, { loginDetails }: MutationLoginArgs): Promise<AuthR
   if (!user) {
     return {
       error: {
-        message: 'No user with that email was found',
+        message: Errors.NO_USER,
       },
     };
   }
   if (!secret) {
     return {
       error: {
-        message: 'Unable to encrypt password, secret not found',
+        message: Errors.NO_SECRET,
       },
     };
   }
@@ -31,7 +32,7 @@ const login = async (_: any, { loginDetails }: MutationLoginArgs): Promise<AuthR
   if (!same) {
     return {
       error: {
-        message: 'Incorrect Password',
+        message: Errors.WRONG_PASSWORD,
       },
     };
   }

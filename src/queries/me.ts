@@ -1,8 +1,8 @@
 import { User as PrismaUser } from '@prisma/client';
 
 import { UserResult } from '../generated/graphql';
-
 import prisma from '../prisma';
+import Errors from '../errors';
 
 const me = async (
   _parent: any, _args: any, context: PrismaUser | undefined,
@@ -10,7 +10,7 @@ const me = async (
   if (!context) {
     return {
       error: {
-        message: 'Context not supplied',
+        message: Errors.NO_CONTEXT,
       },
     };
   }
@@ -23,7 +23,7 @@ const me = async (
   if (!user) {
     return {
       error: {
-        message: 'User not found',
+        message: Errors.NO_USER,
       },
     };
   }

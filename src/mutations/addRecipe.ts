@@ -3,6 +3,7 @@ import { Recipe as PrismaRecipe, User as PrismaUser, Prisma } from '@prisma/clie
 import prisma from '../prisma';
 import { unixToISO } from '../utils';
 import { MutationAddRecipeArgs, RecipeResult, Recipe as ApolloRecipe } from '../generated/graphql';
+import Errors from '../errors';
 
 const addRecipe = async (
   _parent: any, { recipe }: MutationAddRecipeArgs, context?: PrismaUser,
@@ -11,7 +12,7 @@ const addRecipe = async (
   if (!context?.id) {
     return {
       error: {
-        message: 'Context not supplied',
+        message: Errors.NO_CONTEXT,
       },
     };
   }
@@ -23,7 +24,7 @@ const addRecipe = async (
   if (!user?.id) {
     return {
       error: {
-        message: 'User not found',
+        message: Errors.NO_USER,
       },
     };
   }

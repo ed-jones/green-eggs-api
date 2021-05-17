@@ -4,6 +4,7 @@ import { User as PrismaUser } from '@prisma/client';
 
 import { MutationSignupArgs, AuthResult } from '../generated/graphql';
 import prisma from '../prisma';
+import Errors from '../errors';
 
 const secret = process.env.SECRET;
 
@@ -11,7 +12,7 @@ const signup = async (_: any, { signupDetails }: MutationSignupArgs): Promise<Au
   if (signupDetails.password !== signupDetails.confirmPassword) {
     return {
       error: {
-        message: 'Password did not match confirmation',
+        message: Errors.PASSWORD_MISMATCH,
       },
     };
   }
@@ -25,14 +26,14 @@ const signup = async (_: any, { signupDetails }: MutationSignupArgs): Promise<Au
   if (!secret) {
     return {
       error: {
-        message: 'Unable to encrypt password, secret not found',
+        message: Errors.NO_SECRET,
       },
     };
   }
   if (!createdUser) {
     return {
       error: {
-        message: 'Unable to create user',
+        message: Errors.COULD_NOT_CREATE_USER,
       },
     };
   }
