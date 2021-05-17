@@ -72,6 +72,7 @@ export type Pagination = {
 export type Query = {
   __typename?: 'Query';
   recipes: Array<Recipe>;
+  me: UserResult;
 };
 
 export type Recipe = {
@@ -145,6 +146,12 @@ export type UserInput = {
   lastName: Scalars['String'];
   email: Scalars['String'];
   avatarURI?: Maybe<Scalars['String']>;
+};
+
+export type UserResult = {
+  __typename?: 'UserResult';
+  data?: Maybe<User>;
+  error?: Maybe<Error>;
 };
 
 export enum Visibility {
@@ -250,6 +257,7 @@ export type ResolversTypes = {
   Sort: Sort;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
+  UserResult: ResolverTypeWrapper<UserResult>;
   Visibility: Visibility;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
@@ -273,6 +281,7 @@ export type ResolversParentTypes = {
   SignupInput: SignupInput;
   User: User;
   UserInput: UserInput;
+  UserResult: UserResult;
   Boolean: Scalars['Boolean'];
 };
 
@@ -312,6 +321,7 @@ export type PaginationResolvers<ContextType = any, ParentType extends ResolversP
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   recipes?: Resolver<Array<ResolversTypes['Recipe']>, ParentType, ContextType>;
+  me?: Resolver<ResolversTypes['UserResult'], ParentType, ContextType>;
 };
 
 export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = {
@@ -352,6 +362,12 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UserResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserResult'] = ResolversParentTypes['UserResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   AuthResult?: AuthResultResolvers<ContextType>;
   AuthResultData?: AuthResultDataResolvers<ContextType>;
@@ -364,6 +380,7 @@ export type Resolvers<ContextType = any> = {
   RecipeFilter?: RecipeFilterResolvers<ContextType>;
   RecipeResult?: RecipeResultResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  UserResult?: UserResultResolvers<ContextType>;
 };
 
 

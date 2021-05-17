@@ -1,3 +1,4 @@
 type Query {
   recipes: [Recipe!]!
+  me: UserResult!
 }

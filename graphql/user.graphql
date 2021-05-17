@@ -12,3 +12,8 @@ input UserInput {
   email: String!
   avatarURI: String
 }
+
+type UserResult {
+  data: User
+  error: Error
+}

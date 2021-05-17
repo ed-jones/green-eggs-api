@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
 export { default as recipes } from './recipes';
+export { default as me } from './me';
