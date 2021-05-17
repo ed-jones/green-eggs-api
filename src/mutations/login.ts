@@ -12,39 +12,35 @@ const login = async (_: any, { loginDetails }: MutationLoginArgs): Promise<AuthR
       email: loginDetails.email,
     },
   });
-
-  if (user) {
-    if (secret) {
-      bcrypt.compare(loginDetails.password, user.password,
-        (error: Error | undefined, same: boolean) => {
-          if (error) {
-            return { error };
-          }
-          if (same) {
-            return {
-              data: {
-                token: jwt.sign(
-                  { email: loginDetails.email }, secret,
-                ),
-              },
-            };
-          }
-          return {
-            error: {
-              message: 'Incorrect Password',
-            },
-          };
-        });
-    }
+  if (!user) {
+    return {
+      error: {
+        message: 'No user with that email was found',
+      },
+    };
+  }
+  if (!secret) {
     return {
       error: {
         message: 'Unable to encrypt password, secret not found',
       },
     };
   }
+
+  const same = await bcrypt.compare(loginDetails.password, user.password);
+  if (!same) {
+    return {
+      error: {
+        message: 'Incorrect Password',
+      },
+    };
+  }
+
   return {
-    error: {
-      message: 'No user with that email was found',
+    data: {
+      token: jwt.sign(
+        { email: loginDetails.email }, secret,
+      ),
     },
   };
 };
