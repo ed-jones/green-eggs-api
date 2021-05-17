@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { User as PrismaUser, Prisma } from '@prisma/client';
+import { User as PrismaUser } from '@prisma/client';
 
 import { MutationSignupArgs, AuthResult } from '../generated/graphql';
 import prisma from '../prisma';
@@ -39,7 +39,7 @@ const signup = async (_: any, { signupDetails }: MutationSignupArgs): Promise<Au
   return {
     data: {
       token: jwt.sign(
-        { id: createdUser.id }, secret,
+        createdUser, secret,
       ),
     },
   };

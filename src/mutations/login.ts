@@ -39,7 +39,7 @@ const login = async (_: any, { loginDetails }: MutationLoginArgs): Promise<AuthR
   return {
     data: {
       token: jwt.sign(
-        { id: user.id }, secret,
+        user, secret,
       ),
     },
   };

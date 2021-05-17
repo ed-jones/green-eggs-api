@@ -39,7 +39,8 @@ type Recipe {
 }
 
 type RecipeResult {
-  data: Recipe!
+  data: Recipe
+  error: Error
 }
 
 fragment RecipeFragment on Recipe {

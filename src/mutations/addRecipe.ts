@@ -5,18 +5,35 @@ import { unixToISO } from '../utils';
 import { MutationAddRecipeArgs, RecipeResult, Recipe as ApolloRecipe } from '../generated/graphql';
 
 const addRecipe = async (
-  _: any, { recipe }: MutationAddRecipeArgs,
+  _parent: any, { recipe }: MutationAddRecipeArgs, context?: PrismaUser,
 ): Promise<RecipeResult> => {
   // Find user to connect to this recipe
-  // TODO: Use apollo context to use current logged in user
-  const firstUser = await prisma.user.findFirst();
+  if (!context?.id) {
+    return {
+      error: {
+        message: 'Context not supplied',
+      },
+    };
+  }
+  const user = await prisma.user.findUnique({
+    where: {
+      id: context.id,
+    },
+  });
+  if (!user?.id) {
+    return {
+      error: {
+        message: 'User not found',
+      },
+    };
+  }
 
   // Create prisma object from apollo object and user found in previous step
   const recipeInput: Prisma.RecipeCreateInput = {
     ...recipe,
     submittedBy: {
       connect: {
-        id: firstUser?.id,
+        id: user.id,
       },
     },
     timeEstimate: unixToISO(recipe.timeEstimate),

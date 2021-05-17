@@ -107,7 +107,8 @@ export type RecipeInput = {
 
 export type RecipeResult = {
   __typename?: 'RecipeResult';
-  data: Recipe;
+  data?: Maybe<Recipe>;
+  error?: Maybe<Error>;
 };
 
 export enum RecipeStatus {
@@ -337,7 +338,8 @@ export type RecipeFilterResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type RecipeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeResult'] = ResolversParentTypes['RecipeResult']> = {
-  data?: Resolver<ResolversTypes['Recipe'], ParentType, ContextType>;
+  data?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
