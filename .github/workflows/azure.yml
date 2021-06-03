@@ -20,8 +20,8 @@ on:
     types: [created]
 
 env:
-  AZURE_WEBAPP_NAME: green-eggs    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: 'build/index.js'   # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTION_NAME: green-eggs-api    # set this to your application's name
+  AZURE_FUNCTION_PACKAGE_PATH: '.'   # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.17.0'          # set this to the node version to use
 
 jobs:
@@ -42,9 +42,9 @@ jobs:
         yarn install
         yarn build --if-present --network-timeout=300000
         yarn test --if-present --network-timeout=300000
-    - name: 'Deploy to Azure WebApp'
-      uses: azure/webapps-deploy@v2
+    - name: Azure Functions Container Action
+      uses: Azure/functions-container-action@v1.1.0
       with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        app-name: ${{ env.AZURE_FUNCTION_NAME }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        package: ${{ env.AZURE_FUNCTION_PACKAGE_PATH }}
