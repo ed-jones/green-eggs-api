@@ -40,8 +40,8 @@ jobs:
         # Build and test the project, then
         # deploy to Azure Web App.
         yarn install
-        yarn build --if-present
-        yarn test --if-present
+        yarn build --if-present --network-timeout=30000
+        yarn test --if-present --network-timeout=30000
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
       with:

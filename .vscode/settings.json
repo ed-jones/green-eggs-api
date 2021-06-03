@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/a47361f0-6fb6-4974-a142-972e906906fb/resourceGroups/GreenEggs/providers/Microsoft.Web/sites/green-eggs",
+    "appService.deploySubpath": "."
+}
