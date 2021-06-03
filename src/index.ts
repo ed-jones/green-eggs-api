@@ -1,42 +1,54 @@
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-azure-functions';
 import { ContextFunction } from 'apollo-server-core';
 import { ExpressContext } from 'apollo-server-express';
 import { loadSchema, GraphQLFileLoader } from 'graphql-tools';
 import jwt from 'jsonwebtoken';
 import { User as PrismaUser } from '@prisma/client';
+import { AzureFunction, Context } from '@azure/functions';
 
 import * as Query from './queries';
 import * as Mutation from './mutations';
 
-const schemaPromise = loadSchema('./graphql/**/*.graphql', {
-  resolvers: { Query, Mutation },
-  loaders: [
-    new GraphQLFileLoader(),
-  ],
-});
+const httpTrigger: AzureFunction = async (azureContext: Context) => {
+  const schema = await loadSchema('./graphql/**/*.graphql', {
+    resolvers: { Query, Mutation },
+    loaders: [
+      new GraphQLFileLoader(),
+    ],
+  });
 
-const secret = process.env.SECRET;
+  const secret = process.env.SECRET;
 
-const context: ContextFunction<ExpressContext, PrismaUser | undefined> = ({ req }) => {
-  const token = req.headers.authorization || '';
-  const user: PrismaUser | undefined = token ? (
-    jwt.verify(token, secret || '') as PrismaUser
-  ) : undefined;
-  return user;
-};
+  const context: ContextFunction<ExpressContext, PrismaUser | undefined> = ({ req }) => {
+    const token = req.headers.authorization || '';
+    return token ? (
+      jwt.verify(token, secret || '') as PrismaUser
+    ) : undefined;
+  };
 
-schemaPromise.then((schema) => {
   const server = new ApolloServer({
     schema,
     context,
   });
 
-  server.listen().then(() => {
-    // eslint-disable-next-line no-console
-    console.log(`
-      Server is running!
-      Listening on port 4000
-      Explore at https://studio.apollographql.com/dev
-    `);
+  const apolloHandler = server.createHandler();
+
+  return new Promise((resolve, reject) => {
+    const originalDone = azureContext.done;
+
+    // eslint-disable-next-line no-param-reassign
+    azureContext.done = (error, result) => {
+      originalDone(error, result);
+
+      if (error) {
+        reject(error);
+      }
+
+      resolve(result);
+    };
+
+    apolloHandler(azureContext, azureContext.req!);
   });
-});
+};
+
+export default httpTrigger;
