@@ -1,6 +1,6 @@
-# Green Eggs API [![Build Status](https://ci.greeneggs.app/api/badges/ed-jones/green-eggs-api/status.svg)](https://ci.greeneggs.app/ed-jones/green-eggs-api)
+# Green Eggs API 
 
-This is a GraphQL API designed to be consumed by the Green Eggs mobile app.
+This is a GraphQL API designed to be consumed by the Green Eggs mobile app. ![Build Status](https://github.com/ed-jones/green-eggs-api/actions/workflows/azure.yml/badge.svg)
 
 ## Commands
 
