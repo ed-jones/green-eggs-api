@@ -17,5 +17,5 @@
       "name": "$return"
     }
   ],
-  "scriptFile": "../build/index.js"
+  "scriptFile": "../dist/main/index.js"
 }
