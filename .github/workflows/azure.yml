@@ -24,7 +24,6 @@ jobs:
       shell: bash
       run: |
         pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-        rmdir node_modules
         yarn install
         yarn build
         yarn test
