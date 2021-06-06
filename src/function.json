@@ -17,5 +17,5 @@
       "name": "$return"
     }
   ],
-  "scriptFile": "./index.ts"
+  "scriptFile": "../build/index.js"
 }
