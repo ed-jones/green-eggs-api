@@ -45,6 +45,8 @@ jobs:
 
       - name: "Migrate Database"
         shell: bash
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           yarn prisma migrate deploy
