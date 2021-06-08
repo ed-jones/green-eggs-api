@@ -34,13 +34,6 @@ jobs:
           yarn test
           popd
 
-      - name: "Migrate Database"
-        shell: bash
-        run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          yarn prisma migrate deploy
-          popd
-
       - name: "Run Azure Functions Action"
         uses: Azure/functions-action@v1.3.1
         id: fa
@@ -49,3 +42,10 @@ jobs:
           slot-name: "production"
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_06dab8a88ab14cfcbfc2858a7d89626a }}
+
+      - name: "Migrate Database"
+        shell: bash
+        run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          yarn prisma migrate deploy
+          popd
