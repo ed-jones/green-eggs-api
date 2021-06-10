@@ -19,8 +19,8 @@ const httpTrigger: AzureFunction = async (azureContext: Context) => {
 
   const secret = process.env.SECRET;
 
-  const context: ContextFunction<ExpressContext, PrismaUser | undefined> = ({ req }) => {
-    const token = req.headers.authorization || '';
+  const context: ContextFunction<ExpressContext, PrismaUser | undefined> = () => {
+    const token = azureContext.req?.headers.authorization || '';
     return token ? (
       jwt.verify(token, secret || '') as PrismaUser
     ) : undefined;
