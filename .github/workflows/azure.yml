@@ -30,6 +30,7 @@ jobs:
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           yarn install
+          yarn prisma generate
           yarn build
           yarn test
           popd
@@ -50,5 +51,4 @@ jobs:
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           yarn prisma migrate deploy
-          yarn prisma generate
           popd
