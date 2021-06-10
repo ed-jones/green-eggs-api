@@ -174,3 +174,11 @@ venv.bak/
 __pycache__/
 *.py[cod]
 *$py.class
+
+.yarn/*
+.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

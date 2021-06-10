@@ -9,6 +9,6 @@
     "prisma",
     "graphql"
   ],
-  "exec": "yarn start",
+  "exec": "func host start",
   "ext": "ts"
 }

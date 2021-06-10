@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { User as PrismaUser } from '@prisma/client';
 
 import { MutationSignupArgs, AuthResult } from '../generated/graphql';

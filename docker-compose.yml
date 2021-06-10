@@ -2,22 +2,25 @@ version: "3.8"
 
 services:
   apollo:
-    image: node:15.14.0-alpine3.10
-    command: sh -c "yarn dev -L"
+    image: mcr.microsoft.com/azure-functions/node:3.0-node14
     ports:
-      - 4000:4000
-    working_dir: /app
+      - 8080:80
+    working_dir: /home/site/wwwroot
     volumes:
-      - ./:/app
+      - ./:/home/site/wwwroot
     depends_on:
       postgres:
+        condition: service_healthy
+      build:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://prisma:secret@postgres:5432/green_eggs?schema=public
       SECRET: APp8@oTKCcpgso
+      AZURE_FUNCTIONS_ENVIRONMENT: Development
+      AZUREFUNCTIONSJOBHOST__LOGGING__CONSOLE__ISENABLED: "true"
   prisma:
-    image: node:15.14.0-alpine3.10
-    command: sh -c "yarn prisma studio"
+    image: node:14.17.0-alpine3.10
+    command: yarn prisma studio
     ports:
       - 5555:5555
     working_dir: /app
@@ -26,8 +29,37 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      build:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgresql://prisma:secret@postgres:5432/green_eggs?schema=public
+  build:
+    image: node:14.17.0-alpine3.10
+    command: yarn watch
+    working_dir: /app
+    volumes:
+      - ./:/app
+    depends_on:
+      install:
+        condition: service_completed_successfully
+    environment:
+      DATABASE_URL: postgresql://prisma:secret@postgres:5432/green_eggs?schema=public
+    healthcheck:
+      test: ["CMD-SHELL", "yarn prisma"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  install:
+    image: node:14.17.0-alpine3.10
+    command: yarn install
+    working_dir: /app
+    volumes:
+      - ./:/app
+    healthcheck:
+      test: ["CMD-SHELL", "yarn prisma"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   postgres:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d green_eggs -U prisma"]
