@@ -6,3 +6,4 @@ local.settings.json
 test
 build
 node_modules
+*/node_modules
