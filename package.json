@@ -8,7 +8,7 @@
     "node": "14.17.0"
   },
   "scripts": {
-    "start": "ts-node index.ts",
+    "start": "ts-node src/index.ts",
     "build": "tsc",
     "codegen": "graphql-codegen --config codegen.yml",
     "watch": "tsc --w",
