@@ -3,7 +3,7 @@ import fs from 'fs';
 import { spawnSync } from 'child_process';
 
 if (process.env.NODE_ENV === 'production') {
-  const binaryPath = '/tmp/query-engine-rhel-openssl-1.0.x';
+  const binaryPath = '/tmp/query-engine-debian-openssl-1.1.x';
 
   if (!fs.existsSync(binaryPath)) {
     spawnSync('cp', [
