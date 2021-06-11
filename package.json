@@ -8,7 +8,7 @@
     "node": "14.17.0"
   },
   "scripts": {
-    "start:dev": "yarn build && func host start",
+    "start:dev": "ts-node index.ts",
     "build": "tsc",
     "codegen": "graphql-codegen --config codegen.yml",
     "watch": "tsc --w",
