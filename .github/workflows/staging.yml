@@ -38,12 +38,3 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "greeneggs" 
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
-
-      - name: "Migrate Database"
-        shell: bash
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          yarn prisma migrate deploy
-          popd
