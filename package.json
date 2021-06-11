@@ -14,7 +14,8 @@
     "watch": "tsc --w",
     "watch:dev": "nodemon",
     "start:host": "func start",
-    "test": "echo \"No tests yet...\""
+    "test": "echo \"No tests yet...\"",
+    "postinstall": "node_modules/.bin/prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^2.25.0-dev.31",
