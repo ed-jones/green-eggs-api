@@ -27,7 +27,7 @@ jobs:
       - name: "Resolve Project Dependencies Using Yarn"
         shell: bash
         run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          pushd .
           yarn install
           yarn build
           yarn test
@@ -38,3 +38,12 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "greeneggs" 
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+
+      - name: "Migrate Database"
+        shell: bash
+        env:
+          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+        run: |
+          pushd .
+          yarn prisma migrate deploy
+          popd
