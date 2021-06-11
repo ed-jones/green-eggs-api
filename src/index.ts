@@ -30,7 +30,7 @@ schemaPromise.then((schema) => {
     context,
   });
 
-  server.listen().then(() => {
+  server.listen({ port: process.env.PORT || 4000 }).then(() => {
     // eslint-disable-next-line no-console
     console.log(`
       Server is running!
