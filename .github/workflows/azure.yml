@@ -31,6 +31,7 @@ jobs:
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           yarn install
           yarn prisma generate
+          chmod +x ./node_modules/.prisma/client/query-engine-debian-openssl-1.1.x
           yarn build
           yarn test
           popd

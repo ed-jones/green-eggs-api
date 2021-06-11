@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
       '/home/',
     ]);
 
-    spawnSync('chmod', ['555', '/home/query-engine-debian-openssl-1.1.x']);
+    spawnSync('chmod', ['555', `${process.env.LAMBDA_TASK_ROOT}/node_modules/.prisma/client/query-engine-debian-openssl-1.1.x`]);
   }
 }
 
