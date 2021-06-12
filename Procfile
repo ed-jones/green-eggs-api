@@ -1,2 +1,2 @@
 web: yarn start
-worker: yarn prisma migrate deploy
+web: yarn prisma studio
