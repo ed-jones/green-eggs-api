@@ -40,7 +40,7 @@ jobs:
       - name: "Migrate Database"
         shell: bash
         env:
-          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           pushd .
           yarn prisma migrate deploy
