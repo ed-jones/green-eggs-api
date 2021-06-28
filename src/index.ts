@@ -28,6 +28,7 @@ schemaPromise.then((schema) => {
   const server = new ApolloServer({
     schema,
     context,
+    introspection: true
   });
 
   server.listen({ port: process.env.PORT || 4000 }).then(() => {

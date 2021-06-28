@@ -2,9 +2,10 @@ version: "3.8"
 
 services:
   apollo:
-    image: mcr.microsoft.com/azure-functions/node:3.0-node14
+    image: node:14.17.0
+    command: yarn start 
     ports:
-      - 8080:80
+      - 4000:4000
     working_dir: /home/site/wwwroot
     volumes:
       - ./:/home/site/wwwroot
@@ -16,8 +17,7 @@ services:
     environment:
       DATABASE_URL: postgresql://prisma:secret@postgres:5432/green_eggs?schema=public
       SECRET: APp8@oTKCcpgso
-      AZURE_FUNCTIONS_ENVIRONMENT: Development
-      AZUREFUNCTIONSJOBHOST__LOGGING__CONSOLE__ISENABLED: "true"
+      NODE_ENV: development
   prisma:
     image: node:14.17.0
     command: yarn prisma studio
@@ -44,6 +44,7 @@ services:
         condition: service_completed_successfully
     environment:
       DATABASE_URL: postgresql://prisma:secret@postgres:5432/green_eggs?schema=public
+      NODE_ENV: development
     healthcheck:
       test: ["CMD-SHELL", "yarn prisma"]
       interval: 10s

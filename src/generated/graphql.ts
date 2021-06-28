@@ -72,7 +72,14 @@ export type Pagination = {
 export type Query = {
   __typename?: 'Query';
   recipes: Array<Recipe>;
+  newsFeed: Array<Recipe>;
+  recipe: Recipe;
   me: UserResult;
+};
+
+
+export type QueryRecipeArgs = {
+  recipeId?: Maybe<Scalars['String']>;
 };
 
 export type Recipe = {
@@ -321,6 +328,8 @@ export type PaginationResolvers<ContextType = any, ParentType extends ResolversP
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   recipes?: Resolver<Array<ResolversTypes['Recipe']>, ParentType, ContextType>;
+  newsFeed?: Resolver<Array<ResolversTypes['Recipe']>, ParentType, ContextType>;
+  recipe?: Resolver<ResolversTypes['Recipe'], ParentType, ContextType, RequireFields<QueryRecipeArgs, never>>;
   me?: Resolver<ResolversTypes['UserResult'], ParentType, ContextType>;
 };
 
