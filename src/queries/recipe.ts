@@ -1,6 +1,11 @@
+import { QueryRecipeArgs } from '../generated/graphql';
 import prisma from '../prisma';
 
-const recipes = (
-) => prisma.recipe.findUnique({ where: { id: 'abc' }, include: { submittedBy: true } });
+const recipes = (_parent: any, { recipeId }: QueryRecipeArgs) => (
+  prisma.recipe.findFirst({
+    where: { id: recipeId },
+    include: { submittedBy: true },
+  })
+);
 
 export default recipes;

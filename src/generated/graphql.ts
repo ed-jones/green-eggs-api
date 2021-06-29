@@ -79,7 +79,7 @@ export type Query = {
 
 
 export type QueryRecipeArgs = {
-  recipeId?: Maybe<Scalars['String']>;
+  recipeId: Scalars['String'];
 };
 
 export type Recipe = {
@@ -329,7 +329,7 @@ export type PaginationResolvers<ContextType = any, ParentType extends ResolversP
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   recipes?: Resolver<Array<ResolversTypes['Recipe']>, ParentType, ContextType>;
   newsFeed?: Resolver<Array<ResolversTypes['Recipe']>, ParentType, ContextType>;
-  recipe?: Resolver<ResolversTypes['Recipe'], ParentType, ContextType, RequireFields<QueryRecipeArgs, never>>;
+  recipe?: Resolver<ResolversTypes['Recipe'], ParentType, ContextType, RequireFields<QueryRecipeArgs, 'recipeId'>>;
   me?: Resolver<ResolversTypes['UserResult'], ParentType, ContextType>;
 };
 
