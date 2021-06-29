@@ -14,6 +14,7 @@ generator client {
 model Recipe {
   id             String             @id @default(uuid())
   title          String
+  subtitle       String
   description    String
   submittedBy    User               @relation("submittedRecipes", fields: [submittedById], references: [id])
   submittedById  String
@@ -62,13 +63,16 @@ model RecipeStep {
 }
 
 model RecipeComment {
-  id       String @id @default(uuid())
-  author   User   @relation(fields: [userId], references: [id])
-  userId   String
-  recipe   Recipe @relation(fields: [recipeId], references: [id])
-  recipeId String
-  contents String
-  likedBy  User[] @relation("likedComments")
+  id              String          @id @default(uuid())
+  author          User            @relation(fields: [userId], references: [id])
+  userId          String
+  recipe          Recipe          @relation(fields: [recipeId], references: [id])
+  recipeId        String
+  replies         RecipeComment[] @relation("RecipeCommentToRecipeComment")
+  contents        String
+  likedBy         User[]          @relation("likedComments")
+  replyTo         RecipeComment?  @relation("RecipeCommentToRecipeComment", fields: [recipeCommentId], references: [id])
+  recipeCommentId String?
 }
 
 model RecipeIngredient {
