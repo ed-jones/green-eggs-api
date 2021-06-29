@@ -146,6 +146,7 @@ export type User = {
   lastName: Scalars['String'];
   email: Scalars['String'];
   avatarURI?: Maybe<Scalars['String']>;
+  verified: Scalars['Boolean'];
 };
 
 export type UserInput = {
@@ -263,10 +264,10 @@ export type ResolversTypes = {
   SignupInput: SignupInput;
   Sort: Sort;
   User: ResolverTypeWrapper<User>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   UserInput: UserInput;
   UserResult: ResolverTypeWrapper<UserResult>;
   Visibility: Visibility;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -287,9 +288,9 @@ export type ResolversParentTypes = {
   RecipeResult: RecipeResult;
   SignupInput: SignupInput;
   User: User;
+  Boolean: Scalars['Boolean'];
   UserInput: UserInput;
   UserResult: UserResult;
-  Boolean: Scalars['Boolean'];
 };
 
 export type AuthResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthResult'] = ResolversParentTypes['AuthResult']> = {
@@ -368,6 +369,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   avatarURI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  verified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
