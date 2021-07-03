@@ -25,6 +25,16 @@ export type AuthResultData = {
   token: Scalars['String'];
 };
 
+export type Category = {
+  __typename?: 'Category';
+  id: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type CategoryInput = {
+  name: Scalars['String'];
+};
+
 export type Error = {
   __typename?: 'Error';
   message: Scalars['String'];
@@ -95,6 +105,7 @@ export type Recipe = {
   servingCount: Scalars['Int'];
   timeEstimate: Scalars['String'];
   previewURI: Scalars['String'];
+  categories: Array<Maybe<Category>>;
 };
 
 export type RecipeFilter = {
@@ -113,6 +124,7 @@ export type RecipeInput = {
   servingCount: Scalars['Int'];
   timeEstimate: Scalars['String'];
   previewURI: Scalars['String'];
+  categories: Array<Maybe<CategoryInput>>;
 };
 
 export type RecipeResult = {
@@ -251,6 +263,8 @@ export type ResolversTypes = {
   AuthResult: ResolverTypeWrapper<AuthResult>;
   AuthResultData: ResolverTypeWrapper<AuthResultData>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Category: ResolverTypeWrapper<Category>;
+  CategoryInput: CategoryInput;
   Error: ResolverTypeWrapper<Error>;
   IngredientsFilter: ResolverTypeWrapper<IngredientsFilter>;
   LoginInput: LoginInput;
@@ -277,6 +291,8 @@ export type ResolversParentTypes = {
   AuthResult: AuthResult;
   AuthResultData: AuthResultData;
   String: Scalars['String'];
+  Category: Category;
+  CategoryInput: CategoryInput;
   Error: Error;
   IngredientsFilter: IngredientsFilter;
   LoginInput: LoginInput;
@@ -303,6 +319,12 @@ export type AuthResultResolvers<ContextType = any, ParentType extends ResolversP
 
 export type AuthResultDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthResultData'] = ResolversParentTypes['AuthResultData']> = {
   token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -348,6 +370,7 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
   servingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   timeEstimate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   previewURI?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  categories?: Resolver<Array<Maybe<ResolversTypes['Category']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -385,6 +408,7 @@ export type UserResultResolvers<ContextType = any, ParentType extends ResolversP
 export type Resolvers<ContextType = any> = {
   AuthResult?: AuthResultResolvers<ContextType>;
   AuthResultData?: AuthResultDataResolvers<ContextType>;
+  Category?: CategoryResolvers<ContextType>;
   Error?: ErrorResolvers<ContextType>;
   IngredientsFilter?: IngredientsFilterResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

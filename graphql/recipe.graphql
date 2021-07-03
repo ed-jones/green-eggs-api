@@ -24,6 +24,16 @@ input RecipeInput {
   servingCount: Int!
   timeEstimate: String!
   previewURI: String!
+  categories: [CategoryInput]!
+}
+
+input CategoryInput {
+  name: String!
+}
+
+type Category {
+  id: String!
+  name: String!
 }
 
 type Recipe {
@@ -38,6 +48,7 @@ type Recipe {
   servingCount: Int!
   timeEstimate: String!
   previewURI: String!
+  categories: [Category]!
 }
 
 type RecipeResult {
