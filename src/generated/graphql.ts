@@ -60,6 +60,22 @@ export type Error = {
   message: Scalars['String'];
 };
 
+export type Ingredient = {
+  __typename?: 'Ingredient';
+  id: Scalars['String'];
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  quantity: Scalars['Int'];
+  unit?: Maybe<Scalars['String']>;
+};
+
+export type IngredientInput = {
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  quantity: Scalars['Int'];
+  unit?: Maybe<Scalars['String']>;
+};
+
 export type IngredientsFilter = {
   __typename?: 'IngredientsFilter';
   includes?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -101,9 +117,9 @@ export type Pagination = {
 
 export type Query = {
   __typename?: 'Query';
-  recipes: Array<Recipe>;
-  newsFeed: Array<Recipe>;
-  recipe: Recipe;
+  recipes: RecipesResult;
+  newsFeed: RecipesResult;
+  recipe: RecipeResult;
   me: UserResult;
 };
 
@@ -128,6 +144,7 @@ export type Recipe = {
   categories: Array<Maybe<Category>>;
   diets: Array<Maybe<Diet>>;
   allergies: Array<Maybe<Allergy>>;
+  ingredients: Array<Maybe<Ingredient>>;
 };
 
 export type RecipeFilter = {
@@ -149,6 +166,7 @@ export type RecipeInput = {
   categories: Array<Maybe<CategoryInput>>;
   diets: Array<Maybe<DietInput>>;
   allergies: Array<Maybe<AllergyInput>>;
+  ingredients: Array<Maybe<IngredientInput>>;
 };
 
 export type RecipeResult = {
@@ -162,6 +180,12 @@ export enum RecipeStatus {
   Draft = 'DRAFT',
   Archived = 'ARCHIVED'
 }
+
+export type RecipesResult = {
+  __typename?: 'RecipesResult';
+  data?: Maybe<Array<Maybe<Recipe>>>;
+  error?: Maybe<Error>;
+};
 
 export type SignupInput = {
   email: Scalars['String'];
@@ -294,17 +318,20 @@ export type ResolversTypes = {
   Diet: ResolverTypeWrapper<Diet>;
   DietInput: DietInput;
   Error: ResolverTypeWrapper<Error>;
+  Ingredient: ResolverTypeWrapper<Ingredient>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  IngredientInput: IngredientInput;
   IngredientsFilter: ResolverTypeWrapper<IngredientsFilter>;
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
   Pagination: ResolverTypeWrapper<Pagination>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   Query: ResolverTypeWrapper<{}>;
   Recipe: ResolverTypeWrapper<Recipe>;
   RecipeFilter: ResolverTypeWrapper<RecipeFilter>;
   RecipeInput: RecipeInput;
   RecipeResult: ResolverTypeWrapper<RecipeResult>;
   RecipeStatus: RecipeStatus;
+  RecipesResult: ResolverTypeWrapper<RecipesResult>;
   SignupInput: SignupInput;
   Sort: Sort;
   User: ResolverTypeWrapper<User>;
@@ -326,16 +353,19 @@ export type ResolversParentTypes = {
   Diet: Diet;
   DietInput: DietInput;
   Error: Error;
+  Ingredient: Ingredient;
+  Int: Scalars['Int'];
+  IngredientInput: IngredientInput;
   IngredientsFilter: IngredientsFilter;
   LoginInput: LoginInput;
   Mutation: {};
   Pagination: Pagination;
-  Int: Scalars['Int'];
   Query: {};
   Recipe: Recipe;
   RecipeFilter: RecipeFilter;
   RecipeInput: RecipeInput;
   RecipeResult: RecipeResult;
+  RecipesResult: RecipesResult;
   SignupInput: SignupInput;
   User: User;
   Boolean: Scalars['Boolean'];
@@ -377,6 +407,15 @@ export type ErrorResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type IngredientResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ingredient'] = ResolversParentTypes['Ingredient']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  quantity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  unit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type IngredientsFilterResolvers<ContextType = any, ParentType extends ResolversParentTypes['IngredientsFilter'] = ResolversParentTypes['IngredientsFilter']> = {
   includes?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   excludes?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
@@ -396,9 +435,9 @@ export type PaginationResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  recipes?: Resolver<Array<ResolversTypes['Recipe']>, ParentType, ContextType>;
-  newsFeed?: Resolver<Array<ResolversTypes['Recipe']>, ParentType, ContextType>;
-  recipe?: Resolver<ResolversTypes['Recipe'], ParentType, ContextType, RequireFields<QueryRecipeArgs, 'recipeId'>>;
+  recipes?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType>;
+  newsFeed?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType>;
+  recipe?: Resolver<ResolversTypes['RecipeResult'], ParentType, ContextType, RequireFields<QueryRecipeArgs, 'recipeId'>>;
   me?: Resolver<ResolversTypes['UserResult'], ParentType, ContextType>;
 };
 
@@ -417,6 +456,7 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
   categories?: Resolver<Array<Maybe<ResolversTypes['Category']>>, ParentType, ContextType>;
   diets?: Resolver<Array<Maybe<ResolversTypes['Diet']>>, ParentType, ContextType>;
   allergies?: Resolver<Array<Maybe<ResolversTypes['Allergy']>>, ParentType, ContextType>;
+  ingredients?: Resolver<Array<Maybe<ResolversTypes['Ingredient']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -431,6 +471,12 @@ export type RecipeFilterResolvers<ContextType = any, ParentType extends Resolver
 
 export type RecipeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeResult'] = ResolversParentTypes['RecipeResult']> = {
   data?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type RecipesResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipesResult'] = ResolversParentTypes['RecipesResult']> = {
+  data?: Resolver<Maybe<Array<Maybe<ResolversTypes['Recipe']>>>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -458,6 +504,7 @@ export type Resolvers<ContextType = any> = {
   Category?: CategoryResolvers<ContextType>;
   Diet?: DietResolvers<ContextType>;
   Error?: ErrorResolvers<ContextType>;
+  Ingredient?: IngredientResolvers<ContextType>;
   IngredientsFilter?: IngredientsFilterResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Pagination?: PaginationResolvers<ContextType>;
@@ -465,6 +512,7 @@ export type Resolvers<ContextType = any> = {
   Recipe?: RecipeResolvers<ContextType>;
   RecipeFilter?: RecipeFilterResolvers<ContextType>;
   RecipeResult?: RecipeResultResolvers<ContextType>;
+  RecipesResult?: RecipesResultResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UserResult?: UserResultResolvers<ContextType>;
 };

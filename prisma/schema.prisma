@@ -12,25 +12,25 @@ generator client {
 }
 
 model Recipe {
-  id             String             @id @default(uuid())
+  id             String          @id @default(uuid())
   title          String
   subtitle       String
   description    String
-  submittedBy    User               @relation("submittedRecipes", fields: [submittedById], references: [id])
+  submittedBy    User            @relation("submittedRecipes", fields: [submittedById], references: [id])
   submittedById  String
-  commentCount   Int                @default(0)
-  likeCount      Int                @default(0)
-  createdAt      DateTime           @default(now())
+  commentCount   Int             @default(0)
+  likeCount      Int             @default(0)
+  createdAt      DateTime        @default(now())
   servingCount   Int
   timeEstimate   DateTime
   previewURI     String
   recipeSteps    RecipeStep[]
-  ingredients    RecipeIngredient[]
+  ingredients    Ingredient[]
   recipeComments RecipeComment[]
-  likedBy        User[]             @relation("likedRecipes")
-  visibility     Privacy            @default(FRIENDS)
-  commentability Privacy            @default(PRIVATE)
-  likeability    Privacy            @default(PRIVATE)
+  likedBy        User[]          @relation("likedRecipes")
+  visibility     Privacy         @default(FRIENDS)
+  commentability Privacy         @default(PRIVATE)
+  likeability    Privacy         @default(PRIVATE)
   categories     Category[]
   diets          Diet[]
   allergies      Allergies[]
@@ -82,22 +82,21 @@ model RecipeComment {
   recipeCommentId String?
 }
 
-model RecipeIngredient {
-  id           String      @id @default(uuid())
-  name         String
-  descriptor   String
-  quantity     Int
-  unit         String
-  recipe       Recipe      @relation(fields: [recipeId], references: [id])
-  recipeId     String
-  Ingredient   Ingredient? @relation(fields: [ingredientId], references: [id])
-  ingredientId String?
+model Ingredient {
+  id                  String            @id @default(uuid())
+  genericIngredient   GenericIngredient @relation(fields: [genericIngredientId], references: [id])
+  description         String?
+  quantity            Int
+  unit                String?
+  recipe              Recipe            @relation(fields: [recipeId], references: [id])
+  recipeId            String
+  genericIngredientId String
 }
 
-model Ingredient {
-  id                  String             @id @default(uuid())
-  name                String
-  ingredientInstances RecipeIngredient[]
+model GenericIngredient {
+  id         String       @id @default(uuid())
+  name       String       @unique
+  Ingredient Ingredient[]
 }
 
 model User {

@@ -5,6 +5,8 @@ import {
   Category as PrismaCategory,
   Diet as PrismaDiet,
   Allergies as PrismaAllergy,
+  Ingredient as PrismaIngredient,
+  GenericIngredient as PrismaGenericIngredient,
 } from "@prisma/client";
 
 import prisma from "../prisma";
@@ -16,6 +18,7 @@ import {
   CategoryInput,
   DietInput,
   AllergyInput,
+  IngredientInput,
 } from "../generated/graphql";
 import Errors from "../errors";
 
@@ -76,6 +79,22 @@ const addRecipe = async (
     })
   };
 
+  const ingredients: Prisma.IngredientCreateNestedManyWithoutRecipeInput = { 
+    create: recipe.ingredients.map((recipeIngredients) => {
+      let { name, ...rest } = recipeIngredients as IngredientInput;
+      name = name.replace(/\W/g, "").trim().toUpperCase();
+      return {
+        ...rest,
+        genericIngredient: {
+          connectOrCreate: {
+            where: { name },
+            create: { name }
+          }
+        }
+      };
+    })
+  };
+
   // Create prisma object from apollo object and user found in previous step
   const recipeInput: Prisma.RecipeCreateInput = {
     ...recipe,
@@ -87,9 +106,9 @@ const addRecipe = async (
     categories,
     diets,
     allergies,
+    ingredients,
     timeEstimate: unixToISO(recipe.timeEstimate),
   };
-
 
   type CreatedRecipe = PrismaRecipe & {
     submittedBy: PrismaUser;
@@ -99,16 +118,35 @@ const addRecipe = async (
     diets: PrismaDiet[];
   } & {
     allergies: PrismaAllergy[];
+  } & {
+    ingredients: (PrismaIngredient & {
+      genericIngredient: PrismaGenericIngredient;
+    })[]
   }
+
   // Add recipe to database and fetch this recipe once in the database
   const createdRecipe: CreatedRecipe = await prisma.recipe.create({
     data: recipeInput,
-    include: { submittedBy: true, categories: true, diets: true, allergies: true },
+    include: {
+      submittedBy: true,
+      categories: true,
+      diets: true,
+      allergies: true,
+      ingredients: {
+        include: {
+          genericIngredient: true,
+        },
+      },
+    },
   });
 
   // Convert fetched recipe to apollo object
   const returnedRecipe: ApolloRecipe = {
     ...createdRecipe,
+    ingredients: createdRecipe.ingredients.map((createdRecipeIngredient) => ({
+      ...createdRecipeIngredient,
+      name: createdRecipeIngredient.genericIngredient.name
+    })),
     createdAt: String(createdRecipe.createdAt.getUTCMilliseconds()),
     timeEstimate: String(createdRecipe.timeEstimate.getUTCMilliseconds()),
   };
