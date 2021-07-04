@@ -4,6 +4,7 @@ import {
   Prisma,
   Category as PrismaCategory,
   Diet as PrismaDiet,
+  Allergies as PrismaAllergy,
 } from "@prisma/client";
 
 import prisma from "../prisma";
@@ -14,6 +15,7 @@ import {
   Recipe as ApolloRecipe,
   CategoryInput,
   DietInput,
+  AllergyInput,
 } from "../generated/graphql";
 import Errors from "../errors";
 
@@ -54,9 +56,19 @@ const addRecipe = async (
     })
   };
 
-  const diets: Prisma.CategoryCreateNestedManyWithoutRecipesInput = { 
+  const diets: Prisma.DietCreateNestedManyWithoutRecipesInput = { 
     connectOrCreate: recipe.diets.map((recipeDiets) => {
       const name = (recipeDiets as DietInput).name.replace(/\W/g, "").trim().toUpperCase();
+      return {
+        where: { name },
+        create: { name },
+      };
+    })
+  };
+
+  const allergies: Prisma.AllergiesCreateNestedManyWithoutRecipesInput = { 
+    connectOrCreate: recipe.allergies.map((recipeAllergies) => {
+      const name = (recipeAllergies as AllergyInput).name.replace(/\W/g, "").trim().toUpperCase();
       return {
         where: { name },
         create: { name },
@@ -74,6 +86,7 @@ const addRecipe = async (
     },
     categories,
     diets,
+    allergies,
     timeEstimate: unixToISO(recipe.timeEstimate),
   };
 
@@ -84,11 +97,13 @@ const addRecipe = async (
     categories: PrismaCategory[];
   } & {
     diets: PrismaDiet[];
+  } & {
+    allergies: PrismaAllergy[];
   }
   // Add recipe to database and fetch this recipe once in the database
   const createdRecipe: CreatedRecipe = await prisma.recipe.create({
     data: recipeInput,
-    include: { submittedBy: true, categories: true, diets: true },
+    include: { submittedBy: true, categories: true, diets: true, allergies: true },
   });
 
   // Convert fetched recipe to apollo object

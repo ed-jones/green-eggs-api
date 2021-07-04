@@ -33,9 +33,16 @@ model Recipe {
   likeability    Privacy            @default(PRIVATE)
   categories     Category[]
   diets          Diet[]
+  allergies      Allergies[]
 }
 
 model Category {
+  id      String   @id @default(uuid())
+  name    String   @unique
+  recipes Recipe[]
+}
+
+model Allergies {
   id      String   @id @default(uuid())
   name    String   @unique
   recipes Recipe[]

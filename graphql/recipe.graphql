@@ -26,6 +26,7 @@ input RecipeInput {
   previewURI: String!
   categories: [CategoryInput]!
   diets: [DietInput]!
+  allergies: [AllergyInput]!
 }
 
 input DietInput {
@@ -36,12 +37,21 @@ input CategoryInput {
   name: String!
 }
 
+input AllergyInput {
+  name: String!
+}
+
 type Category {
   id: String!
   name: String!
 }
 
 type Diet {
+  id: String!
+  name: String!
+}
+
+type Allergy {
   id: String!
   name: String!
 }
@@ -60,6 +70,7 @@ type Recipe {
   previewURI: String!
   categories: [Category]!
   diets: [Diet]!
+  allergies: [Allergy]!
 }
 
 type RecipeResult {

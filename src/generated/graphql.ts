@@ -14,6 +14,16 @@ export type Scalars = {
   Float: number;
 };
 
+export type Allergy = {
+  __typename?: 'Allergy';
+  id: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type AllergyInput = {
+  name: Scalars['String'];
+};
+
 export type AuthResult = {
   __typename?: 'AuthResult';
   data?: Maybe<AuthResultData>;
@@ -117,6 +127,7 @@ export type Recipe = {
   previewURI: Scalars['String'];
   categories: Array<Maybe<Category>>;
   diets: Array<Maybe<Diet>>;
+  allergies: Array<Maybe<Allergy>>;
 };
 
 export type RecipeFilter = {
@@ -137,6 +148,7 @@ export type RecipeInput = {
   previewURI: Scalars['String'];
   categories: Array<Maybe<CategoryInput>>;
   diets: Array<Maybe<DietInput>>;
+  allergies: Array<Maybe<AllergyInput>>;
 };
 
 export type RecipeResult = {
@@ -272,9 +284,11 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  Allergy: ResolverTypeWrapper<Allergy>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  AllergyInput: AllergyInput;
   AuthResult: ResolverTypeWrapper<AuthResult>;
   AuthResultData: ResolverTypeWrapper<AuthResultData>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Category: ResolverTypeWrapper<Category>;
   CategoryInput: CategoryInput;
   Diet: ResolverTypeWrapper<Diet>;
@@ -302,9 +316,11 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Allergy: Allergy;
+  String: Scalars['String'];
+  AllergyInput: AllergyInput;
   AuthResult: AuthResult;
   AuthResultData: AuthResultData;
-  String: Scalars['String'];
   Category: Category;
   CategoryInput: CategoryInput;
   Diet: Diet;
@@ -325,6 +341,12 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   UserInput: UserInput;
   UserResult: UserResult;
+};
+
+export type AllergyResolvers<ContextType = any, ParentType extends ResolversParentTypes['Allergy'] = ResolversParentTypes['Allergy']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type AuthResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthResult'] = ResolversParentTypes['AuthResult']> = {
@@ -394,6 +416,7 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
   previewURI?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   categories?: Resolver<Array<Maybe<ResolversTypes['Category']>>, ParentType, ContextType>;
   diets?: Resolver<Array<Maybe<ResolversTypes['Diet']>>, ParentType, ContextType>;
+  allergies?: Resolver<Array<Maybe<ResolversTypes['Allergy']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -429,6 +452,7 @@ export type UserResultResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type Resolvers<ContextType = any> = {
+  Allergy?: AllergyResolvers<ContextType>;
   AuthResult?: AuthResultResolvers<ContextType>;
   AuthResultData?: AuthResultDataResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
