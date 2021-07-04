@@ -3,6 +3,7 @@ import {
   User as PrismaUser,
   Prisma,
   Category as PrismaCategory,
+  Diet as PrismaDiet,
 } from "@prisma/client";
 
 import prisma from "../prisma";
@@ -12,7 +13,7 @@ import {
   RecipeResult,
   Recipe as ApolloRecipe,
   CategoryInput,
-  Category as ApolloCategory,
+  DietInput,
 } from "../generated/graphql";
 import Errors from "../errors";
 
@@ -51,7 +52,17 @@ const addRecipe = async (
         create: { name },
       };
     })
-  }
+  };
+
+  const diets: Prisma.CategoryCreateNestedManyWithoutRecipesInput = { 
+    connectOrCreate: recipe.diets.map((recipeDiets) => {
+      const name = (recipeDiets as DietInput).name.replace(/\W/g, "").trim().toUpperCase();
+      return {
+        where: { name },
+        create: { name },
+      };
+    })
+  };
 
   // Create prisma object from apollo object and user found in previous step
   const recipeInput: Prisma.RecipeCreateInput = {
@@ -62,6 +73,7 @@ const addRecipe = async (
       },
     },
     categories,
+    diets,
     timeEstimate: unixToISO(recipe.timeEstimate),
   };
 
@@ -70,11 +82,13 @@ const addRecipe = async (
     submittedBy: PrismaUser;
   } & {
     categories: PrismaCategory[];
+  } & {
+    diets: PrismaDiet[];
   }
   // Add recipe to database and fetch this recipe once in the database
   const createdRecipe: CreatedRecipe = await prisma.recipe.create({
     data: recipeInput,
-    include: { submittedBy: true, categories: true },
+    include: { submittedBy: true, categories: true, diets: true },
   });
 
   // Convert fetched recipe to apollo object

@@ -25,6 +25,11 @@ input RecipeInput {
   timeEstimate: String!
   previewURI: String!
   categories: [CategoryInput]!
+  diets: [DietInput]!
+}
+
+input DietInput {
+  name: String!
 }
 
 input CategoryInput {
@@ -32,6 +37,11 @@ input CategoryInput {
 }
 
 type Category {
+  id: String!
+  name: String!
+}
+
+type Diet {
   id: String!
   name: String!
 }
@@ -49,6 +59,7 @@ type Recipe {
   timeEstimate: String!
   previewURI: String!
   categories: [Category]!
+  diets: [Diet]!
 }
 
 type RecipeResult {
