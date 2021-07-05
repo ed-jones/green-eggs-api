@@ -21,6 +21,7 @@ import {
   IngredientInput,
 } from "../generated/graphql";
 import Errors from "../errors";
+import fileUpload from "../core/file-upload/fileUpload";
 
 const addRecipe = async (
   _parent: any,
@@ -46,6 +47,17 @@ const addRecipe = async (
         message: Errors.NO_USER,
       },
     };
+  }
+
+  const { createReadStream, filename } = await recipe.coverImage;
+
+  const fileURI = await fileUpload(filename, createReadStream());
+  if (!fileURI) {
+    return {
+      error: {
+        message: "Failed to upload image"
+      }
+    }
   }
 
   // Create category if it doesn't exist, else create 
@@ -98,6 +110,7 @@ const addRecipe = async (
   // Create prisma object from apollo object and user found in previous step
   const recipeInput: Prisma.RecipeCreateInput = {
     ...recipe,
+    previewURI: fileURI,
     submittedBy: {
       connect: {
         id: user.id,
@@ -143,6 +156,7 @@ const addRecipe = async (
   // Convert fetched recipe to apollo object
   const returnedRecipe: ApolloRecipe = {
     ...createdRecipe,
+    coverImage: createdRecipe.previewURI,
     ingredients: createdRecipe.ingredients.map((createdRecipeIngredient) => ({
       ...createdRecipeIngredient,
       name: createdRecipeIngredient.genericIngredient.name

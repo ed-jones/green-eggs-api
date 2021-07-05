@@ -20,6 +20,7 @@ const recipes = async (): Promise<RecipesResult> => {
 
   const data: ApolloRecipe[] = prismaRecipes.map((prismaRecipe) => ({
     ...prismaRecipe,
+    coverImage: prismaRecipe.previewURI,
     ingredients: prismaRecipe.ingredients.map((prismaRecipeIngredient) => ({
       ...prismaRecipeIngredient,
       name: prismaRecipeIngredient.genericIngredient.name,

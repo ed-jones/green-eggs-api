@@ -23,7 +23,7 @@ input RecipeInput {
   description: String!
   servingCount: Int!
   timeEstimate: String!
-  previewURI: String!
+  coverImage: FileUpload!
   categories: [CategoryInput]!
   diets: [DietInput]!
   allergies: [AllergyInput]!
@@ -83,7 +83,7 @@ type Recipe {
   createdAt: String!
   servingCount: Int!
   timeEstimate: String!
-  previewURI: String!
+  coverImage: String!
   categories: [Category]!
   diets: [Diet]!
   allergies: [Allergy]!

@@ -21,6 +21,7 @@ const recipes = async (_parent: any, { recipeId }: QueryRecipeArgs): Promise<Rec
 
   const data: ApolloRecipe = {
     ...prismaRecipe,
+    coverImage: prismaRecipe.previewURI,
     ingredients: prismaRecipe.ingredients.map((prismaRecipeIngredient) => ({
       ...prismaRecipeIngredient,
       name: prismaRecipeIngredient.genericIngredient.name,

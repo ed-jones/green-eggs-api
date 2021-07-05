@@ -18,3 +18,11 @@ enum Visibility {
 type Error {
   message: String!
 }
+
+scalar FileUpload
+
+type FileUpload {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}

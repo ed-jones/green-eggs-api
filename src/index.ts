@@ -1,4 +1,4 @@
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer, GraphQLUpload } from 'apollo-server';
 import { ContextFunction } from 'apollo-server-core';
 import { ExpressContext } from 'apollo-server-express';
 import { loadSchema, GraphQLFileLoader } from 'graphql-tools';
@@ -9,7 +9,7 @@ import * as Query from './queries';
 import * as Mutation from './mutations';
 
 const schemaPromise = loadSchema('./graphql/**/*.graphql', {
-  resolvers: { Query, Mutation },
+  resolvers: { Query, Mutation, FileUpload: GraphQLUpload! },
   loaders: [
     new GraphQLFileLoader(),
   ],

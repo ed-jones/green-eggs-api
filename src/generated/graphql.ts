@@ -1,4 +1,12 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { ReadStream } from "fs-capacitor";
+interface GraphQLFileUpload {
+  filename: string;
+  mimetype: string;
+  encoding: string;
+  createReadStream(options?:{encoding?: string, highWaterMark?: number}): ReadStream;
+}
+
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -12,6 +20,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The `Upload` scalar type represents a file upload. */
+  Upload: Promise<GraphQLFileUpload>;
 };
 
 export type Allergy = {
@@ -58,6 +68,13 @@ export type DietInput = {
 export type Error = {
   __typename?: 'Error';
   message: Scalars['String'];
+};
+
+export type File = {
+  __typename?: 'File';
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+  encoding: Scalars['String'];
 };
 
 export type Ingredient = {
@@ -140,7 +157,7 @@ export type Recipe = {
   createdAt: Scalars['String'];
   servingCount: Scalars['Int'];
   timeEstimate: Scalars['String'];
-  previewURI: Scalars['String'];
+  coverImage: Scalars['String'];
   categories: Array<Maybe<Category>>;
   diets: Array<Maybe<Diet>>;
   allergies: Array<Maybe<Allergy>>;
@@ -162,7 +179,7 @@ export type RecipeInput = {
   description: Scalars['String'];
   servingCount: Scalars['Int'];
   timeEstimate: Scalars['String'];
-  previewURI: Scalars['String'];
+  coverImage: Scalars['Upload'];
   categories: Array<Maybe<CategoryInput>>;
   diets: Array<Maybe<DietInput>>;
   allergies: Array<Maybe<AllergyInput>>;
@@ -200,6 +217,7 @@ export enum Sort {
   Popular = 'POPULAR',
   New = 'NEW'
 }
+
 
 export type User = {
   __typename?: 'User';
@@ -318,6 +336,7 @@ export type ResolversTypes = {
   Diet: ResolverTypeWrapper<Diet>;
   DietInput: DietInput;
   Error: ResolverTypeWrapper<Error>;
+  File: ResolverTypeWrapper<File>;
   Ingredient: ResolverTypeWrapper<Ingredient>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   IngredientInput: IngredientInput;
@@ -334,6 +353,7 @@ export type ResolversTypes = {
   RecipesResult: ResolverTypeWrapper<RecipesResult>;
   SignupInput: SignupInput;
   Sort: Sort;
+  Upload: ResolverTypeWrapper<Scalars['Upload']>;
   User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   UserInput: UserInput;
@@ -353,6 +373,7 @@ export type ResolversParentTypes = {
   Diet: Diet;
   DietInput: DietInput;
   Error: Error;
+  File: File;
   Ingredient: Ingredient;
   Int: Scalars['Int'];
   IngredientInput: IngredientInput;
@@ -367,6 +388,7 @@ export type ResolversParentTypes = {
   RecipeResult: RecipeResult;
   RecipesResult: RecipesResult;
   SignupInput: SignupInput;
+  Upload: Scalars['Upload'];
   User: User;
   Boolean: Scalars['Boolean'];
   UserInput: UserInput;
@@ -404,6 +426,13 @@ export type DietResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type ErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Error'] = ResolversParentTypes['Error']> = {
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FileResolvers<ContextType = any, ParentType extends ResolversParentTypes['File'] = ResolversParentTypes['File']> = {
+  filename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  mimetype?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  encoding?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -452,7 +481,7 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   servingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   timeEstimate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  previewURI?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  coverImage?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   categories?: Resolver<Array<Maybe<ResolversTypes['Category']>>, ParentType, ContextType>;
   diets?: Resolver<Array<Maybe<ResolversTypes['Diet']>>, ParentType, ContextType>;
   allergies?: Resolver<Array<Maybe<ResolversTypes['Allergy']>>, ParentType, ContextType>;
@@ -481,6 +510,10 @@ export type RecipesResultResolvers<ContextType = any, ParentType extends Resolve
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
+  name: 'Upload';
+}
+
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -504,6 +537,7 @@ export type Resolvers<ContextType = any> = {
   Category?: CategoryResolvers<ContextType>;
   Diet?: DietResolvers<ContextType>;
   Error?: ErrorResolvers<ContextType>;
+  File?: FileResolvers<ContextType>;
   Ingredient?: IngredientResolvers<ContextType>;
   IngredientsFilter?: IngredientsFilterResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
@@ -513,6 +547,7 @@ export type Resolvers<ContextType = any> = {
   RecipeFilter?: RecipeFilterResolvers<ContextType>;
   RecipeResult?: RecipeResultResolvers<ContextType>;
   RecipesResult?: RecipesResultResolvers<ContextType>;
+  Upload?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
   UserResult?: UserResultResolvers<ContextType>;
 };
