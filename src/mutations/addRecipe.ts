@@ -22,6 +22,7 @@ import {
 } from "../generated/graphql";
 import Errors from "../errors";
 import fileUpload from "../core/file-upload/fileUpload";
+import { ReadStream } from "fs";
 
 const addRecipe = async (
   _parent: any,
@@ -48,10 +49,10 @@ const addRecipe = async (
       },
     };
   }
+  const { coverImage, ...recipeRest } = recipe;
+  const { createReadStream, filename } = await coverImage;
 
-  const { createReadStream, filename } = await recipe.coverImage;
-
-  const fileURI = await fileUpload(filename, createReadStream());
+  const fileURI = await fileUpload(filename, createReadStream);
   if (!fileURI) {
     return {
       error: {
@@ -62,7 +63,7 @@ const addRecipe = async (
 
   // Create category if it doesn't exist, else create 
   const categories: Prisma.CategoryCreateNestedManyWithoutRecipesInput = { 
-    connectOrCreate: recipe.categories.map((recipeCategory) => {
+    connectOrCreate: recipeRest.categories.map((recipeCategory) => {
       const name = (recipeCategory as CategoryInput).name.replace(/\W/g, "").trim().toUpperCase();
       return {
         where: { name },
@@ -72,7 +73,7 @@ const addRecipe = async (
   };
 
   const diets: Prisma.DietCreateNestedManyWithoutRecipesInput = { 
-    connectOrCreate: recipe.diets.map((recipeDiets) => {
+    connectOrCreate: recipeRest.diets.map((recipeDiets) => {
       const name = (recipeDiets as DietInput).name.replace(/\W/g, "").trim().toUpperCase();
       return {
         where: { name },
@@ -82,7 +83,7 @@ const addRecipe = async (
   };
 
   const allergies: Prisma.AllergiesCreateNestedManyWithoutRecipesInput = { 
-    connectOrCreate: recipe.allergies.map((recipeAllergies) => {
+    connectOrCreate: recipeRest.allergies.map((recipeAllergies) => {
       const name = (recipeAllergies as AllergyInput).name.replace(/\W/g, "").trim().toUpperCase();
       return {
         where: { name },
@@ -92,7 +93,7 @@ const addRecipe = async (
   };
 
   const ingredients: Prisma.IngredientCreateNestedManyWithoutRecipeInput = { 
-    create: recipe.ingredients.map((recipeIngredients) => {
+    create: recipeRest.ingredients.map((recipeIngredients) => {
       let { name, ...rest } = recipeIngredients as IngredientInput;
       name = name.replace(/\W/g, "").trim().toUpperCase();
       return {
@@ -109,7 +110,7 @@ const addRecipe = async (
 
   // Create prisma object from apollo object and user found in previous step
   const recipeInput: Prisma.RecipeCreateInput = {
-    ...recipe,
+    ...recipeRest,
     previewURI: fileURI,
     submittedBy: {
       connect: {

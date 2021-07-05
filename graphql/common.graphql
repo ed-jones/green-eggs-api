@@ -21,7 +21,7 @@ type Error {
 
 scalar FileUpload
 
-type FileUpload {
+type File {
   filename: String!
   mimetype: String!
   encoding: String!
