@@ -29,6 +29,9 @@ input RecipeInput {
   allergies: [AllergyInput]!
   ingredients: [IngredientInput]!
   steps: [RecipeStepInput]!
+  visibility: Privacy!
+  likeability: Privacy!
+  commentability: Privacy!
 }
 
 input RecipeStepInput {
@@ -103,6 +106,9 @@ type Recipe {
   allergies: [Allergy]!
   ingredients: [Ingredient]!
   steps: [RecipeStep]!
+  visibility: Privacy!
+  likeability: Privacy!
+  commentability: Privacy!
 }
 
 type RecipeResult {

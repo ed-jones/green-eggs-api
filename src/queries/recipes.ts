@@ -1,5 +1,5 @@
 import prisma from '../prisma';
-import { Recipe as ApolloRecipe, RecipesResult } from '../generated/graphql';
+import { Recipe as ApolloRecipe, RecipesResult, Privacy as ApolloPrivacy } from '../generated/graphql';
 
 const recipes = async (): Promise<RecipesResult> => {
   const prismaRecipes = await prisma.recipe.findMany(
@@ -21,6 +21,9 @@ const recipes = async (): Promise<RecipesResult> => {
 
   const data: ApolloRecipe[] = prismaRecipes.map((prismaRecipe) => ({
     ...prismaRecipe,
+    visibility: prismaRecipe.visibility as ApolloPrivacy,
+    commentability: prismaRecipe.commentability as ApolloPrivacy,
+    likeability: prismaRecipe.likeability as ApolloPrivacy,
     coverImage: prismaRecipe.previewURI,
     ingredients: prismaRecipe.ingredients.map((prismaRecipeIngredient) => ({
       ...prismaRecipeIngredient,

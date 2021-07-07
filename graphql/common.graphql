@@ -9,7 +9,7 @@ enum Sort {
   NEW
 }
 
-enum Visibility {
+enum Privacy {
   PUBLIC
   FRIENDS
   PRIVATE

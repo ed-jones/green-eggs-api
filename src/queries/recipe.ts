@@ -1,4 +1,6 @@
-import { QueryRecipeArgs, Recipe as ApolloRecipe, RecipeResult } from '../generated/graphql';
+import {
+  QueryRecipeArgs, Recipe as ApolloRecipe, RecipeResult, Privacy as ApolloPrivacy,
+} from '../generated/graphql';
 import prisma from '../prisma';
 
 const recipes = async (_parent: any, { recipeId }: QueryRecipeArgs): Promise<RecipeResult> => {
@@ -22,6 +24,9 @@ const recipes = async (_parent: any, { recipeId }: QueryRecipeArgs): Promise<Rec
 
   const data: ApolloRecipe = {
     ...prismaRecipe,
+    visibility: prismaRecipe.visibility as ApolloPrivacy,
+    commentability: prismaRecipe.commentability as ApolloPrivacy,
+    likeability: prismaRecipe.likeability as ApolloPrivacy,
     coverImage: prismaRecipe.previewURI,
     ingredients: prismaRecipe.ingredients.map((prismaRecipeIngredient) => ({
       ...prismaRecipeIngredient,

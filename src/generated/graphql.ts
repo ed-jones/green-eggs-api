@@ -132,6 +132,12 @@ export type Pagination = {
   limit?: Maybe<Scalars['Int']>;
 };
 
+export enum Privacy {
+  Public = 'PUBLIC',
+  Friends = 'FRIENDS',
+  Private = 'PRIVATE'
+}
+
 export type Query = {
   __typename?: 'Query';
   recipes: RecipesResult;
@@ -163,6 +169,9 @@ export type Recipe = {
   allergies: Array<Maybe<Allergy>>;
   ingredients: Array<Maybe<Ingredient>>;
   steps: Array<Maybe<RecipeStep>>;
+  visibility: Privacy;
+  likeability: Privacy;
+  commentability: Privacy;
 };
 
 export type RecipeFilter = {
@@ -186,6 +195,9 @@ export type RecipeInput = {
   allergies: Array<Maybe<AllergyInput>>;
   ingredients: Array<Maybe<IngredientInput>>;
   steps: Array<Maybe<RecipeStepInput>>;
+  visibility: Privacy;
+  likeability: Privacy;
+  commentability: Privacy;
 };
 
 export type RecipeResult = {
@@ -257,12 +269,6 @@ export type UserResult = {
   data?: Maybe<User>;
   error?: Maybe<Error>;
 };
-
-export enum Visibility {
-  Public = 'PUBLIC',
-  Friends = 'FRIENDS',
-  Private = 'PRIVATE'
-}
 
 
 
@@ -360,6 +366,7 @@ export type ResolversTypes = {
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
   Pagination: ResolverTypeWrapper<Pagination>;
+  Privacy: Privacy;
   Query: ResolverTypeWrapper<{}>;
   Recipe: ResolverTypeWrapper<Recipe>;
   RecipeFilter: ResolverTypeWrapper<RecipeFilter>;
@@ -376,7 +383,6 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   UserInput: UserInput;
   UserResult: ResolverTypeWrapper<UserResult>;
-  Visibility: Visibility;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -507,6 +513,9 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
   allergies?: Resolver<Array<Maybe<ResolversTypes['Allergy']>>, ParentType, ContextType>;
   ingredients?: Resolver<Array<Maybe<ResolversTypes['Ingredient']>>, ParentType, ContextType>;
   steps?: Resolver<Array<Maybe<ResolversTypes['RecipeStep']>>, ParentType, ContextType>;
+  visibility?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
+  likeability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
+  commentability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -21,6 +21,7 @@ import {
   AllergyInput,
   IngredientInput,
   RecipeStepInput,
+  Privacy as ApolloPrivacy,
 } from "../generated/graphql";
 import Errors from "../errors";
 import fileUpload from "../core/file-upload/fileUpload"
@@ -174,6 +175,9 @@ const addRecipe = async (
     // Convert fetched recipe to apollo object
     const returnedRecipe: ApolloRecipe = {
       ...createdRecipe,
+      visibility: createdRecipe.visibility as ApolloPrivacy,
+      commentability: createdRecipe.commentability  as ApolloPrivacy,
+      likeability: createdRecipe.likeability as ApolloPrivacy,
       coverImage: createdRecipe.previewURI,
       steps: createdRecipe.steps.map((step) => ({
         ...step,
