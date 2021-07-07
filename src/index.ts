@@ -42,7 +42,7 @@ schemaPromise.then((schema) => {
     graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
     graphqlHTTP((request) => ({ schema, context: getContext(request.headers.authorization) }))
   )
-  .listen(4000, () => {
+  .listen(process.env.PORT || 4000, () => {
     console.log(`
       Server is running!
       Listening on port 4000

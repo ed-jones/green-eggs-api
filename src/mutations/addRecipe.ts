@@ -176,7 +176,7 @@ const addRecipe = async (
     const returnedRecipe: ApolloRecipe = {
       ...createdRecipe,
       visibility: createdRecipe.visibility as ApolloPrivacy,
-      commentability: createdRecipe.commentability  as ApolloPrivacy,
+      commentability: createdRecipe.commentability as ApolloPrivacy,
       likeability: createdRecipe.likeability as ApolloPrivacy,
       coverImage: createdRecipe.previewURI,
       steps: createdRecipe.steps.map((step) => ({
