@@ -24,7 +24,7 @@ input RecipeInput {
   servingCount: Int!
   timeEstimate: String!
   coverImage: FileUpload!
-  categories: [CategoryInput]!
+  categories: [CategoryInput!]!
   diets: [DietInput!]!
   allergies: [AllergyInput!]!
   ingredients: [IngredientInput!]!
