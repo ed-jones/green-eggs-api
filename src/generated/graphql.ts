@@ -162,6 +162,7 @@ export type Recipe = {
   diets: Array<Maybe<Diet>>;
   allergies: Array<Maybe<Allergy>>;
   ingredients: Array<Maybe<Ingredient>>;
+  steps: Array<Maybe<RecipeStep>>;
 };
 
 export type RecipeFilter = {
@@ -184,6 +185,7 @@ export type RecipeInput = {
   diets: Array<Maybe<DietInput>>;
   allergies: Array<Maybe<AllergyInput>>;
   ingredients: Array<Maybe<IngredientInput>>;
+  steps: Array<Maybe<RecipeStepInput>>;
 };
 
 export type RecipeResult = {
@@ -197,6 +199,20 @@ export enum RecipeStatus {
   Draft = 'DRAFT',
   Archived = 'ARCHIVED'
 }
+
+export type RecipeStep = {
+  __typename?: 'RecipeStep';
+  id: Scalars['String'];
+  image: Scalars['String'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type RecipeStepInput = {
+  image: Scalars['Upload'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+};
 
 export type RecipesResult = {
   __typename?: 'RecipesResult';
@@ -350,6 +366,8 @@ export type ResolversTypes = {
   RecipeInput: RecipeInput;
   RecipeResult: ResolverTypeWrapper<RecipeResult>;
   RecipeStatus: RecipeStatus;
+  RecipeStep: ResolverTypeWrapper<RecipeStep>;
+  RecipeStepInput: RecipeStepInput;
   RecipesResult: ResolverTypeWrapper<RecipesResult>;
   SignupInput: SignupInput;
   Sort: Sort;
@@ -386,6 +404,8 @@ export type ResolversParentTypes = {
   RecipeFilter: RecipeFilter;
   RecipeInput: RecipeInput;
   RecipeResult: RecipeResult;
+  RecipeStep: RecipeStep;
+  RecipeStepInput: RecipeStepInput;
   RecipesResult: RecipesResult;
   SignupInput: SignupInput;
   Upload: Scalars['Upload'];
@@ -486,6 +506,7 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
   diets?: Resolver<Array<Maybe<ResolversTypes['Diet']>>, ParentType, ContextType>;
   allergies?: Resolver<Array<Maybe<ResolversTypes['Allergy']>>, ParentType, ContextType>;
   ingredients?: Resolver<Array<Maybe<ResolversTypes['Ingredient']>>, ParentType, ContextType>;
+  steps?: Resolver<Array<Maybe<ResolversTypes['RecipeStep']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -501,6 +522,14 @@ export type RecipeFilterResolvers<ContextType = any, ParentType extends Resolver
 export type RecipeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeResult'] = ResolversParentTypes['RecipeResult']> = {
   data?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type RecipeStepResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeStep'] = ResolversParentTypes['RecipeStep']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -546,6 +575,7 @@ export type Resolvers<ContextType = any> = {
   Recipe?: RecipeResolvers<ContextType>;
   RecipeFilter?: RecipeFilterResolvers<ContextType>;
   RecipeResult?: RecipeResultResolvers<ContextType>;
+  RecipeStep?: RecipeStepResolvers<ContextType>;
   RecipesResult?: RecipesResultResolvers<ContextType>;
   Upload?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;

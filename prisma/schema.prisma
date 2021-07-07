@@ -24,7 +24,7 @@ model Recipe {
   servingCount   Int
   timeEstimate   DateTime
   previewURI     String
-  recipeSteps    RecipeStep[]
+  steps          RecipeStep[]
   ingredients    Ingredient[]
   recipeComments RecipeComment[]
   likedBy        User[]          @relation("likedRecipes")

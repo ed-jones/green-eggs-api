@@ -28,6 +28,13 @@ input RecipeInput {
   diets: [DietInput]!
   allergies: [AllergyInput]!
   ingredients: [IngredientInput]!
+  steps: [RecipeStepInput]!
+}
+
+input RecipeStepInput {
+  image: FileUpload!
+  title: String!
+  description: String!
 }
 
 input IngredientInput {
@@ -72,6 +79,13 @@ type Ingredient {
   unit: String
 }
 
+type RecipeStep {
+  id: String!
+  image: String!
+  title: String!
+  description: String!
+}
+
 type Recipe {
   id: String!
   title: String!
@@ -88,6 +102,7 @@ type Recipe {
   diets: [Diet]!
   allergies: [Allergy]!
   ingredients: [Ingredient]!
+  steps: [RecipeStep]!
 }
 
 type RecipeResult {

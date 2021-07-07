@@ -9,6 +9,7 @@ const recipes = async (): Promise<RecipesResult> => {
         categories: true,
         diets: true,
         allergies: true,
+        steps: true,
         ingredients: {
           include: {
             genericIngredient: true,
@@ -24,6 +25,10 @@ const recipes = async (): Promise<RecipesResult> => {
     ingredients: prismaRecipe.ingredients.map((prismaRecipeIngredient) => ({
       ...prismaRecipeIngredient,
       name: prismaRecipeIngredient.genericIngredient.name,
+    })),
+    steps: prismaRecipe.steps.map((step) => ({
+      ...step,
+      image: step.imageURI,
     })),
     createdAt: String(prismaRecipe.createdAt.getUTCMilliseconds()),
     timeEstimate: String(prismaRecipe.timeEstimate.getUTCMilliseconds()),
