@@ -8,14 +8,13 @@ import { unixToISO } from '../utils';
 import {
   MutationAddRecipeArgs,
   RecipeResult,
-  Recipe as ApolloRecipe,
   RecipeStepInput,
-  Privacy as ApolloPrivacy,
 } from '../generated/graphql';
 import Errors from '../errors';
 import fileUpload from '../core/file-upload/fileUpload';
 import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
 import FullPrismaRecipeType from '../core/recipe/FullPrismaRecipeType';
+import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 
 export const toLabelCase = (input: string): string => input.replace(/\W/g, '').trim().toUpperCase();
 
@@ -141,26 +140,7 @@ const addRecipe = async (
       ...fullRecipeArgs,
     });
 
-    // Convert fetched recipe to apollo object
-    const returnedRecipe: ApolloRecipe = {
-      ...createdRecipe,
-      visibility: createdRecipe.visibility as ApolloPrivacy,
-      commentability: createdRecipe.commentability as ApolloPrivacy,
-      likeability: createdRecipe.likeability as ApolloPrivacy,
-      coverImage: createdRecipe.previewURI,
-      steps: createdRecipe.steps.map((step) => ({
-        ...step,
-        image: step.imageURI,
-      })),
-      ingredients: createdRecipe.ingredients.map((createdRecipeIngredient) => ({
-        ...createdRecipeIngredient,
-        name: createdRecipeIngredient.genericIngredient.name,
-      })),
-      createdAt: String(createdRecipe.createdAt.getUTCMilliseconds()),
-      timeEstimate: String(createdRecipe.timeEstimate.getUTCMilliseconds()),
-    };
-
-    return { data: returnedRecipe };
+    return { data: prismaToApolloRecipe(createdRecipe) };
   } catch ({ message }) {
     return {
       error: {
