@@ -117,7 +117,7 @@ type RecipeResult {
 }
 
 type RecipesResult {
-  data: [Recipe]
+  data: [Recipe!]
   error: Error
 }
 

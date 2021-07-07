@@ -1,41 +1,14 @@
 import prisma from '../prisma';
-import { Recipe as ApolloRecipe, RecipesResult, Privacy as ApolloPrivacy } from '../generated/graphql';
+import { Recipe as ApolloRecipe, RecipesResult } from '../generated/graphql';
+import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
+import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 
 const recipes = async (): Promise<RecipesResult> => {
   const prismaRecipes = await prisma.recipe.findMany(
-    {
-      include: {
-        submittedBy: true,
-        categories: true,
-        diets: true,
-        allergies: true,
-        steps: true,
-        ingredients: {
-          include: {
-            genericIngredient: true,
-          },
-        },
-      },
-    },
+    fullRecipeArgs,
   );
 
-  const data: ApolloRecipe[] = prismaRecipes.map((prismaRecipe) => ({
-    ...prismaRecipe,
-    visibility: prismaRecipe.visibility as ApolloPrivacy,
-    commentability: prismaRecipe.commentability as ApolloPrivacy,
-    likeability: prismaRecipe.likeability as ApolloPrivacy,
-    coverImage: prismaRecipe.previewURI,
-    ingredients: prismaRecipe.ingredients.map((prismaRecipeIngredient) => ({
-      ...prismaRecipeIngredient,
-      name: prismaRecipeIngredient.genericIngredient.name,
-    })),
-    steps: prismaRecipe.steps.map((step) => ({
-      ...step,
-      image: step.imageURI,
-    })),
-    createdAt: String(prismaRecipe.createdAt.getUTCMilliseconds()),
-    timeEstimate: String(prismaRecipe.timeEstimate.getUTCMilliseconds()),
-  }));
+  const data: ApolloRecipe[] = prismaRecipes.map(prismaToApolloRecipe);
 
   return { data };
 };
