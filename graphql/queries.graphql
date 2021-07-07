@@ -1,5 +1,6 @@
 type Query {
-  recipes: [Recipe!]!
-  newsFeed: [Recipe!]!
+  recipes: RecipesResult!
+  newsFeed: RecipesResult!
+  recipe(recipeId: String!): RecipeResult!
   me: UserResult!
 }

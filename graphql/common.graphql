@@ -9,7 +9,7 @@ enum Sort {
   NEW
 }
 
-enum Visibility {
+enum Privacy {
   PUBLIC
   FRIENDS
   PRIVATE
@@ -17,4 +17,12 @@ enum Visibility {
 
 type Error {
   message: String!
+}
+
+scalar FileUpload
+
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
 }

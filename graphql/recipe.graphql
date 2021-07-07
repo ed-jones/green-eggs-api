@@ -19,15 +19,80 @@ enum RecipeStatus {
 
 input RecipeInput {
   title: String!
+  subtitle: String!
   description: String!
   servingCount: Int!
   timeEstimate: String!
-  previewURI: String!
+  coverImage: FileUpload!
+  categories: [CategoryInput]!
+  diets: [DietInput]!
+  allergies: [AllergyInput]!
+  ingredients: [IngredientInput]!
+  steps: [RecipeStepInput]!
+  visibility: Privacy!
+  likeability: Privacy!
+  commentability: Privacy!
+}
+
+input RecipeStepInput {
+  image: FileUpload!
+  title: String!
+  description: String!
+}
+
+input IngredientInput {
+  name: String!
+  description: String
+  quantity: Int!
+  unit: String
+}
+
+input DietInput {
+  name: String!
+}
+
+input CategoryInput {
+  name: String!
+}
+
+input AllergyInput {
+  name: String!
+}
+
+type Category {
+  id: String!
+  name: String!
+}
+
+type Diet {
+  id: String!
+  name: String!
+}
+
+type Allergy {
+  id: String!
+  name: String!
+}
+
+type Ingredient {
+  id: String!
+  name: String!
+  description: String
+  quantity: Int!
+  unit: String
+}
+
+type RecipeStep {
+  id: String!
+  image: String!
+  title: String!
+  description: String!
 }
 
 type Recipe {
   id: String!
   title: String!
+  subtitle: String!
   description: String!
   submittedBy: User!
   commentCount: Int!
@@ -35,11 +100,24 @@ type Recipe {
   createdAt: String!
   servingCount: Int!
   timeEstimate: String!
-  previewURI: String!
+  coverImage: String!
+  categories: [Category]!
+  diets: [Diet]!
+  allergies: [Allergy]!
+  ingredients: [Ingredient]!
+  steps: [RecipeStep]!
+  visibility: Privacy!
+  likeability: Privacy!
+  commentability: Privacy!
 }
 
 type RecipeResult {
   data: Recipe
+  error: Error
+}
+
+type RecipesResult {
+  data: [Recipe]
   error: Error
 }
 

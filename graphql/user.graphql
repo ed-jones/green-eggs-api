@@ -4,6 +4,7 @@ type User {
   lastName: String!
   email: String!
   avatarURI: String
+  verified: Boolean!
 }
 
 input UserInput {
