@@ -164,11 +164,11 @@ export type Recipe = {
   servingCount: Scalars['Int'];
   timeEstimate: Scalars['String'];
   coverImage: Scalars['String'];
-  categories: Array<Maybe<Category>>;
-  diets: Array<Maybe<Diet>>;
-  allergies: Array<Maybe<Allergy>>;
-  ingredients: Array<Maybe<Ingredient>>;
-  steps: Array<Maybe<RecipeStep>>;
+  categories: Array<Category>;
+  diets: Array<Diet>;
+  allergies: Array<Allergy>;
+  ingredients: Array<Ingredient>;
+  steps: Array<RecipeStep>;
   visibility: Privacy;
   likeability: Privacy;
   commentability: Privacy;
@@ -191,10 +191,10 @@ export type RecipeInput = {
   timeEstimate: Scalars['String'];
   coverImage: Scalars['Upload'];
   categories: Array<Maybe<CategoryInput>>;
-  diets: Array<Maybe<DietInput>>;
-  allergies: Array<Maybe<AllergyInput>>;
-  ingredients: Array<Maybe<IngredientInput>>;
-  steps: Array<Maybe<RecipeStepInput>>;
+  diets: Array<DietInput>;
+  allergies: Array<AllergyInput>;
+  ingredients: Array<IngredientInput>;
+  steps: Array<RecipeStepInput>;
   visibility: Privacy;
   likeability: Privacy;
   commentability: Privacy;
@@ -228,7 +228,7 @@ export type RecipeStepInput = {
 
 export type RecipesResult = {
   __typename?: 'RecipesResult';
-  data?: Maybe<Array<Maybe<Recipe>>>;
+  data?: Maybe<Array<Recipe>>;
   error?: Maybe<Error>;
 };
 
@@ -508,11 +508,11 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
   servingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   timeEstimate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   coverImage?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  categories?: Resolver<Array<Maybe<ResolversTypes['Category']>>, ParentType, ContextType>;
-  diets?: Resolver<Array<Maybe<ResolversTypes['Diet']>>, ParentType, ContextType>;
-  allergies?: Resolver<Array<Maybe<ResolversTypes['Allergy']>>, ParentType, ContextType>;
-  ingredients?: Resolver<Array<Maybe<ResolversTypes['Ingredient']>>, ParentType, ContextType>;
-  steps?: Resolver<Array<Maybe<ResolversTypes['RecipeStep']>>, ParentType, ContextType>;
+  categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
+  diets?: Resolver<Array<ResolversTypes['Diet']>, ParentType, ContextType>;
+  allergies?: Resolver<Array<ResolversTypes['Allergy']>, ParentType, ContextType>;
+  ingredients?: Resolver<Array<ResolversTypes['Ingredient']>, ParentType, ContextType>;
+  steps?: Resolver<Array<ResolversTypes['RecipeStep']>, ParentType, ContextType>;
   visibility?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   likeability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   commentability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
@@ -543,7 +543,7 @@ export type RecipeStepResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type RecipesResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipesResult'] = ResolversParentTypes['RecipesResult']> = {
-  data?: Resolver<Maybe<Array<Maybe<ResolversTypes['Recipe']>>>, ParentType, ContextType>;
+  data?: Resolver<Maybe<Array<ResolversTypes['Recipe']>>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

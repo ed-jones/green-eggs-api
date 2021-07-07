@@ -25,10 +25,10 @@ input RecipeInput {
   timeEstimate: String!
   coverImage: FileUpload!
   categories: [CategoryInput]!
-  diets: [DietInput]!
-  allergies: [AllergyInput]!
-  ingredients: [IngredientInput]!
-  steps: [RecipeStepInput]!
+  diets: [DietInput!]!
+  allergies: [AllergyInput!]!
+  ingredients: [IngredientInput!]!
+  steps: [RecipeStepInput!]!
   visibility: Privacy!
   likeability: Privacy!
   commentability: Privacy!
@@ -101,11 +101,11 @@ type Recipe {
   servingCount: Int!
   timeEstimate: String!
   coverImage: String!
-  categories: [Category]!
-  diets: [Diet]!
-  allergies: [Allergy]!
-  ingredients: [Ingredient]!
-  steps: [RecipeStep]!
+  categories: [Category!]!
+  diets: [Diet!]!
+  allergies: [Allergy!]!
+  ingredients: [Ingredient!]!
+  steps: [RecipeStep!]!
   visibility: Privacy!
   likeability: Privacy!
   commentability: Privacy!
