@@ -27,7 +27,7 @@ const getContext = (token?: string): PrismaUser | undefined => {
 schemaPromise.then((schema) => {
   express()
   .use(
-    graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
+    graphqlUploadExpress({ maxFileSize: 250000000, maxFiles: 10 }),
     graphqlHTTP((request) => ({ schema, context: getContext(request.headers.authorization) }))
   )
   .listen(process.env.PORT || 4000, () => {
