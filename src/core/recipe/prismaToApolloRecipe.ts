@@ -17,8 +17,8 @@ const prismaToApolloRecipe = (prismaRecipe: FullPrismaRecipeType) => ({
     ...step,
     image: step.imageURI,
   })),
-  createdAt: String(prismaRecipe.createdAt.getUTCMilliseconds()),
-  timeEstimate: String(prismaRecipe.timeEstimate.getUTCMilliseconds()),
+  createdAt: String(prismaRecipe.createdAt.getTime()),
+  timeEstimate: String(prismaRecipe.timeEstimate.getTime()),
 });
 
 export default prismaToApolloRecipe;
