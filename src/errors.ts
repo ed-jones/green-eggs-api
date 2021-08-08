@@ -6,6 +6,7 @@ enum Errors {
   PASSWORD_MISMATCH = 'Password Did Not Match Confirmation',
   COULD_NOT_CREATE_USER = 'Could Not Create User',
   NO_RECIPE = 'Could not find a recipe with that ID',
+  NO_COMMENT = 'Could not find a comment with that ID'
 }
 
 export default Errors;
