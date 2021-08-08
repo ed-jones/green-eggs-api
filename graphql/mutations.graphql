@@ -3,6 +3,7 @@ type Mutation {
   login(loginDetails: LoginInput!): AuthResult!
   signup(signupDetails: SignupInput!): AuthResult!
   likeRecipe(recipeId: String!): LikeRecipeResult!
+  unlikeRecipe(recipeId: String!): UnlikeRecipeResult!
   addComment(recipeId: String!, comment: String!): CommentResult!
   replyToComment(commentId: String!, comment: String!): CommentResult!
   likeComment(commentId: String!): LikeCommentResult!

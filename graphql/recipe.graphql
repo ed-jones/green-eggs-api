@@ -125,6 +125,10 @@ type LikeRecipeResult {
   error: Error
 }
 
+type UnlikeRecipeResult {
+  error: Error
+}
+
 type CommentResult {
   error: Error
 }
