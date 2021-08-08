@@ -19,3 +19,17 @@ type AuthResult {
   data: AuthResultData
   error: Error
 }
+
+input ChangePasswordDetails {
+  oldPassword: String!
+  confirmOldPassword: String!
+  newPassword: String!
+}
+
+type ChangePasswordResult {
+  error: Error
+}
+
+type DeleteAccountResult {
+  error: Error
+}

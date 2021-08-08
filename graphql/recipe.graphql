@@ -121,7 +121,33 @@ type RecipesResult {
   error: Error
 }
 
-fragment RecipeFragment on Recipe {
-  title
-  description
+type LikeRecipeResult {
+  error: Error
+}
+
+type CommentResult {
+  error: Error
+}
+
+type LikeCommentResult {
+  error: Error
+}
+
+type SaveRecipeResult {
+  error: Error
+}
+
+type CategoriesResult {
+  data: [Category!]!
+  error: Error
+}
+
+type AllergiesResult {
+  data: [Allergy!]!
+  error: Error
+}
+
+type DietsResult {
+  data: [Diet!]!
+  error: Error
 }
