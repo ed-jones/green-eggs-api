@@ -163,6 +163,7 @@ export type Mutation = {
   addComment: CommentResult;
   replyToComment: CommentResult;
   likeComment: LikeCommentResult;
+  unlikeComment: UnlikeCommentResult;
   saveRecipe: SaveRecipeResult;
   changePassword: ChangePasswordResult;
   deleteAccount: DeleteAccountResult;
@@ -207,6 +208,11 @@ export type MutationReplyToCommentArgs = {
 
 
 export type MutationLikeCommentArgs = {
+  commentId: Scalars['String'];
+};
+
+
+export type MutationUnlikeCommentArgs = {
   commentId: Scalars['String'];
 };
 
@@ -349,6 +355,11 @@ export enum Sort {
   Popular = 'POPULAR',
   New = 'NEW'
 }
+
+export type UnlikeCommentResult = {
+  __typename?: 'UnlikeCommentResult';
+  error?: Maybe<Error>;
+};
 
 export type UnlikeRecipeResult = {
   __typename?: 'UnlikeRecipeResult';
@@ -497,6 +508,7 @@ export type ResolversTypes = {
   SaveRecipeResult: ResolverTypeWrapper<SaveRecipeResult>;
   SignupInput: SignupInput;
   Sort: Sort;
+  UnlikeCommentResult: ResolverTypeWrapper<UnlikeCommentResult>;
   UnlikeRecipeResult: ResolverTypeWrapper<UnlikeRecipeResult>;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   User: ResolverTypeWrapper<User>;
@@ -544,6 +556,7 @@ export type ResolversParentTypes = {
   RecipesResult: RecipesResult;
   SaveRecipeResult: SaveRecipeResult;
   SignupInput: SignupInput;
+  UnlikeCommentResult: UnlikeCommentResult;
   UnlikeRecipeResult: UnlikeRecipeResult;
   Upload: Scalars['Upload'];
   User: User;
@@ -660,6 +673,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   addComment?: Resolver<ResolversTypes['CommentResult'], ParentType, ContextType, RequireFields<MutationAddCommentArgs, 'recipeId' | 'comment'>>;
   replyToComment?: Resolver<ResolversTypes['CommentResult'], ParentType, ContextType, RequireFields<MutationReplyToCommentArgs, 'commentId' | 'comment'>>;
   likeComment?: Resolver<ResolversTypes['LikeCommentResult'], ParentType, ContextType, RequireFields<MutationLikeCommentArgs, 'commentId'>>;
+  unlikeComment?: Resolver<ResolversTypes['UnlikeCommentResult'], ParentType, ContextType, RequireFields<MutationUnlikeCommentArgs, 'commentId'>>;
   saveRecipe?: Resolver<ResolversTypes['SaveRecipeResult'], ParentType, ContextType, RequireFields<MutationSaveRecipeArgs, 'recipeId'>>;
   changePassword?: Resolver<ResolversTypes['ChangePasswordResult'], ParentType, ContextType, RequireFields<MutationChangePasswordArgs, 'changePasswordDetails'>>;
   deleteAccount?: Resolver<ResolversTypes['DeleteAccountResult'], ParentType, ContextType>;
@@ -740,6 +754,11 @@ export type SaveRecipeResultResolvers<ContextType = any, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UnlikeCommentResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnlikeCommentResult'] = ResolversParentTypes['UnlikeCommentResult']> = {
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type UnlikeRecipeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnlikeRecipeResult'] = ResolversParentTypes['UnlikeRecipeResult']> = {
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -792,6 +811,7 @@ export type Resolvers<ContextType = any> = {
   RecipeStep?: RecipeStepResolvers<ContextType>;
   RecipesResult?: RecipesResultResolvers<ContextType>;
   SaveRecipeResult?: SaveRecipeResultResolvers<ContextType>;
+  UnlikeCommentResult?: UnlikeCommentResultResolvers<ContextType>;
   UnlikeRecipeResult?: UnlikeRecipeResultResolvers<ContextType>;
   Upload?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;

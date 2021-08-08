@@ -137,6 +137,10 @@ type LikeCommentResult {
   error: Error
 }
 
+type UnlikeCommentResult {
+  error: Error
+}
+
 type SaveRecipeResult {
   error: Error
 }

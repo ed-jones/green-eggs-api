@@ -7,6 +7,7 @@ type Mutation {
   addComment(recipeId: String!, comment: String!): CommentResult!
   replyToComment(commentId: String!, comment: String!): CommentResult!
   likeComment(commentId: String!): LikeCommentResult!
+  unlikeComment(commentId: String!): UnlikeCommentResult!
   saveRecipe(recipeId: String!): SaveRecipeResult!
   changePassword(
     changePasswordDetails: ChangePasswordDetails!
