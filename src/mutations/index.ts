@@ -7,3 +7,4 @@ export { default as addComment } from './addComment';
 export { default as replyToComment } from './replyToComment';
 export { default as likeComment } from './likeComment';
 export { default as unlikeComment } from './unlikeComment';
+export { default as deleteComment } from './deleteComment';

@@ -129,6 +129,10 @@ type UnlikeRecipeResult {
   error: Error
 }
 
+type DeleteCommentResult {
+  error: Error
+}
+
 type CommentResult {
   error: Error
 }

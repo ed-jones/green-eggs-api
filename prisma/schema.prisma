@@ -80,6 +80,7 @@ model RecipeComment {
   likedBy         User[]          @relation("likedComments")
   replyTo         RecipeComment?  @relation("RecipeCommentToRecipeComment", fields: [recipeCommentId], references: [id])
   recipeCommentId String?
+  deleted         Boolean         @default(false)
 }
 
 model Ingredient {
