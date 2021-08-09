@@ -27,11 +27,11 @@ type FullPrismaRecipeType = PrismaRecipe & {
   } & {
     recipeComments: (PrismaRecipeComment & {
       author: PrismaUser;
-      // count: {
-      //   replies: number;
-      // };
+      likedBy: PrismaUser[];
       replies: (PrismaRecipeComment & {
         author: PrismaUser;
+        replies: PrismaRecipeComment[];
+        likedBy: PrismaUser[];
       })[];
     })[];
   }

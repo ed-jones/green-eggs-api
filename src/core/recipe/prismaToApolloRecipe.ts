@@ -3,7 +3,9 @@ import {
 } from '../../generated/graphql';
 import FullPrismaRecipeType from './FullPrismaRecipeType';
 
-const prismaToApolloRecipe = (prismaRecipe: FullPrismaRecipeType): ApolloRecipe => ({
+const prismaToApolloRecipe = (
+  prismaRecipe: FullPrismaRecipeType, userId?: string,
+): ApolloRecipe => ({
   ...prismaRecipe,
   visibility: prismaRecipe.visibility as ApolloPrivacy,
   commentability: prismaRecipe.commentability as ApolloPrivacy,
@@ -20,17 +22,15 @@ const prismaToApolloRecipe = (prismaRecipe: FullPrismaRecipeType): ApolloRecipe 
   createdAt: String(prismaRecipe.createdAt.getTime()),
   timeEstimate: String(prismaRecipe.timeEstimate.getTime()),
   comments: prismaRecipe.recipeComments.map((comment) => ({
-    contents: comment.contents,
-    author: comment.author,
-    liked: false,
-    likeCount: 1,
-    replyCount: 2,
+    ...comment,
+    liked: userId ? comment.likedBy.map((liker) => liker.id).includes(userId) : false,
+    likeCount: comment.likedBy.length,
+    replyCount: comment.replies.length,
     replies: comment.replies.map((reply) => ({
-      contents: reply.contents,
-      author: reply.author,
-      liked: false,
-      likeCount: 1,
-      replyCount: 2,
+      ...comment,
+      liked: userId ? reply.likedBy.map((liker) => liker.id).includes(userId) : false,
+      likeCount: reply.likedBy.length,
+      replyCount: reply.replies.length,
     })),
   })),
 });

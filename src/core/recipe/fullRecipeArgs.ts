@@ -15,14 +15,14 @@ export default {
     recipeComments: {
       include: {
         author: true,
+        likedBy: true,
         replies: {
           include: {
             author: true,
+            likedBy: true,
+            replies: true,
           },
         },
-        // _count: {
-        //   replies: true,
-        // },
       },
     },
   },

@@ -140,7 +140,7 @@ const addRecipe = async (
       ...fullRecipeArgs,
     });
 
-    return { data: prismaToApolloRecipe(createdRecipe) };
+    return { data: prismaToApolloRecipe(createdRecipe, context.id) };
   } catch ({ message }) {
     return {
       error: {
