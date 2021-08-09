@@ -289,6 +289,7 @@ export type Recipe = {
   likeability: Privacy;
   commentability: Privacy;
   comments: Array<RecipeComment>;
+  liked: Scalars['Boolean'];
 };
 
 export type RecipeComment = {
@@ -528,8 +529,8 @@ export type ResolversTypes = {
   Privacy: Privacy;
   Query: ResolverTypeWrapper<{}>;
   Recipe: ResolverTypeWrapper<Recipe>;
-  RecipeComment: ResolverTypeWrapper<RecipeComment>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  RecipeComment: ResolverTypeWrapper<RecipeComment>;
   RecipeCommentReply: ResolverTypeWrapper<RecipeCommentReply>;
   RecipeFilter: ResolverTypeWrapper<RecipeFilter>;
   RecipeInput: RecipeInput;
@@ -581,8 +582,8 @@ export type ResolversParentTypes = {
   Pagination: Pagination;
   Query: {};
   Recipe: Recipe;
-  RecipeComment: RecipeComment;
   Boolean: Scalars['Boolean'];
+  RecipeComment: RecipeComment;
   RecipeCommentReply: RecipeCommentReply;
   RecipeFilter: RecipeFilter;
   RecipeInput: RecipeInput;
@@ -759,6 +760,7 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
   likeability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   commentability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   comments?: Resolver<Array<ResolversTypes['RecipeComment']>, ParentType, ContextType>;
+  liked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

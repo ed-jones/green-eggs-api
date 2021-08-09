@@ -125,6 +125,7 @@ type Recipe {
   likeability: Privacy!
   commentability: Privacy!
   comments: [RecipeComment!]!
+  liked: Boolean!
 }
 
 type RecipeResult {

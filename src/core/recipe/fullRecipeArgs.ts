@@ -12,6 +12,7 @@ export default {
         genericIngredient: true,
       },
     },
+    likedBy: true,
     recipeComments: {
       include: {
         author: true,

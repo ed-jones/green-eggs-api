@@ -21,6 +21,7 @@ const prismaToApolloRecipe = (
   })),
   createdAt: String(prismaRecipe.createdAt.getTime()),
   timeEstimate: String(prismaRecipe.timeEstimate.getTime()),
+  liked: userId ? prismaRecipe.likedBy.map((liker) => liker.id).includes(userId) : false,
   comments: prismaRecipe.recipeComments.map((comment) => ({
     ...comment,
     liked: userId ? comment.likedBy.map((liker) => liker.id).includes(userId) : false,

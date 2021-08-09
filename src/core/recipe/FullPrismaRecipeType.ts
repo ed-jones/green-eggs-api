@@ -25,6 +25,8 @@ type FullPrismaRecipeType = PrismaRecipe & {
   } & {
     steps: PrismaRecipeStep[];
   } & {
+    likedBy: PrismaUser[];
+  } &{
     recipeComments: (PrismaRecipeComment & {
       author: PrismaUser;
       likedBy: PrismaUser[];
