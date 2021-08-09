@@ -1,6 +1,8 @@
 import {
   User as PrismaUser,
 } from '@prisma/client';
+import fullCommentArgs from '../core/comment/fullCommentArgs';
+import prismaToApolloComment from '../core/comment/prismaToApolloComment';
 import Errors from '../errors';
 import {
   CommentResult,
@@ -9,7 +11,7 @@ import {
 import prisma from '../prisma';
 
 export default async (_parent: any,
-  { recipeId, comment }: MutationAddCommentArgs,
+  { recipeId, comment: commentContent }: MutationAddCommentArgs,
   context?: PrismaUser): Promise<CommentResult> => {
   try {
     // Find user to associate with comment
@@ -46,23 +48,26 @@ export default async (_parent: any,
               author: {
                 connect: { id: user.id },
               },
-              contents: comment,
+              contents: commentContent,
             },
           ],
         },
       },
       include: {
-        recipeComments: true,
+        recipeComments: {
+          ...fullCommentArgs,
+        },
       },
     });
 
-    if (!updateRecipe.recipeComments.map(
-      (recipeComment) => recipeComment.contents,
-    ).includes(comment)) {
-      throw new Error('Comment was not added successfully');
-    }
+    const comment = updateRecipe.recipeComments.find(
+      (recipeComment) => recipeComment.contents === commentContent,
+    );
 
-    return {};
+    if (comment) {
+      return { data: prismaToApolloComment(comment, context?.id) };
+    }
+    throw new Error('Comment was not added successfully');
   } catch ({ message }) {
     return {
       error: {

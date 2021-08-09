@@ -1,6 +1,8 @@
 import {
   User as PrismaUser,
 } from '@prisma/client';
+import fullCommentArgs from '../core/comment/fullCommentArgs';
+import prismaToApolloComment from '../core/comment/prismaToApolloComment';
 import Errors from '../errors';
 import {
   CommentResult,
@@ -26,12 +28,12 @@ export default async (_parent: any,
     }
 
     // Find comment to reply to
-    const comment = await prisma.recipeComment.findUnique({
+    const replyComment = await prisma.recipeComment.findUnique({
       where: {
         id: commentId,
       },
     });
-    if (!comment) {
+    if (!replyComment) {
       throw new Error(Errors.NO_COMMENT);
     }
 
@@ -44,7 +46,7 @@ export default async (_parent: any,
           create: [
             {
               recipe: {
-                connect: { id: comment.recipeId },
+                connect: { id: replyComment.recipeId },
               },
               author: {
                 connect: { id: user.id },
@@ -55,17 +57,20 @@ export default async (_parent: any,
         },
       },
       include: {
-        replies: true,
+        replies: {
+          ...fullCommentArgs,
+        },
       },
     });
 
-    if (!updateComment.replies.map(
-      (commentReply) => commentReply.contents,
-    ).includes(commentContent)) {
-      throw new Error('Reply was not added successfully');
-    }
+    const comment = updateComment.replies.find(
+      (recipeComment) => recipeComment.contents === commentContent,
+    );
 
-    return {};
+    if (comment) {
+      return { data: prismaToApolloComment(comment, context?.id) };
+    }
+    throw new Error('Reply was not added successfully');
   } catch ({ message }) {
     return {
       error: {
