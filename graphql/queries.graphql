@@ -1,6 +1,12 @@
 type Query {
   recipes: RecipesResult!
   newsFeed: RecipesResult!
+  trending: RecipesResult!
+  savedRecipes: RecipesResult!
+  categories: CategoriesResult!
   recipe(recipeId: String!): RecipeResult!
   me: UserResult!
+  allergies: AllergiesResult!
+  diets: DietsResult!
+  comment(commentId: String!): CommentResult!
 }

@@ -2,4 +2,16 @@ type Mutation {
   addRecipe(recipe: RecipeInput!): RecipeResult!
   login(loginDetails: LoginInput!): AuthResult!
   signup(signupDetails: SignupInput!): AuthResult!
+  likeRecipe(recipeId: String!): LikeRecipeResult!
+  unlikeRecipe(recipeId: String!): UnlikeRecipeResult!
+  addComment(recipeId: String!, comment: String!): CommentResult!
+  replyToComment(commentId: String!, comment: String!): CommentResult!
+  likeComment(commentId: String!): LikeCommentResult!
+  unlikeComment(commentId: String!): UnlikeCommentResult!
+  deleteComment(commentId: String!): DeleteCommentResult!
+  saveRecipe(recipeId: String!): SaveRecipeResult!
+  changePassword(
+    changePasswordDetails: ChangePasswordDetails!
+  ): ChangePasswordResult!
+  deleteAccount: DeleteAccountResult!
 }

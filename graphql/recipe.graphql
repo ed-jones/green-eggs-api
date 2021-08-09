@@ -24,11 +24,11 @@ input RecipeInput {
   servingCount: Int!
   timeEstimate: String!
   coverImage: FileUpload!
-  categories: [CategoryInput]!
-  diets: [DietInput]!
-  allergies: [AllergyInput]!
-  ingredients: [IngredientInput]!
-  steps: [RecipeStepInput]!
+  categories: [CategoryInput!]!
+  diets: [DietInput!]!
+  allergies: [AllergyInput!]!
+  ingredients: [IngredientInput!]!
+  steps: [RecipeStepInput!]!
   visibility: Privacy!
   likeability: Privacy!
   commentability: Privacy!
@@ -89,6 +89,23 @@ type RecipeStep {
   description: String!
 }
 
+type RecipeCommentReply {
+  id: String!
+  contents: String!
+  liked: Boolean!
+  likeCount: Int!
+  replyCount: Int!
+}
+
+type RecipeComment {
+  id: String!
+  contents: String!
+  replies: [RecipeCommentReply!]!
+  liked: Boolean!
+  likeCount: Int!
+  replyCount: Int!
+}
+
 type Recipe {
   id: String!
   title: String!
@@ -101,14 +118,16 @@ type Recipe {
   servingCount: Int!
   timeEstimate: String!
   coverImage: String!
-  categories: [Category]!
-  diets: [Diet]!
-  allergies: [Allergy]!
-  ingredients: [Ingredient]!
-  steps: [RecipeStep]!
+  categories: [Category!]!
+  diets: [Diet!]!
+  allergies: [Allergy!]!
+  ingredients: [Ingredient!]!
+  steps: [RecipeStep!]!
   visibility: Privacy!
   likeability: Privacy!
   commentability: Privacy!
+  comments: [RecipeComment!]!
+  liked: Boolean!
 }
 
 type RecipeResult {
@@ -117,11 +136,50 @@ type RecipeResult {
 }
 
 type RecipesResult {
-  data: [Recipe]
+  data: [Recipe!]
   error: Error
 }
 
-fragment RecipeFragment on Recipe {
-  title
-  description
+type LikeRecipeResult {
+  error: Error
+}
+
+type UnlikeRecipeResult {
+  error: Error
+}
+
+type DeleteCommentResult {
+  error: Error
+}
+
+type CommentResult {
+  data: RecipeComment
+  error: Error
+}
+
+type LikeCommentResult {
+  error: Error
+}
+
+type UnlikeCommentResult {
+  error: Error
+}
+
+type SaveRecipeResult {
+  error: Error
+}
+
+type CategoriesResult {
+  data: [Category!]!
+  error: Error
+}
+
+type AllergiesResult {
+  data: [Allergy!]!
+  error: Error
+}
+
+type DietsResult {
+  data: [Diet!]!
+  error: Error
 }
