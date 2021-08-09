@@ -47,7 +47,7 @@ export default async (_parent: any,
           id: commentId,
         },
         data: {
-          contents: '',
+          contents: '[deleted]',
           deleted: true,
         },
       });
