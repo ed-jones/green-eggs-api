@@ -301,6 +301,7 @@ export type Recipe = {
 
 export type RecipeComment = {
   __typename?: 'RecipeComment';
+  id: Scalars['String'];
   contents: Scalars['String'];
   replies: Array<RecipeCommentReply>;
   liked: Scalars['Boolean'];
@@ -310,6 +311,7 @@ export type RecipeComment = {
 
 export type RecipeCommentReply = {
   __typename?: 'RecipeCommentReply';
+  id: Scalars['String'];
   contents: Scalars['String'];
   liked: Scalars['Boolean'];
   likeCount: Scalars['Int'];
@@ -774,6 +776,7 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
 };
 
 export type RecipeCommentResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeComment'] = ResolversParentTypes['RecipeComment']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   contents?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   replies?: Resolver<Array<ResolversTypes['RecipeCommentReply']>, ParentType, ContextType>;
   liked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -783,6 +786,7 @@ export type RecipeCommentResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type RecipeCommentReplyResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeCommentReply'] = ResolversParentTypes['RecipeCommentReply']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   contents?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   liked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;

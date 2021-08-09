@@ -90,6 +90,7 @@ type RecipeStep {
 }
 
 type RecipeCommentReply {
+  id: String!
   contents: String!
   liked: Boolean!
   likeCount: Int!
@@ -97,6 +98,7 @@ type RecipeCommentReply {
 }
 
 type RecipeComment {
+  id: String!
   contents: String!
   replies: [RecipeCommentReply!]!
   liked: Boolean!
