@@ -8,4 +8,5 @@ type Query {
   me: UserResult!
   allergies: AllergiesResult!
   diets: DietsResult!
+  comment(commentId: String!): CommentResult!
 }

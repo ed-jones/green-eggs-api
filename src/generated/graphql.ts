@@ -80,6 +80,7 @@ export type ChangePasswordResult = {
 
 export type CommentResult = {
   __typename?: 'CommentResult';
+  data?: Maybe<RecipeComment>;
   error?: Maybe<Error>;
 };
 
@@ -260,11 +261,17 @@ export type Query = {
   me: UserResult;
   allergies: AllergiesResult;
   diets: DietsResult;
+  comment: CommentResult;
 };
 
 
 export type QueryRecipeArgs = {
   recipeId: Scalars['String'];
+};
+
+
+export type QueryCommentArgs = {
+  commentId: Scalars['String'];
 };
 
 export type Recipe = {
@@ -642,6 +649,7 @@ export type ChangePasswordResultResolvers<ContextType = any, ParentType extends 
 };
 
 export type CommentResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['CommentResult'] = ResolversParentTypes['CommentResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['RecipeComment']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -737,6 +745,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   me?: Resolver<ResolversTypes['UserResult'], ParentType, ContextType>;
   allergies?: Resolver<ResolversTypes['AllergiesResult'], ParentType, ContextType>;
   diets?: Resolver<ResolversTypes['DietsResult'], ParentType, ContextType>;
+  comment?: Resolver<ResolversTypes['CommentResult'], ParentType, ContextType, RequireFields<QueryCommentArgs, 'commentId'>>;
 };
 
 export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = {

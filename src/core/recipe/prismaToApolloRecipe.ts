@@ -1,6 +1,7 @@
 import {
   Privacy as ApolloPrivacy, Recipe as ApolloRecipe,
 } from '../../generated/graphql';
+import prismaToApolloComment from '../comment/prismaToApolloComment';
 import FullPrismaRecipeType from './FullPrismaRecipeType';
 
 const prismaToApolloRecipe = (
@@ -23,16 +24,7 @@ const prismaToApolloRecipe = (
   timeEstimate: String(prismaRecipe.timeEstimate.getTime()),
   liked: userId ? prismaRecipe.likedBy.map((liker) => liker.id).includes(userId) : false,
   comments: prismaRecipe.recipeComments.map((comment) => ({
-    ...comment,
-    liked: userId ? comment.likedBy.map((liker) => liker.id).includes(userId) : false,
-    likeCount: comment.likedBy.length,
-    replyCount: comment.replies.length,
-    replies: comment.replies.map((reply) => ({
-      ...comment,
-      liked: userId ? reply.likedBy.map((liker) => liker.id).includes(userId) : false,
-      likeCount: reply.likedBy.length,
-      replyCount: reply.replies.length,
-    })),
+    ...prismaToApolloComment(comment, userId),
   })),
 });
 
