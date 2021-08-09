@@ -288,6 +288,24 @@ export type Recipe = {
   visibility: Privacy;
   likeability: Privacy;
   commentability: Privacy;
+  comments: Array<RecipeComment>;
+};
+
+export type RecipeComment = {
+  __typename?: 'RecipeComment';
+  contents: Scalars['String'];
+  replies: Array<RecipeCommentReply>;
+  liked: Scalars['Boolean'];
+  likeCount: Scalars['Int'];
+  replyCount: Scalars['Int'];
+};
+
+export type RecipeCommentReply = {
+  __typename?: 'RecipeCommentReply';
+  contents: Scalars['String'];
+  liked: Scalars['Boolean'];
+  likeCount: Scalars['Int'];
+  replyCount: Scalars['Int'];
 };
 
 export type RecipeFilter = {
@@ -510,6 +528,9 @@ export type ResolversTypes = {
   Privacy: Privacy;
   Query: ResolverTypeWrapper<{}>;
   Recipe: ResolverTypeWrapper<Recipe>;
+  RecipeComment: ResolverTypeWrapper<RecipeComment>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  RecipeCommentReply: ResolverTypeWrapper<RecipeCommentReply>;
   RecipeFilter: ResolverTypeWrapper<RecipeFilter>;
   RecipeInput: RecipeInput;
   RecipeResult: ResolverTypeWrapper<RecipeResult>;
@@ -524,7 +545,6 @@ export type ResolversTypes = {
   UnlikeRecipeResult: ResolverTypeWrapper<UnlikeRecipeResult>;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   User: ResolverTypeWrapper<User>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   UserInput: UserInput;
   UserResult: ResolverTypeWrapper<UserResult>;
 };
@@ -561,6 +581,9 @@ export type ResolversParentTypes = {
   Pagination: Pagination;
   Query: {};
   Recipe: Recipe;
+  RecipeComment: RecipeComment;
+  Boolean: Scalars['Boolean'];
+  RecipeCommentReply: RecipeCommentReply;
   RecipeFilter: RecipeFilter;
   RecipeInput: RecipeInput;
   RecipeResult: RecipeResult;
@@ -573,7 +596,6 @@ export type ResolversParentTypes = {
   UnlikeRecipeResult: UnlikeRecipeResult;
   Upload: Scalars['Upload'];
   User: User;
-  Boolean: Scalars['Boolean'];
   UserInput: UserInput;
   UserResult: UserResult;
 };
@@ -736,6 +758,24 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
   visibility?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   likeability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   commentability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
+  comments?: Resolver<Array<ResolversTypes['RecipeComment']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type RecipeCommentResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeComment'] = ResolversParentTypes['RecipeComment']> = {
+  contents?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  replies?: Resolver<Array<ResolversTypes['RecipeCommentReply']>, ParentType, ContextType>;
+  liked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  replyCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type RecipeCommentReplyResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeCommentReply'] = ResolversParentTypes['RecipeCommentReply']> = {
+  contents?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  liked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  replyCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -826,6 +866,8 @@ export type Resolvers<ContextType = any> = {
   Pagination?: PaginationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Recipe?: RecipeResolvers<ContextType>;
+  RecipeComment?: RecipeCommentResolvers<ContextType>;
+  RecipeCommentReply?: RecipeCommentReplyResolvers<ContextType>;
   RecipeFilter?: RecipeFilterResolvers<ContextType>;
   RecipeResult?: RecipeResultResolvers<ContextType>;
   RecipeStep?: RecipeStepResolvers<ContextType>;

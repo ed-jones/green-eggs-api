@@ -1,3 +1,5 @@
+// import { Prisma } from '@prisma/client';
+
 export default {
   include: {
     submittedBy: true,
@@ -8,6 +10,19 @@ export default {
     ingredients: {
       include: {
         genericIngredient: true,
+      },
+    },
+    recipeComments: {
+      include: {
+        author: true,
+        replies: {
+          include: {
+            author: true,
+          },
+        },
+        // _count: {
+        //   replies: true,
+        // },
       },
     },
   },

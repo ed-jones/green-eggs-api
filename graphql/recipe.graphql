@@ -89,6 +89,21 @@ type RecipeStep {
   description: String!
 }
 
+type RecipeCommentReply {
+  contents: String!
+  liked: Boolean!
+  likeCount: Int!
+  replyCount: Int!
+}
+
+type RecipeComment {
+  contents: String!
+  replies: [RecipeCommentReply!]!
+  liked: Boolean!
+  likeCount: Int!
+  replyCount: Int!
+}
+
 type Recipe {
   id: String!
   title: String!
@@ -109,6 +124,7 @@ type Recipe {
   visibility: Privacy!
   likeability: Privacy!
   commentability: Privacy!
+  comments: [RecipeComment!]!
 }
 
 type RecipeResult {
