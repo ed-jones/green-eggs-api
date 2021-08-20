@@ -1,5 +1,10 @@
 type Query {
-  recipes(offset: Int!, limit: Int!): RecipesResult!
+  recipes(
+    offset: Int!
+    limit: Int!
+    query: String!
+    sort: Sort!
+  ): RecipesResult!
   newsFeed(offset: Int!, limit: Int!): RecipesResult!
   trending(offset: Int!, limit: Int!): RecipesResult!
   savedRecipes(offset: Int!, limit: Int!): RecipesResult!
