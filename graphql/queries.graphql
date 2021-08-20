@@ -4,6 +4,7 @@ type Query {
     limit: Int!
     query: String!
     sort: Sort!
+    filter: RecipeFilter!
   ): RecipesResult!
   newsFeed(offset: Int!, limit: Int!): RecipesResult!
   trending(offset: Int!, limit: Int!): RecipesResult!

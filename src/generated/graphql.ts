@@ -139,9 +139,8 @@ export type IngredientInput = {
 };
 
 export type IngredientsFilter = {
-  __typename?: 'IngredientsFilter';
-  includes?: Maybe<Array<Maybe<Scalars['String']>>>;
-  excludes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  includes?: Maybe<Array<Scalars['String']>>;
+  excludes?: Maybe<Array<Scalars['String']>>;
 };
 
 export type LikeCommentResult = {
@@ -276,6 +275,7 @@ export type QueryRecipesArgs = {
   limit: Scalars['Int'];
   query: Scalars['String'];
   sort: Sort;
+  filter: RecipeFilter;
 };
 
 
@@ -351,11 +351,10 @@ export type RecipeCommentReply = {
 };
 
 export type RecipeFilter = {
-  __typename?: 'RecipeFilter';
   ingredients?: Maybe<IngredientsFilter>;
-  categories?: Maybe<Array<Maybe<Scalars['String']>>>;
-  allergies?: Maybe<Array<Maybe<Scalars['String']>>>;
-  diets?: Maybe<Array<Maybe<Scalars['String']>>>;
+  categories?: Maybe<Array<Scalars['String']>>;
+  allergies?: Maybe<Array<Scalars['String']>>;
+  diets?: Maybe<Array<Scalars['String']>>;
   cookTime?: Maybe<Scalars['String']>;
 };
 
@@ -566,7 +565,7 @@ export type ResolversTypes = {
   Ingredient: ResolverTypeWrapper<Ingredient>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   IngredientInput: IngredientInput;
-  IngredientsFilter: ResolverTypeWrapper<IngredientsFilter>;
+  IngredientsFilter: IngredientsFilter;
   LikeCommentResult: ResolverTypeWrapper<LikeCommentResult>;
   LikeRecipeResult: ResolverTypeWrapper<LikeRecipeResult>;
   LoginInput: LoginInput;
@@ -578,7 +577,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   RecipeComment: ResolverTypeWrapper<RecipeComment>;
   RecipeCommentReply: ResolverTypeWrapper<RecipeCommentReply>;
-  RecipeFilter: ResolverTypeWrapper<RecipeFilter>;
+  RecipeFilter: RecipeFilter;
   RecipeInput: RecipeInput;
   RecipeResult: ResolverTypeWrapper<RecipeResult>;
   RecipeStatus: RecipeStatus;
@@ -738,12 +737,6 @@ export type IngredientResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type IngredientsFilterResolvers<ContextType = any, ParentType extends ResolversParentTypes['IngredientsFilter'] = ResolversParentTypes['IngredientsFilter']> = {
-  includes?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
-  excludes?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type LikeCommentResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['LikeCommentResult'] = ResolversParentTypes['LikeCommentResult']> = {
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -778,7 +771,7 @@ export type PaginationResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  recipes?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QueryRecipesArgs, 'offset' | 'limit' | 'query' | 'sort'>>;
+  recipes?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QueryRecipesArgs, 'offset' | 'limit' | 'query' | 'sort' | 'filter'>>;
   newsFeed?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QueryNewsFeedArgs, 'offset' | 'limit'>>;
   trending?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QueryTrendingArgs, 'offset' | 'limit'>>;
   savedRecipes?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QuerySavedRecipesArgs, 'offset' | 'limit'>>;
@@ -831,15 +824,6 @@ export type RecipeCommentReplyResolvers<ContextType = any, ParentType extends Re
   liked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   replyCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type RecipeFilterResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeFilter'] = ResolversParentTypes['RecipeFilter']> = {
-  ingredients?: Resolver<Maybe<ResolversTypes['IngredientsFilter']>, ParentType, ContextType>;
-  categories?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
-  allergies?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
-  diets?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
-  cookTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -919,7 +903,6 @@ export type Resolvers<ContextType = any> = {
   Error?: ErrorResolvers<ContextType>;
   File?: FileResolvers<ContextType>;
   Ingredient?: IngredientResolvers<ContextType>;
-  IngredientsFilter?: IngredientsFilterResolvers<ContextType>;
   LikeCommentResult?: LikeCommentResultResolvers<ContextType>;
   LikeRecipeResult?: LikeRecipeResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
@@ -928,7 +911,6 @@ export type Resolvers<ContextType = any> = {
   Recipe?: RecipeResolvers<ContextType>;
   RecipeComment?: RecipeCommentResolvers<ContextType>;
   RecipeCommentReply?: RecipeCommentReplyResolvers<ContextType>;
-  RecipeFilter?: RecipeFilterResolvers<ContextType>;
   RecipeResult?: RecipeResultResolvers<ContextType>;
   RecipeStep?: RecipeStepResolvers<ContextType>;
   RecipesResult?: RecipesResultResolvers<ContextType>;

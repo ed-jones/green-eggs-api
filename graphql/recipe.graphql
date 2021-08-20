@@ -1,13 +1,13 @@
-type IngredientsFilter {
-  includes: [String]
-  excludes: [String]
+input IngredientsFilter {
+  includes: [String!]
+  excludes: [String!]
 }
 
-type RecipeFilter {
+input RecipeFilter {
   ingredients: IngredientsFilter
-  categories: [String]
-  allergies: [String]
-  diets: [String]
+  categories: [String!]
+  allergies: [String!]
+  diets: [String!]
   cookTime: String
 }
 

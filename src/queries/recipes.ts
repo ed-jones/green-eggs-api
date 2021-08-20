@@ -10,7 +10,7 @@ import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 const recipes = async (
   _parent: any,
   {
-    offset, limit, query, sort,
+    offset, limit, query, sort, filter,
   }: QueryRecipesArgs,
   context?: PrismaUser,
 ): Promise<RecipesResult> => {
@@ -41,6 +41,65 @@ const recipes = async (
         },
       };
   }
+  // Exclude allergies and excluded ingredients
+  const NOT: Prisma.Enumerable<Prisma.RecipeWhereInput> = [];
+  filter.allergies?.forEach((allergy) => {
+    NOT.push({
+      allergies: {
+        some: {
+          name: allergy,
+        },
+      },
+    });
+  });
+  filter.ingredients?.excludes?.forEach((excludedIngredient) => {
+    NOT.push({
+      ingredients: {
+        some: {
+          genericIngredient: {
+            name: excludedIngredient,
+          },
+        },
+      },
+    });
+  });
+
+  // Include categories, diets, included ingredients and cook time
+  const AND: Prisma.Enumerable<Prisma.RecipeWhereInput> = [];
+  filter.categories?.forEach((category) => {
+    AND.push({
+      categories: {
+        some: {
+          name: category,
+        },
+      },
+    });
+  });
+  filter.diets?.forEach((diet) => {
+    AND.push({
+      diets: {
+        some: {
+          name: diet,
+        },
+      },
+    });
+  });
+  filter.ingredients?.includes?.forEach((includedIngredient) => {
+    AND.push({
+      ingredients: {
+        some: {
+          genericIngredient: {
+            name: includedIngredient,
+          },
+        },
+      },
+    });
+  });
+  if (filter.cookTime) {
+    AND.push({
+      timeEstimate: filter.cookTime,
+    });
+  }
 
   const prismaRecipes = await prisma.recipe.findMany({
     ...fullRecipeArgs,
@@ -52,6 +111,7 @@ const recipes = async (
         { subtitle: { contains: query } },
         { description: { contains: query } },
       ],
+      NOT,
     },
     orderBy,
   });
