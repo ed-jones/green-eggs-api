@@ -4,3 +4,4 @@ export { default as newsFeed } from './newsFeed';
 export { default as trending } from './trending';
 export { default as recipe } from './recipe';
 export { default as comment } from './comment';
+export { default as savedRecipes } from './savedRecipes';

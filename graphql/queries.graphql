@@ -2,7 +2,7 @@ type Query {
   recipes: RecipesResult!
   newsFeed(offset: Int!, limit: Int!): RecipesResult!
   trending(offset: Int!, limit: Int!): RecipesResult!
-  savedRecipes: RecipesResult!
+  savedRecipes(offset: Int!, limit: Int!): RecipesResult!
   categories: CategoriesResult!
   recipe(recipeId: String!): RecipeResult!
   me: UserResult!
