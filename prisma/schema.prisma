@@ -9,6 +9,7 @@ datasource db {
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-1.1.x"]
+  previewFeatures = ["orderByRelation"]
 }
 
 model Recipe {
@@ -18,8 +19,6 @@ model Recipe {
   description    String
   submittedBy    User            @relation("submittedRecipes", fields: [submittedById], references: [id])
   submittedById  String
-  commentCount   Int             @default(0)
-  likeCount      Int             @default(0)
   createdAt      DateTime        @default(now())
   servingCount   Int
   timeEstimate   DateTime

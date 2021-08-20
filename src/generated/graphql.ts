@@ -265,6 +265,18 @@ export type Query = {
 };
 
 
+export type QueryNewsFeedArgs = {
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+};
+
+
+export type QueryTrendingArgs = {
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+};
+
+
 export type QueryRecipeArgs = {
   recipeId: Scalars['String'];
 };
@@ -739,8 +751,8 @@ export type PaginationResolvers<ContextType = any, ParentType extends ResolversP
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   recipes?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType>;
-  newsFeed?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType>;
-  trending?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType>;
+  newsFeed?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QueryNewsFeedArgs, 'offset' | 'limit'>>;
+  trending?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QueryTrendingArgs, 'offset' | 'limit'>>;
   savedRecipes?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType>;
   categories?: Resolver<ResolversTypes['CategoriesResult'], ParentType, ContextType>;
   recipe?: Resolver<ResolversTypes['RecipeResult'], ParentType, ContextType, RequireFields<QueryRecipeArgs, 'recipeId'>>;
