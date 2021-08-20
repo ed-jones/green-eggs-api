@@ -169,6 +169,10 @@ type SaveRecipeResult {
   error: Error
 }
 
+type UnsaveRecipeResult {
+  error: Error
+}
+
 type CategoriesResult {
   data: [Category!]!
   error: Error
