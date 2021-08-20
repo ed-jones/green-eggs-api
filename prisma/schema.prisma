@@ -27,6 +27,7 @@ model Recipe {
   ingredients    Ingredient[]
   recipeComments RecipeComment[]
   likedBy        User[]          @relation("likedRecipes")
+  savedBy        User[]          @relation("savedRecipes")
   visibility     Privacy         @default(FRIENDS)
   commentability Privacy         @default(PRIVATE)
   likeability    Privacy         @default(PRIVATE)
@@ -107,6 +108,7 @@ model User {
   password         String
   avatarURI        String?
   likedRecipes     Recipe[]        @relation("likedRecipes")
+  savedRecipes     Recipe[]        @relation("savedRecipes")
   recipeComments   RecipeComment[]
   submittedRecipes Recipe[]        @relation("submittedRecipes")
   verified         Boolean         @default(false)
