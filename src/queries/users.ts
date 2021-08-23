@@ -47,7 +47,9 @@ const users = async (
     where: {
       OR: [
         { firstName: { contains: query } },
+        { firstName: { in: query } },
         { lastName: { contains: query } },
+        { lastName: { in: query } },
       ],
     },
   });
