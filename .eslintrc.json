@@ -8,5 +8,7 @@
         "sourceType": "module",
         "project": ["./tsconfig.json"]
     },
-    "rules": {}
+    "rules": {
+        "linebreak-style": "off"
+    }
 }

@@ -1,13 +1,46 @@
 import { User as PrismaUser } from '@prisma/client';
+import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
+
+import {
+  QueryNewsFeedArgs, RecipesResult, Recipe as ApolloRecipe
+} from '../generated/graphql';
+import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 import prisma from '../prisma';
 import me from './me';
 
-const newsFeed = async (parent: any, args: any, context: PrismaUser | undefined) => {
-  const meResult = await me(parent, args, context);
-  if (meResult.error) return meResult;
+const newsFeed = async (
+  parent: any,
+  { offset, limit }: QueryNewsFeedArgs,
+  context: PrismaUser | undefined
+): Promise<RecipesResult> => {
+  const meResult = await me(parent, undefined, context);
+  if (meResult.error || !meResult.data) return { error: meResult.error };
 
-  // TODO: Only return recipes from followed accounts
-  return prisma.recipe.findMany({ include: { submittedBy: true } });
+  // Return a list of paginated recipes, sorted by creation date and 
+  // filtered by accounts followed by the user
+  const prismaRecipes = await prisma.recipe.findMany({
+    ...fullRecipeArgs,
+    skip: offset,
+    take: limit,
+    orderBy: {
+      createdAt: 'desc'
+    },
+    where: {
+      submittedBy: {
+        followedBy: {
+          some: {
+            id: meResult.data.id,
+          }
+        }
+      }
+    },
+  });
+
+  const data: ApolloRecipe[] = prismaRecipes.map(
+    (recipe) => prismaToApolloRecipe(recipe, context?.id),
+  );
+
+  return { data };
 };
 
 export default newsFeed;

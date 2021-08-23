@@ -10,6 +10,7 @@ type Mutation {
   unlikeComment(commentId: String!): UnlikeCommentResult!
   deleteComment(commentId: String!): DeleteCommentResult!
   saveRecipe(recipeId: String!): SaveRecipeResult!
+  unsaveRecipe(recipeId: String!): UnsaveRecipeResult!
   changePassword(
     changePasswordDetails: ChangePasswordDetails!
   ): ChangePasswordResult!

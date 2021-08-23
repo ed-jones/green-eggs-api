@@ -1,12 +1,19 @@
 type Query {
-  recipes: RecipesResult!
-  newsFeed: RecipesResult!
-  trending: RecipesResult!
-  savedRecipes: RecipesResult!
+  recipes(
+    offset: Int!
+    limit: Int!
+    query: String!
+    sort: Sort!
+    filter: RecipeFilter!
+  ): RecipesResult!
+  newsFeed(offset: Int!, limit: Int!): RecipesResult!
+  trending(offset: Int!, limit: Int!): RecipesResult!
+  savedRecipes(offset: Int!, limit: Int!): RecipesResult!
   categories: CategoriesResult!
   recipe(recipeId: String!): RecipeResult!
   me: UserResult!
   allergies: AllergiesResult!
   diets: DietsResult!
   comment(commentId: String!): CommentResult!
+  users(offset: Int!, limit: Int!, query: String!, sort: Sort!): UsersResult!
 }

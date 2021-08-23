@@ -26,6 +26,8 @@ const prismaToApolloRecipe = (
   comments: prismaRecipe.recipeComments.map((comment) => ({
     ...prismaToApolloComment(comment, userId),
   })),
+  likeCount: prismaRecipe.likedBy.length,
+  commentCount: prismaRecipe.recipeComments.length,
 });
 
 export default prismaToApolloRecipe;
