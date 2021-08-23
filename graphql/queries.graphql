@@ -15,4 +15,5 @@ type Query {
   allergies: AllergiesResult!
   diets: DietsResult!
   comment(commentId: String!): CommentResult!
+  users(offset: Int!, limit: Int!, query: String!, sort: Sort!): UsersResult!
 }

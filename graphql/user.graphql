@@ -18,3 +18,8 @@ type UserResult {
   data: User
   error: Error
 }
+
+type UsersResult {
+  data: [User!]!
+  error: Error
+}

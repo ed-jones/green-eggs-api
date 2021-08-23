@@ -1,21 +1,16 @@
-
 import prisma from '../prisma';
-import {
-    CategoriesResult,
-  QueryRecipesArgs, Recipe as ApolloRecipe, Sort,
-} from '../generated/graphql';
+import { CategoriesResult } from '../generated/graphql';
 
 const categories = async (): Promise<CategoriesResult> => {
-
   const data = await prisma.category.findMany();
 
-  if (data.length == 0) {
+  if (data.length === 0) {
     return ({
       error: {
-        message: "No categories found"
+        message: 'No categories found',
       },
-      data
-    })
+      data,
+    });
   }
 
   return { data };

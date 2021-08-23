@@ -267,6 +267,7 @@ export type Query = {
   allergies: AllergiesResult;
   diets: DietsResult;
   comment: CommentResult;
+  users: UsersResult;
 };
 
 
@@ -304,6 +305,14 @@ export type QueryRecipeArgs = {
 
 export type QueryCommentArgs = {
   commentId: Scalars['String'];
+};
+
+
+export type QueryUsersArgs = {
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+  query: Scalars['String'];
+  sort: Sort;
 };
 
 export type Recipe = {
@@ -465,6 +474,12 @@ export type UserResult = {
   error?: Maybe<Error>;
 };
 
+export type UsersResult = {
+  __typename?: 'UsersResult';
+  data: Array<User>;
+  error?: Maybe<Error>;
+};
+
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -594,6 +609,7 @@ export type ResolversTypes = {
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
   UserResult: ResolverTypeWrapper<UserResult>;
+  UsersResult: ResolverTypeWrapper<UsersResult>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -646,6 +662,7 @@ export type ResolversParentTypes = {
   User: User;
   UserInput: UserInput;
   UserResult: UserResult;
+  UsersResult: UsersResult;
 };
 
 export type AllergiesResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AllergiesResult'] = ResolversParentTypes['AllergiesResult']> = {
@@ -781,6 +798,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   allergies?: Resolver<ResolversTypes['AllergiesResult'], ParentType, ContextType>;
   diets?: Resolver<ResolversTypes['DietsResult'], ParentType, ContextType>;
   comment?: Resolver<ResolversTypes['CommentResult'], ParentType, ContextType, RequireFields<QueryCommentArgs, 'commentId'>>;
+  users?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'offset' | 'limit' | 'query' | 'sort'>>;
 };
 
 export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = {
@@ -887,6 +905,12 @@ export type UserResultResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UsersResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UsersResult'] = ResolversParentTypes['UsersResult']> = {
+  data?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   AllergiesResult?: AllergiesResultResolvers<ContextType>;
   Allergy?: AllergyResolvers<ContextType>;
@@ -921,6 +945,7 @@ export type Resolvers<ContextType = any> = {
   Upload?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
   UserResult?: UserResultResolvers<ContextType>;
+  UsersResult?: UsersResultResolvers<ContextType>;
 };
 
 
