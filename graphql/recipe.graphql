@@ -187,3 +187,8 @@ type DietsResult {
   data: [Diet!]!
   error: Error
 }
+
+type IngredientsResult {
+  data: [Ingredient!]!
+  error: Error
+}
