@@ -6,3 +6,4 @@ export { default as recipe } from './recipe';
 export { default as comment } from './comment';
 export { default as savedRecipes } from './savedRecipes';
 export { default as categories } from './categories';
+export { default as users } from './users';

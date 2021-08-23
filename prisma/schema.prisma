@@ -7,8 +7,8 @@ datasource db {
 }
 
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-1.1.x"]
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "debian-openssl-1.1.x"]
   previewFeatures = ["orderByRelation"]
 }
 
@@ -113,6 +113,19 @@ model User {
   submittedRecipes Recipe[]        @relation("submittedRecipes")
   verified         Boolean         @default(false)
   likedCommemts    RecipeComment[] @relation("likedComments")
-  following        User[]          @relation("followingFollower")
-  followedBy       User[]          @relation("followingFollower")
+  following        Follows[]       @relation("following")
+  followedBy       Follows[]       @relation("followers")
+  createdAt        DateTime        @default(now())
+  Follows          Follows[]       @relation("follower")
+}
+
+model Follows {
+  follower    User   @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User   @relation("following", fields: [followingId], references: [id])
+  followingId String
+
+  @@id([followerId, followingId])
+  User   User?   @relation("followers", fields: [userId], references: [id])
+  userId String?
 }
