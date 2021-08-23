@@ -4,7 +4,7 @@ import {
 } from '../generated/graphql';
 import Errors from '../errors';
 
-const users = async (): Promise<IngredientsResult> => {
+const ingredients = async (): Promise<IngredientsResult> => {
   const prismaIngredients = await prisma.ingredient.findMany({
     include: {
       genericIngredient: true,
@@ -14,10 +14,10 @@ const users = async (): Promise<IngredientsResult> => {
     ({ genericIngredient, ...ingredient }) => ({ ...ingredient, name: genericIngredient.name }),
   );
   if (prismaIngredients.length === 0) {
-    return { data: apolloIngredients, error: { message: Errors.NO_ALLERGIES } };
+    return { data: apolloIngredients, error: { message: Errors.NO_INGREDIENTS } };
   }
 
   return { data: apolloIngredients };
 };
 
-export default users;
+export default ingredients;

@@ -4,7 +4,7 @@ import {
 } from '../generated/graphql';
 import Errors from '../errors';
 
-const users = async (): Promise<AllergiesResult> => {
+const allergies = async (): Promise<AllergiesResult> => {
   const prismaAllergies = await prisma.allergies.findMany();
 
   if (prismaAllergies.length === 0) {
@@ -14,4 +14,4 @@ const users = async (): Promise<AllergiesResult> => {
   return { data: prismaAllergies };
 };
 
-export default users;
+export default allergies;

@@ -3,6 +3,8 @@ enum Errors {
   NO_USER = 'User Not Found',
   NO_USERS = 'Users Not Found',
   NO_ALLERGIES = 'Allergies Not Found',
+  NO_DIETS = 'Diets Not Found',
+  NO_INGREDIENTS = 'Ingredients Not Found',
   NO_SECRET = 'Unable To Encrypt - Secret Not Found',
   WRONG_PASSWORD = 'Wrong Password',
   PASSWORD_MISMATCH = 'Password Did Not Match Confirmation',
