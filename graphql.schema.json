@@ -337,7 +337,7 @@
             "deprecationReason": null
           },
           {
-            "name": "confirmOldPassword",
+            "name": "newPassword",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -353,7 +353,7 @@
             "deprecationReason": null
           },
           {
-            "name": "newPassword",
+            "name": "confirmNewPassword",
             "description": null,
             "type": {
               "kind": "NON_NULL",

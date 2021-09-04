@@ -69,8 +69,8 @@ export type CategoryInput = {
 
 export type ChangePasswordDetails = {
   oldPassword: Scalars['String'];
-  confirmOldPassword: Scalars['String'];
   newPassword: Scalars['String'];
+  confirmNewPassword: Scalars['String'];
 };
 
 export type ChangePasswordResult = {

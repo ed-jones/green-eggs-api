@@ -22,8 +22,8 @@ type AuthResult {
 
 input ChangePasswordDetails {
   oldPassword: String!
-  confirmOldPassword: String!
   newPassword: String!
+  confirmNewPassword: String!
 }
 
 type ChangePasswordResult {
