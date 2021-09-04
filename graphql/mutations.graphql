@@ -33,6 +33,6 @@ type Mutation {
   ): RemoveAllergyPreferencesResult!
   editProfile(profileDetails: ProfileDetails!): EditProfileResult!
 
-  followUser(userId: string!): FollowUserResult!
-  unfollowUser(userId: string!): UnfollowUserResult!
+  followUser(userId: String!): FollowUserResult!
+  unfollowUser(userId: String!): UnfollowUserResult!
 }

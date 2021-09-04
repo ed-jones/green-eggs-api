@@ -2,15 +2,11 @@ input DietaryPreferenceDetails {
   diets: [String!]!
 }
 type UpdateDietaryPreferencesResult {
-  data: {
-    diets: [String!]!
-  }
+  data: [Diet!]
   error: Error
 }
 type RemoveDietaryPreferencesResult {
-  data: {
-    diets: [String!]!
-  }
+  data: [Diet!]
   error: Error
 }
 
@@ -18,15 +14,11 @@ input AllergyPreferenceDetails {
   allergies: [String!]!
 }
 type UpdateAllergyPreferencesResult {
-  data: {
-    allergies: [String!]!
-  }
+  data: [Allergy!]
   error: Error
 }
 type RemoveAllergyPreferencesResult {
-  data: {
-    allergies: [String!]!
-  }
+  data: [Allergy!]
   error: Error
 }
 
@@ -34,9 +26,7 @@ input ProfileVisibilityDetails {
   visibility: Privacy!
 }
 type UpdateProfileVisibilityResult {
-  data: {
-    visibility: Privacy!
-  }
+  data: Privacy
   error: Error
 }
 
