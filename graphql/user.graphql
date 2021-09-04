@@ -6,6 +6,7 @@ type User {
   email: String!
   avatarURI: String
   verified: Boolean!
+  visibility: Privacy!
 }
 
 input UserInput {

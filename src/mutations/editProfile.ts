@@ -1,9 +1,10 @@
 import { User as PrismaUser } from '@prisma/client';
 
-import { MutationEditProfileArgs, EditProfileResult, User as ApolloUser } from '../generated/graphql';
+import { MutationEditProfileArgs, EditProfileResult, User as ApolloUser, Privacy as ApolloPrivacy } from '../generated/graphql';
 import prisma from '../prisma';
 import Errors from '../errors';
 import fileUpload from '../core/file-upload/fileUpload';
+import prismaToApolloUser from '../core/user/prismaToApolloUser';
 
 const editProfile = async (
   _: any,
@@ -43,7 +44,8 @@ const editProfile = async (
       }
     })
 
-    return { data: editUser };
+
+    return { data: prismaToApolloUser(editUser) };
   } catch ({ message }) {
     return {
       error: {

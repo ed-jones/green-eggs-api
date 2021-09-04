@@ -3,11 +3,13 @@ import {
 } from '../../generated/graphql';
 import prismaToApolloComment from '../comment/prismaToApolloComment';
 import FullPrismaRecipeType from './FullPrismaRecipeType';
+import prismaToApolloUser from '../user/prismaToApolloUser';
 
 const prismaToApolloRecipe = (
   prismaRecipe: FullPrismaRecipeType, userId?: string,
 ): ApolloRecipe => ({
   ...prismaRecipe,
+  submittedBy: prismaToApolloUser(prismaRecipe.submittedBy),
   visibility: prismaRecipe.visibility as ApolloPrivacy,
   commentability: prismaRecipe.commentability as ApolloPrivacy,
   likeability: prismaRecipe.likeability as ApolloPrivacy,

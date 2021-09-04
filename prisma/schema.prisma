@@ -118,6 +118,7 @@ model User {
   followedBy       Follows[]       @relation("followers")
   createdAt        DateTime        @default(now())
   Follows          Follows[]       @relation("follower")
+  visibility       Privacy         @default(PUBLIC)
 }
 
 model Follows {

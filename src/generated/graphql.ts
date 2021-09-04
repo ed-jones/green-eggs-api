@@ -590,6 +590,7 @@ export type User = {
   email: Scalars['String'];
   avatarURI?: Maybe<Scalars['String']>;
   verified: Scalars['Boolean'];
+  visibility: Privacy;
 };
 
 export type UserInput = {
@@ -1120,6 +1121,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   avatarURI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   verified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  visibility?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
