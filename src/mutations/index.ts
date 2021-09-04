@@ -11,3 +11,4 @@ export { default as likeComment } from './likeComment';
 export { default as unlikeComment } from './unlikeComment';
 export { default as deleteComment } from './deleteComment';
 export { default as changePassword } from './changePassword';
+export { default as deleteAccount } from './deleteAccount';
