@@ -586,6 +586,7 @@ export type User = {
   id: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
+  bio?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   avatarURI?: Maybe<Scalars['String']>;
   verified: Scalars['Boolean'];
@@ -1115,6 +1116,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   avatarURI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   verified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;

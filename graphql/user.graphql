@@ -2,6 +2,7 @@ type User {
   id: String!
   firstName: String!
   lastName: String!
+  bio: String
   email: String!
   avatarURI: String
   verified: Boolean!
