@@ -23,3 +23,13 @@ type UsersResult {
   data: [User!]!
   error: Error
 }
+
+type FollowUserResult {
+  data: User
+  error: Error
+}
+
+type UnfollowUserResult {
+  data: User
+  error: Error
+}

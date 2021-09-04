@@ -17,4 +17,8 @@ type Query {
   ingredients: IngredientsResult!
   comment(commentId: String!): CommentResult!
   users(offset: Int!, limit: Int!, query: String!, sort: Sort!): UsersResult!
+
+  profile(userId: string): UserResult!
+  followingUsers: UsersResult!
+  followedUsers: UsersResult!
 }
