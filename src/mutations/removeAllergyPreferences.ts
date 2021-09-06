@@ -4,16 +4,16 @@ import {
 
 import Errors from '../errors';
 import {
-  MutationUpdateDietaryPreferencesArgs,
-  UpdateDietaryPreferencesResult,
+  MutationRemoveAllergyPreferencesArgs,
+  RemoveAllergyPreferencesResult,
 } from '../generated/graphql';
 import prisma from '../prisma';
 
 export default async (_parent: any,
-  { dietaryPreferenceDetails: { diets } }: MutationUpdateDietaryPreferencesArgs,
-  context?: PrismaUser): Promise<UpdateDietaryPreferencesResult> => {
+  { allergyPreferenceDetails: { allergies } }: MutationRemoveAllergyPreferencesArgs,
+  context?: PrismaUser): Promise<RemoveAllergyPreferencesResult> => {
   try {
-    // Find user to update dietary preferences for
+    // Find user to remove allergy preferences for
     if (!context?.id) {
       throw new Error(Errors.NO_CONTEXT);
     }
@@ -31,18 +31,18 @@ export default async (_parent: any,
         id: context.id,
       },
       include: {
-        dietaryPreferences: true,
+        allergyPreferences: true,
       },
       data: {
-        dietaryPreferences: {
-          connect: diets.map((diet) => ({
-            id: diet,
+        allergyPreferences: {
+          disconnect: allergies.map((allergy) => ({
+            id: allergy,
           }))
         }
       }
     })
     
-    return { data: updatedUser.dietaryPreferences };
+    return { data: updatedUser.allergyPreferences };
   } catch ({ message }) {
     return {
       error: {

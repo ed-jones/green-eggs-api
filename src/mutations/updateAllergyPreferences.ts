@@ -6,7 +6,6 @@ import Errors from '../errors';
 import {
   MutationUpdateAllergyPreferencesArgs,
   UpdateAllergyPreferencesResult,
-  Privacy as ApolloPrivacy,
 } from '../generated/graphql';
 import prisma from '../prisma';
 
