@@ -7,3 +7,6 @@ export { default as comment } from './comment';
 export { default as savedRecipes } from './savedRecipes';
 export { default as categories } from './categories';
 export { default as users } from './users';
+export { default as allergies } from './allergies';
+export { default as ingredients } from './ingredients';
+export { default as diets } from './diets';

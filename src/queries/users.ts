@@ -55,7 +55,7 @@ const users = async (
   });
 
   if (prismaUsers.length === 0) {
-    return { data: prismaUsers, error: { message: Errors.NO_USER } };
+    return { data: prismaUsers, error: { message: Errors.NO_USERS } };
   }
 
   return { data: prismaUsers };

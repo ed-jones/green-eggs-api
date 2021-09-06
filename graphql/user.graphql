@@ -2,9 +2,13 @@ type User {
   id: String!
   firstName: String!
   lastName: String!
+  bio: String
   email: String!
   avatarURI: String
   verified: Boolean!
+  visibility: Privacy!
+  dietaryPreferences: [Diet!]!
+  allergyPreferences: [Allergy!]!
 }
 
 input UserInput {
@@ -21,5 +25,15 @@ type UserResult {
 
 type UsersResult {
   data: [User!]!
+  error: Error
+}
+
+type FollowUserResult {
+  data: User
+  error: Error
+}
+
+type UnfollowUserResult {
+  data: User
   error: Error
 }

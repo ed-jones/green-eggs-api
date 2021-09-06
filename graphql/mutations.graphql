@@ -15,4 +15,24 @@ type Mutation {
     changePasswordDetails: ChangePasswordDetails!
   ): ChangePasswordResult!
   deleteAccount: DeleteAccountResult!
+
+  updateDietaryPreferences(
+    dietaryPreferenceDetails: DietaryPreferenceDetails!
+  ): UpdateDietaryPreferencesResult!
+  updateAllergyPreferences(
+    allergyPreferenceDetails: AllergyPreferenceDetails!
+  ): UpdateAllergyPreferencesResult!
+  updateProfileVisibility(
+    profileVisibilityDetails: ProfileVisibilityDetails!
+  ): UpdateProfileVisibilityResult!
+  removeDietaryPreferences(
+    dietaryPreferenceDetails: DietaryPreferenceDetails!
+  ): RemoveDietaryPreferencesResult!
+  removeAllergyPreferences(
+    allergyPreferenceDetails: AllergyPreferenceDetails!
+  ): RemoveAllergyPreferencesResult!
+  editProfile(profileDetails: ProfileDetails!): EditProfileResult!
+
+  followUser(userId: String!): FollowUserResult!
+  unfollowUser(userId: String!): UnfollowUserResult!
 }

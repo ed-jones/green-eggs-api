@@ -1,0 +1,42 @@
+input DietaryPreferenceDetails {
+  diets: [String!]!
+}
+type UpdateDietaryPreferencesResult {
+  data: [Diet!]
+  error: Error
+}
+type RemoveDietaryPreferencesResult {
+  data: [Diet!]
+  error: Error
+}
+
+input AllergyPreferenceDetails {
+  allergies: [String!]!
+}
+type UpdateAllergyPreferencesResult {
+  data: [Allergy!]
+  error: Error
+}
+type RemoveAllergyPreferencesResult {
+  data: [Allergy!]
+  error: Error
+}
+
+input ProfileVisibilityDetails {
+  visibility: Privacy!
+}
+type UpdateProfileVisibilityResult {
+  data: Privacy
+  error: Error
+}
+
+input ProfileDetails {
+  firstName: String
+  lastName: String
+  bio: String
+  profileImage: FileUpload
+}
+type EditProfileResult {
+  data: User
+  error: Error
+}
