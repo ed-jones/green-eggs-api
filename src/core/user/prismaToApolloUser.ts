@@ -3,8 +3,7 @@ import FullPrismaUserType from './FullPrismaUserType'
 
 export default function prismaToApolloUser(prismaUser: FullPrismaUserType, me?: FullPrismaUserType): ApolloUser {
   const isFollowing = me?.following.some((following) => following.followerId === prismaUser.id);
-  // const likeCount = prismaUser.submittedRecipes.map((submittedRecipe) => submittedRecipe.likedBy.length).reduce((a, b) => a + b);
-  const likeCount = 1;
+  const likeCount = [0, ...prismaUser.submittedRecipes.map((submittedRecipe) => submittedRecipe.likedBy.length)].reduce((a, b) => a + b);
   return ({
     ...prismaUser,
     isFollowing,
