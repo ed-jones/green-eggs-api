@@ -10,3 +10,6 @@ export { default as users } from './users';
 export { default as allergies } from './allergies';
 export { default as ingredients } from './ingredients';
 export { default as diets } from './diets';
+export { default as profile } from './profile';
+export { default as followingUsers } from './followingUsers';
+export { default as followedUsers } from './followedUsers';

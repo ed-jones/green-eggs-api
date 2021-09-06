@@ -593,6 +593,11 @@ export type User = {
   visibility: Privacy;
   dietaryPreferences: Array<Diet>;
   allergyPreferences: Array<Allergy>;
+  isFollowing?: Maybe<Scalars['Boolean']>;
+  followingCount: Scalars['Int'];
+  followerCount: Scalars['Int'];
+  likeCount: Scalars['Int'];
+  recipeCount: Scalars['Int'];
 };
 
 export type UserInput = {
@@ -610,7 +615,7 @@ export type UserResult = {
 
 export type UsersResult = {
   __typename?: 'UsersResult';
-  data: Array<User>;
+  data?: Maybe<Array<User>>;
   error?: Maybe<Error>;
 };
 
@@ -1126,6 +1131,11 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   visibility?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   dietaryPreferences?: Resolver<Array<ResolversTypes['Diet']>, ParentType, ContextType>;
   allergyPreferences?: Resolver<Array<ResolversTypes['Allergy']>, ParentType, ContextType>;
+  isFollowing?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  followingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  followerCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  recipeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1136,7 +1146,7 @@ export type UserResultResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type UsersResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UsersResult'] = ResolversParentTypes['UsersResult']> = {
-  data?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  data?: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
