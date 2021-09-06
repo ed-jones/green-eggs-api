@@ -615,7 +615,7 @@ export type UserResult = {
 
 export type UsersResult = {
   __typename?: 'UsersResult';
-  data: Array<User>;
+  data?: Maybe<Array<User>>;
   error?: Maybe<Error>;
 };
 
@@ -1146,7 +1146,7 @@ export type UserResultResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type UsersResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UsersResult'] = ResolversParentTypes['UsersResult']> = {
-  data?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  data?: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

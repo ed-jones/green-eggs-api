@@ -29,7 +29,7 @@ type UserResult {
 }
 
 type UsersResult {
-  data: [User!]!
+  data: [User!]
   error: Error
 }
 
