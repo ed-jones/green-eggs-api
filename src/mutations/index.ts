@@ -15,3 +15,4 @@ export { default as deleteAccount } from './deleteAccount';
 export { default as editProfile } from './editProfile';
 export { default as updateProfileVisibility } from './updateProfileVisibility';
 export { default as updateDietaryPreferences } from './updateDietaryPreferences';
+export { default as updateAllergyPreferences } from './updateAllergyPreferences';
