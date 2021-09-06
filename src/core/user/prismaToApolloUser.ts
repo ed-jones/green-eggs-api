@@ -11,5 +11,6 @@ export default function prismaToApolloUser(prismaUser: FullPrismaUserType, me?: 
     followingCount: prismaUser.following.length,
     followerCount: prismaUser.followedBy.length,
     visibility: prismaUser.visibility as ApolloPrivacy,
+    recipeCount: prismaUser.submittedRecipes.length,
   });
 }

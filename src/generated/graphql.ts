@@ -597,6 +597,7 @@ export type User = {
   followingCount: Scalars['Int'];
   followerCount: Scalars['Int'];
   likeCount: Scalars['Int'];
+  recipeCount: Scalars['Int'];
 };
 
 export type UserInput = {
@@ -1134,6 +1135,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   followingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   followerCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  recipeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

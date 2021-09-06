@@ -13,6 +13,7 @@ type User {
   followingCount: Int!
   followerCount: Int!
   likeCount: Int!
+  recipeCount: Int!
 }
 
 input UserInput {
