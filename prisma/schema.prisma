@@ -46,12 +46,16 @@ model Allergies {
   id      String   @id @default(uuid())
   name    String   @unique
   recipes Recipe[]
+  User    User?    @relation(fields: [userId], references: [id])
+  userId  String?
 }
 
 model Diet {
   id      String   @id @default(uuid())
   name    String   @unique
   recipes Recipe[]
+  User    User?    @relation(fields: [userId], references: [id])
+  userId  String?
 }
 
 enum Privacy {
@@ -101,24 +105,26 @@ model GenericIngredient {
 }
 
 model User {
-  id               String          @id @default(uuid())
-  firstName        String
-  lastName         String
-  bio              String?
-  email            String          @unique
-  password         String
-  avatarURI        String?
-  likedRecipes     Recipe[]        @relation("likedRecipes")
-  savedRecipes     Recipe[]        @relation("savedRecipes")
-  recipeComments   RecipeComment[]
-  submittedRecipes Recipe[]        @relation("submittedRecipes")
-  verified         Boolean         @default(false)
-  likedCommemts    RecipeComment[] @relation("likedComments")
-  following        Follows[]       @relation("following")
-  followedBy       Follows[]       @relation("followers")
-  createdAt        DateTime        @default(now())
-  Follows          Follows[]       @relation("follower")
-  visibility       Privacy         @default(PUBLIC)
+  id                 String          @id @default(uuid())
+  firstName          String
+  lastName           String
+  bio                String?
+  email              String          @unique
+  password           String
+  avatarURI          String?
+  dietaryPreferences Diet[]
+  allergyPreferences Allergies[]
+  likedRecipes       Recipe[]        @relation("likedRecipes")
+  savedRecipes       Recipe[]        @relation("savedRecipes")
+  recipeComments     RecipeComment[]
+  submittedRecipes   Recipe[]        @relation("submittedRecipes")
+  verified           Boolean         @default(false)
+  likedCommemts      RecipeComment[] @relation("likedComments")
+  following          Follows[]       @relation("following")
+  followedBy         Follows[]       @relation("followers")
+  createdAt          DateTime        @default(now())
+  Follows            Follows[]       @relation("follower")
+  visibility         Privacy         @default(PUBLIC)
 }
 
 model Follows {
