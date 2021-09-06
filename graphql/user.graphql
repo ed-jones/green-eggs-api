@@ -9,6 +9,10 @@ type User {
   visibility: Privacy!
   dietaryPreferences: [Diet!]!
   allergyPreferences: [Allergy!]!
+  isFollowing: Boolean
+  followingCount: Int!
+  followerCount: Int!
+  likeCount: Int!
 }
 
 input UserInput {

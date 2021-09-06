@@ -593,6 +593,10 @@ export type User = {
   visibility: Privacy;
   dietaryPreferences: Array<Diet>;
   allergyPreferences: Array<Allergy>;
+  isFollowing?: Maybe<Scalars['Boolean']>;
+  followingCount: Scalars['Int'];
+  followerCount: Scalars['Int'];
+  likeCount: Scalars['Int'];
 };
 
 export type UserInput = {
@@ -1126,6 +1130,10 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   visibility?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   dietaryPreferences?: Resolver<Array<ResolversTypes['Diet']>, ParentType, ContextType>;
   allergyPreferences?: Resolver<Array<ResolversTypes['Allergy']>, ParentType, ContextType>;
+  isFollowing?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  followingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  followerCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

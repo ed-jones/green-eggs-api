@@ -16,12 +16,34 @@ const me = async (
       },
     };
   }
+  if (!context?.id) {
+    return {
+      error: {
+        message: Errors.NO_CONTEXT,
+      },
+    };
+  }
   const user = await prisma.user.findUnique({
     ...fullUserArgs,
     where: {
       id: userId,
     },
   });
+
+  const me = await prisma.user.findUnique({
+    ...fullUserArgs,
+    where: {
+      id: context.id,
+    },
+  });
+
+  if (!me) {
+    return {
+      error: {
+        message: Errors.NO_USER,
+      },
+    };
+  }
 
   if (!user) {
     return {
@@ -30,7 +52,7 @@ const me = async (
       },
     };
   }
-  return { data: prismaToApolloUser(user) };
+  return { data: prismaToApolloUser(user, me) };
 };
 
 export default me;
