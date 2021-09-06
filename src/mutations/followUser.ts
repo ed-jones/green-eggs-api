@@ -48,8 +48,7 @@ import prismaToApolloUser from '../core/user/prismaToApolloUser';
         data: {
           following: {
             create: {
-              followerId: me.id,
-              userId: user.id,
+              followerId: user.id,
             }
           }
         },

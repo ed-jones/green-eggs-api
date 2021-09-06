@@ -19,3 +19,4 @@ export { default as removeDietaryPreferences } from './removeDietaryPreferences'
 export { default as updateAllergyPreferences } from './updateAllergyPreferences';
 export { default as removeAllergyPreferences } from './removeAllergyPreferences';
 export { default as followUser } from './followUser';
+export { default as unfollowUser } from './unfollowUser';
