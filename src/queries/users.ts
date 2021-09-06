@@ -5,6 +5,8 @@ import {
   QueryUsersArgs, Sort, UsersResult,
 } from '../generated/graphql';
 import Errors from '../errors';
+import prismaToApolloUser from '../core/user/prismaToApolloUser';
+import fullUserArgs from '../core/user/fullUserArgs';
 
 const users = async (
   _parent: any,
@@ -41,6 +43,7 @@ const users = async (
   }
 
   const prismaUsers = await prisma.user.findMany({
+    ...fullUserArgs,
     skip: offset,
     take: limit,
     orderBy,
@@ -55,10 +58,10 @@ const users = async (
   });
 
   if (prismaUsers.length === 0) {
-    return { data: prismaUsers, error: { message: Errors.NO_USERS } };
+    return { data: prismaUsers.map(prismaUser => prismaToApolloUser(prismaUser)), error: { message: Errors.NO_USERS } };
   }
 
-  return { data: prismaUsers };
+  return { data: prismaUsers.map(prismaUser => prismaToApolloUser(prismaUser)) };
 };
 
 export default users;
