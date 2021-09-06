@@ -591,6 +591,8 @@ export type User = {
   avatarURI?: Maybe<Scalars['String']>;
   verified: Scalars['Boolean'];
   visibility: Privacy;
+  dietaryPreferences: Array<Diet>;
+  allergyPreferences: Array<Allergy>;
 };
 
 export type UserInput = {
@@ -1122,6 +1124,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   avatarURI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   verified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   visibility?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
+  dietaryPreferences?: Resolver<Array<ResolversTypes['Diet']>, ParentType, ContextType>;
+  allergyPreferences?: Resolver<Array<ResolversTypes['Allergy']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

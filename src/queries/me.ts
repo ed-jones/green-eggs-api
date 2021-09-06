@@ -3,6 +3,8 @@ import { User as PrismaUser } from '@prisma/client';
 import { UserResult } from '../generated/graphql';
 import prisma from '../prisma';
 import Errors from '../errors';
+import fullUserArgs from '../core/user/fullUserArgs';
+import prismaToApolloUser from '../core/user/prismaToApolloUser';
 
 const me = async (
   _parent: any, _args: any, context: PrismaUser | undefined,
@@ -15,6 +17,7 @@ const me = async (
     };
   }
   const user = await prisma.user.findUnique({
+    ...fullUserArgs,
     where: {
       id: context.id,
     },
@@ -27,7 +30,7 @@ const me = async (
       },
     };
   }
-  return { data: user };
+  return { data: prismaToApolloUser(user) };
 };
 
 export default me;

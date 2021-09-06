@@ -5,6 +5,7 @@ import prisma from '../prisma';
 import Errors from '../errors';
 import fileUpload from '../core/file-upload/fileUpload';
 import prismaToApolloUser from '../core/user/prismaToApolloUser';
+import fullUserArgs from '../core/user/fullUserArgs';
 
 const editProfile = async (
   _: any,
@@ -33,6 +34,7 @@ const editProfile = async (
     }
 
     const editUser = await prisma.user.update({
+      ...fullUserArgs,
       where: {
         id: context.id,
       },

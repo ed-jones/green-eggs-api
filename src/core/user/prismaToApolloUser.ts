@@ -1,9 +1,9 @@
-import { User as PrismaUser } from '@prisma/client';
 import { Privacy as ApolloPrivacy, User as ApolloUser } from '../../generated/graphql';
+import FullPrismaUserType from './FullPrismaUserType'
 
-export default function prismaToApolloUser(prismaUser: PrismaUser): ApolloUser {
+export default function prismaToApolloUser(prismaUser: FullPrismaUserType): ApolloUser {
   return ({
     ...prismaUser,
-    visibility: prismaUser.visibility as ApolloPrivacy
+    visibility: prismaUser.visibility as ApolloPrivacy,
   });
 }
