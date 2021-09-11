@@ -142,6 +142,37 @@ export type FollowUserResult = {
   error?: Maybe<Error>;
 };
 
+export type FullUser = {
+  __typename?: 'FullUser';
+  id: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  bio?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  avatarURI?: Maybe<Scalars['String']>;
+  verified: Scalars['Boolean'];
+  visibility: Privacy;
+  dietaryPreferences: Array<Diet>;
+  allergyPreferences: Array<Allergy>;
+  isFollowing?: Maybe<Scalars['Boolean']>;
+  followingCount: Scalars['Int'];
+  followerCount: Scalars['Int'];
+  likeCount: Scalars['Int'];
+  recipeCount: Scalars['Int'];
+};
+
+export type FullUserResult = {
+  __typename?: 'FullUserResult';
+  data?: Maybe<FullUser>;
+  error?: Maybe<Error>;
+};
+
+export type FullUsersResult = {
+  __typename?: 'FullUsersResult';
+  data?: Maybe<Array<FullUser>>;
+  error?: Maybe<Error>;
+};
+
 export type Ingredient = {
   __typename?: 'Ingredient';
   id: Scalars['String'];
@@ -348,13 +379,13 @@ export type Query = {
   savedRecipes: RecipesResult;
   categories: CategoriesResult;
   recipe: RecipeResult;
-  me: UserResult;
+  me: FullUserResult;
   allergies: AllergiesResult;
   diets: DietsResult;
   ingredients: IngredientsResult;
   comment: CommentResult;
   users: UsersResult;
-  profile: UserResult;
+  profile: FullUserResult;
   followingUsers: UsersResult;
   followedUsers: UsersResult;
 };
@@ -581,25 +612,6 @@ export type UpdateProfileVisibilityResult = {
 };
 
 
-export type FullUser = {
-  __typename?: 'User';
-  id: Scalars['String'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  bio?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
-  avatarURI?: Maybe<Scalars['String']>;
-  verified: Scalars['Boolean'];
-  visibility: Privacy;
-  dietaryPreferences: Array<Diet>;
-  allergyPreferences: Array<Allergy>;
-  isFollowing?: Maybe<Scalars['Boolean']>;
-  followingCount: Scalars['Int'];
-  followerCount: Scalars['Int'];
-  likeCount: Scalars['Int'];
-  recipeCount: Scalars['Int'];
-};
-
 export type User = {
   __typename?: 'User';
   id: Scalars['String'];
@@ -732,8 +744,12 @@ export type ResolversTypes = {
   Error: ResolverTypeWrapper<Error>;
   File: ResolverTypeWrapper<File>;
   FollowUserResult: ResolverTypeWrapper<FollowUserResult>;
-  Ingredient: ResolverTypeWrapper<Ingredient>;
+  FullUser: ResolverTypeWrapper<FullUser>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  FullUserResult: ResolverTypeWrapper<FullUserResult>;
+  FullUsersResult: ResolverTypeWrapper<FullUsersResult>;
+  Ingredient: ResolverTypeWrapper<Ingredient>;
   IngredientInput: IngredientInput;
   IngredientsFilter: IngredientsFilter;
   IngredientsResult: ResolverTypeWrapper<IngredientsResult>;
@@ -747,7 +763,6 @@ export type ResolversTypes = {
   ProfileVisibilityDetails: ProfileVisibilityDetails;
   Query: ResolverTypeWrapper<{}>;
   Recipe: ResolverTypeWrapper<Recipe>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   RecipeComment: ResolverTypeWrapper<RecipeComment>;
   RecipeCommentReply: ResolverTypeWrapper<RecipeCommentReply>;
   RecipeFilter: RecipeFilter;
@@ -801,8 +816,12 @@ export type ResolversParentTypes = {
   Error: Error;
   File: File;
   FollowUserResult: FollowUserResult;
-  Ingredient: Ingredient;
+  FullUser: FullUser;
+  Boolean: Scalars['Boolean'];
   Int: Scalars['Int'];
+  FullUserResult: FullUserResult;
+  FullUsersResult: FullUsersResult;
+  Ingredient: Ingredient;
   IngredientInput: IngredientInput;
   IngredientsFilter: IngredientsFilter;
   IngredientsResult: IngredientsResult;
@@ -815,7 +834,6 @@ export type ResolversParentTypes = {
   ProfileVisibilityDetails: ProfileVisibilityDetails;
   Query: {};
   Recipe: Recipe;
-  Boolean: Scalars['Boolean'];
   RecipeComment: RecipeComment;
   RecipeCommentReply: RecipeCommentReply;
   RecipeFilter: RecipeFilter;
@@ -934,6 +952,37 @@ export type FollowUserResultResolvers<ContextType = any, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type FullUserResolvers<ContextType = any, ParentType extends ResolversParentTypes['FullUser'] = ResolversParentTypes['FullUser']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  avatarURI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  verified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  visibility?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
+  dietaryPreferences?: Resolver<Array<ResolversTypes['Diet']>, ParentType, ContextType>;
+  allergyPreferences?: Resolver<Array<ResolversTypes['Allergy']>, ParentType, ContextType>;
+  isFollowing?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  followingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  followerCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  recipeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FullUserResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['FullUserResult'] = ResolversParentTypes['FullUserResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['FullUser']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FullUsersResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['FullUsersResult'] = ResolversParentTypes['FullUsersResult']> = {
+  data?: Resolver<Maybe<Array<ResolversTypes['FullUser']>>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type IngredientResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ingredient'] = ResolversParentTypes['Ingredient']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -997,13 +1046,13 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   savedRecipes?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QuerySavedRecipesArgs, 'offset' | 'limit'>>;
   categories?: Resolver<ResolversTypes['CategoriesResult'], ParentType, ContextType>;
   recipe?: Resolver<ResolversTypes['RecipeResult'], ParentType, ContextType, RequireFields<QueryRecipeArgs, 'recipeId'>>;
-  me?: Resolver<ResolversTypes['UserResult'], ParentType, ContextType>;
+  me?: Resolver<ResolversTypes['FullUserResult'], ParentType, ContextType>;
   allergies?: Resolver<ResolversTypes['AllergiesResult'], ParentType, ContextType>;
   diets?: Resolver<ResolversTypes['DietsResult'], ParentType, ContextType>;
   ingredients?: Resolver<ResolversTypes['IngredientsResult'], ParentType, ContextType>;
   comment?: Resolver<ResolversTypes['CommentResult'], ParentType, ContextType, RequireFields<QueryCommentArgs, 'commentId'>>;
   users?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'offset' | 'limit' | 'query' | 'sort'>>;
-  profile?: Resolver<ResolversTypes['UserResult'], ParentType, ContextType, RequireFields<QueryProfileArgs, never>>;
+  profile?: Resolver<ResolversTypes['FullUserResult'], ParentType, ContextType, RequireFields<QueryProfileArgs, never>>;
   followingUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType>;
   followedUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType>;
 };
@@ -1141,13 +1190,6 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   avatarURI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   verified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   visibility?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
-  dietaryPreferences?: Resolver<Array<ResolversTypes['Diet']>, ParentType, ContextType>;
-  allergyPreferences?: Resolver<Array<ResolversTypes['Allergy']>, ParentType, ContextType>;
-  isFollowing?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  followingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  followerCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  recipeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1180,6 +1222,9 @@ export type Resolvers<ContextType = any> = {
   Error?: ErrorResolvers<ContextType>;
   File?: FileResolvers<ContextType>;
   FollowUserResult?: FollowUserResultResolvers<ContextType>;
+  FullUser?: FullUserResolvers<ContextType>;
+  FullUserResult?: FullUserResultResolvers<ContextType>;
+  FullUsersResult?: FullUsersResultResolvers<ContextType>;
   Ingredient?: IngredientResolvers<ContextType>;
   IngredientsResult?: IngredientsResultResolvers<ContextType>;
   LikeCommentResult?: LikeCommentResultResolvers<ContextType>;

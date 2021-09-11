@@ -1,14 +1,14 @@
 import { User as PrismaUser } from '@prisma/client';
 
-import { UserResult } from '../generated/graphql';
+import { FullUserResult } from '../generated/graphql';
 import prisma from '../prisma';
 import Errors from '../errors';
 import fullUserArgs from '../core/user/fullUserArgs';
-import prismaToApolloUser from '../core/user/prismaToApolloUser';
+import prismaToApolloFullUser from '../core/user/prismaToApolloFullUser';
 
 const me = async (
   _parent: any, _args: any, context: PrismaUser | undefined,
-): Promise<UserResult> => {
+): Promise<FullUserResult> => {
   if (!context) {
     return {
       error: {
@@ -30,7 +30,7 @@ const me = async (
       },
     };
   }
-  return { data: prismaToApolloUser(user) };
+  return { data: prismaToApolloFullUser(user) };
 };
 
 export default me;

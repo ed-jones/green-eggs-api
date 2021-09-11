@@ -1,6 +1,6 @@
 import { User as PrismaUser } from '@prisma/client';
 
-import { UserResult, QueryProfileArgs } from '../generated/graphql';
+import { FullUserResult, QueryProfileArgs } from '../generated/graphql';
 import prisma from '../prisma';
 import Errors from '../errors';
 import fullUserArgs from '../core/user/fullUserArgs';
@@ -8,7 +8,7 @@ import prismaToFullApolloUser from '../core/user/prismaToApolloFullUser';
 
 const me = async (
   _parent: any, { userId }: QueryProfileArgs, context: PrismaUser | undefined,
-): Promise<UserResult> => {
+): Promise<FullUserResult> => {
   if (!userId) {
     return {
       error: {

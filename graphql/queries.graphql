@@ -11,14 +11,14 @@ type Query {
   savedRecipes(offset: Int!, limit: Int!): RecipesResult!
   categories: CategoriesResult!
   recipe(recipeId: String!): RecipeResult!
-  me: UserResult!
+  me: FullUserResult!
   allergies: AllergiesResult!
   diets: DietsResult!
   ingredients: IngredientsResult!
   comment(commentId: String!): CommentResult!
   users(offset: Int!, limit: Int!, query: String!, sort: Sort!): UsersResult!
 
-  profile(userId: String): UserResult!
+  profile(userId: String): FullUserResult!
   followingUsers: UsersResult!
   followedUsers: UsersResult!
 }

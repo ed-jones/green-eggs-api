@@ -16,15 +16,15 @@ type FullUser {
   recipeCount: Int!
 }
 
-fragment User on FullUser {
-  id
-  firstName
-  lastName
-  bio
-  email
-  avatarURI
-  verified
-  visibility
+type User {
+  id: String!
+  firstName: String!
+  lastName: String!
+  bio: String
+  email: String!
+  avatarURI: String
+  verified: Boolean!
+  visibility: Privacy!
 }
 
 input UserInput {
@@ -39,8 +39,18 @@ type UserResult {
   error: Error
 }
 
+type FullUserResult {
+  data: FullUser
+  error: Error
+}
+
 type UsersResult {
   data: [User!]
+  error: Error
+}
+
+type FullUsersResult {
+  data: [FullUser!]
   error: Error
 }
 
