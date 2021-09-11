@@ -4,7 +4,7 @@ import { UserResult, QueryProfileArgs } from '../generated/graphql';
 import prisma from '../prisma';
 import Errors from '../errors';
 import fullUserArgs from '../core/user/fullUserArgs';
-import prismaToApolloUser from '../core/user/prismaToApolloUser';
+import prismaToFullApolloUser from '../core/user/prismaToApolloFullUser';
 
 const me = async (
   _parent: any, { userId }: QueryProfileArgs, context: PrismaUser | undefined,
@@ -52,7 +52,7 @@ const me = async (
       },
     };
   }
-  return { data: prismaToApolloUser(user, me) };
+  return { data: prismaToFullApolloUser(user, me) };
 };
 
 export default me;

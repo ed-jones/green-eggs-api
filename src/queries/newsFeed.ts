@@ -29,7 +29,7 @@ const newsFeed = async (
       submittedBy: {
         followedBy: {
           some: {
-            userId: meResult.data.id,
+            followingId: meResult.data.id,
           }
         }
       }

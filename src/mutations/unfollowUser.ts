@@ -33,7 +33,7 @@ export default async (_parent: any,
     }
     const me = await prisma.user.findUnique({
       where: {
-          id: context.id,
+        id: context.id,
       },
     });
     if (!me?.id) {
@@ -48,12 +48,12 @@ export default async (_parent: any,
       data: {
         following: {
           delete: {
-            followerId_followingId: {
+            followingId_followerId: {
               followerId: user.id,
               followingId: me.id,
-            }
-          }
-        }
+            },
+          },
+        },
       },
     });
 
@@ -61,7 +61,7 @@ export default async (_parent: any,
   } catch ({ message }) {
     return {
       error: {
-        message,
+        message: message as string,
       },
     };
   }

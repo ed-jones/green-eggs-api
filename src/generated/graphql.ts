@@ -581,7 +581,7 @@ export type UpdateProfileVisibilityResult = {
 };
 
 
-export type User = {
+export type FullUser = {
   __typename?: 'User';
   id: Scalars['String'];
   firstName: Scalars['String'];
@@ -598,6 +598,18 @@ export type User = {
   followerCount: Scalars['Int'];
   likeCount: Scalars['Int'];
   recipeCount: Scalars['Int'];
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  bio?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  avatarURI?: Maybe<Scalars['String']>;
+  verified: Scalars['Boolean'];
+  visibility: Privacy;
 };
 
 export type UserInput = {
