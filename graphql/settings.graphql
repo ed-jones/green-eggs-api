@@ -37,6 +37,6 @@ input ProfileDetails {
   profileImage: FileUpload
 }
 type EditProfileResult {
-  data: User
+  data: FullUser
   error: Error
 }

@@ -675,7 +675,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "User",
+              "name": "FullUser",
               "ofType": null
             },
             "isDeprecated": false,

@@ -120,7 +120,7 @@ export type DietsResult = {
 
 export type EditProfileResult = {
   __typename?: 'EditProfileResult';
-  data?: Maybe<User>;
+  data?: Maybe<FullUser>;
   error?: Maybe<Error>;
 };
 
@@ -929,7 +929,7 @@ export type DietsResultResolvers<ContextType = any, ParentType extends Resolvers
 };
 
 export type EditProfileResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['EditProfileResult'] = ResolversParentTypes['EditProfileResult']> = {
-  data?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  data?: Resolver<Maybe<ResolversTypes['FullUser']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

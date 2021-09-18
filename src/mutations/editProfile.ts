@@ -4,7 +4,7 @@ import { MutationEditProfileArgs, EditProfileResult, User as ApolloUser, Privacy
 import prisma from '../prisma';
 import Errors from '../errors';
 import fileUpload from '../core/file-upload/fileUpload';
-import prismaToApolloUser from '../core/user/prismaToApolloUser';
+import prismaToApolloFullUser from '../core/user/prismaToApolloFullUser';
 import fullUserArgs from '../core/user/fullUserArgs';
 
 const editProfile = async (
@@ -47,7 +47,7 @@ const editProfile = async (
     })
 
 
-    return { data: prismaToApolloUser(editUser) };
+    return { data: prismaToApolloFullUser(editUser) };
   } catch ({ message }) {
     return {
       error: {
