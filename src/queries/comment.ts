@@ -5,6 +5,7 @@ import { CommentResult, QueryCommentArgs } from '../generated/graphql';
 import Errors from '../errors';
 import prismaToApolloComment from '../core/comment/prismaToApolloComment';
 import fullCommentArgs from '../core/comment/fullCommentArgs';
+import FullPrismaCommentType from '../core/comment/FullPrismaCommentType';
 
 export default async (
   _parent: any,
@@ -15,7 +16,7 @@ export default async (
     const comment = await prisma.recipeComment.findUnique({
       where: { id: commentId },
       ...fullCommentArgs,
-    });
+    }) as FullPrismaCommentType;
 
     if (!comment) {
       throw new Error(Errors.NO_COMMENT);
@@ -25,7 +26,7 @@ export default async (
   } catch ({ message }) {
     return {
       error: {
-        message,
+        message: message as string,
       },
     };
   }

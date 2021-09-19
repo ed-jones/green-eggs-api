@@ -9,6 +9,7 @@ import {
   RecipeStep as PrismaRecipeStep,
   RecipeComment as PrismaRecipeComment,
 } from "@prisma/client";
+import FullPrismaCommentType from "../comment/FullPrismaCommentType";
 
 type FullPrismaRecipeType = PrismaRecipe & {
     submittedBy: PrismaUser;
@@ -27,15 +28,7 @@ type FullPrismaRecipeType = PrismaRecipe & {
   } & {
     likedBy: PrismaUser[];
   } &{
-    recipeComments: (PrismaRecipeComment & {
-      author: PrismaUser;
-      likedBy: PrismaUser[];
-      replies: (PrismaRecipeComment & {
-        author: PrismaUser;
-        replies: PrismaRecipeComment[];
-        likedBy: PrismaUser[];
-      })[];
-    })[];
+    recipeComments: FullPrismaCommentType[];
   }
   
 export default FullPrismaRecipeType;

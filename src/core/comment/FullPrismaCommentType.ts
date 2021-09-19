@@ -3,6 +3,7 @@ import { RecipeComment as PrismaRecipeComment, User as PrismaUser } from '@prism
 type FullPrismaCommentType = PrismaRecipeComment & {
   author: PrismaUser;
   likedBy: PrismaUser[];
+  replyTo: PrismaUser | null;
   replies: (PrismaRecipeComment & {
       author: PrismaUser;
       replies: PrismaRecipeComment[];

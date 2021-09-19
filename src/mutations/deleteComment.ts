@@ -63,7 +63,7 @@ export default async (_parent: any,
   } catch ({ message }) {
     return {
       error: {
-        message,
+        message: message as string,
       },
     };
   }

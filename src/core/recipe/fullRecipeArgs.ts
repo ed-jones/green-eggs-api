@@ -1,5 +1,7 @@
 // import { Prisma } from '@prisma/client';
 
+import fullCommentArgs from '../comment/fullCommentArgs';
+
 export default {
   include: {
     submittedBy: true,
@@ -14,17 +16,7 @@ export default {
     },
     likedBy: true,
     recipeComments: {
-      include: {
-        author: true,
-        likedBy: true,
-        replies: {
-          include: {
-            author: true,
-            likedBy: true,
-            replies: true,
-          },
-        },
-      },
+      ...fullCommentArgs,
     },
   },
 };

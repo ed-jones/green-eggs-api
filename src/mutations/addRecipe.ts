@@ -144,7 +144,7 @@ const addRecipe = async (
   } catch ({ message }) {
     return {
       error: {
-        message,
+        message: message as string,
       },
     };
   }

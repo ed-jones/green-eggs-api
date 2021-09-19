@@ -2,6 +2,7 @@ import {
   User as PrismaUser,
 } from '@prisma/client';
 import fullCommentArgs from '../core/comment/fullCommentArgs';
+import FullPrismaCommentType from '../core/comment/FullPrismaCommentType';
 import prismaToApolloComment from '../core/comment/prismaToApolloComment';
 import Errors from '../errors';
 import {
@@ -65,7 +66,7 @@ export default async (_parent: any,
 
     const comment = updateComment.replies.find(
       (recipeComment) => recipeComment.contents === commentContent,
-    );
+    ) as FullPrismaCommentType;
 
     if (comment) {
       return { data: prismaToApolloComment(comment, context?.id) };
@@ -74,7 +75,7 @@ export default async (_parent: any,
   } catch ({ message }) {
     return {
       error: {
-        message,
+        message: message as string,
       },
     };
   }
