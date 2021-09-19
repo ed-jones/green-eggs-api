@@ -95,6 +95,7 @@ type RecipeCommentReply {
   liked: Boolean!
   likeCount: Int!
   replyCount: Int!
+  submittedBy: User!
 }
 
 type RecipeComment {
@@ -104,6 +105,7 @@ type RecipeComment {
   liked: Boolean!
   likeCount: Int!
   replyCount: Int!
+  submittedBy: User!
 }
 
 type Recipe {

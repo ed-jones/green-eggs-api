@@ -473,6 +473,7 @@ export type RecipeComment = {
   liked: Scalars['Boolean'];
   likeCount: Scalars['Int'];
   replyCount: Scalars['Int'];
+  submittedBy: User;
 };
 
 export type RecipeCommentReply = {
@@ -482,6 +483,7 @@ export type RecipeCommentReply = {
   liked: Scalars['Boolean'];
   likeCount: Scalars['Int'];
   replyCount: Scalars['Int'];
+  submittedBy: User;
 };
 
 export type RecipeFilter = {
@@ -1089,6 +1091,7 @@ export type RecipeCommentResolvers<ContextType = any, ParentType extends Resolve
   liked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   replyCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  submittedBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1098,6 +1101,7 @@ export type RecipeCommentReplyResolvers<ContextType = any, ParentType extends Re
   liked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   replyCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  submittedBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
