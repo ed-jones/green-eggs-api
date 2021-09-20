@@ -474,6 +474,8 @@ export type RecipeComment = {
   likeCount: Scalars['Int'];
   replyCount: Scalars['Int'];
   submittedBy: User;
+  deleted: Scalars['Boolean'];
+  createdAt: Scalars['String'];
 };
 
 export type RecipeCommentReply = {
@@ -1092,6 +1094,8 @@ export type RecipeCommentResolvers<ContextType = any, ParentType extends Resolve
   likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   replyCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   submittedBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  deleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

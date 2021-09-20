@@ -85,6 +85,7 @@ model RecipeComment {
   replyTo         RecipeComment?  @relation("RecipeCommentToRecipeComment", fields: [recipeCommentId], references: [id])
   recipeCommentId String?
   deleted         Boolean         @default(false)
+  createdAt       DateTime        @default(now())
 }
 
 model Ingredient {

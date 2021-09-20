@@ -106,6 +106,8 @@ type RecipeComment {
   likeCount: Int!
   replyCount: Int!
   submittedBy: User!
+  deleted: Boolean!
+  createdAt: String!
 }
 
 type Recipe {
