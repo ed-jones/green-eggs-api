@@ -463,6 +463,7 @@ export type Recipe = {
   commentability: Privacy;
   comments: Array<RecipeComment>;
   liked: Scalars['Boolean'];
+  saved: Scalars['Boolean'];
 };
 
 export type RecipeComment = {
@@ -1083,6 +1084,7 @@ export type RecipeResolvers<ContextType = any, ParentType extends ResolversParen
   commentability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   comments?: Resolver<Array<ResolversTypes['RecipeComment']>, ParentType, ContextType>;
   liked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  saved?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -132,6 +132,7 @@ type Recipe {
   commentability: Privacy!
   comments: [RecipeComment!]!
   liked: Boolean!
+  saved: Boolean!
 }
 
 type RecipeResult {

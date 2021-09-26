@@ -15,6 +15,7 @@ export default {
       },
     },
     likedBy: true,
+    savedBy: true,
     recipeComments: {
       ...fullCommentArgs,
     },
