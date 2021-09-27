@@ -495,6 +495,7 @@ export type RecipeFilter = {
   allergies?: Maybe<Array<Scalars['String']>>;
   diets?: Maybe<Array<Scalars['String']>>;
   cookTime?: Maybe<Scalars['String']>;
+  user?: Maybe<Scalars['String']>;
 };
 
 export type RecipeInput = {

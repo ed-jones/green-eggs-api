@@ -101,6 +101,12 @@ const recipes = async (
     });
   }
 
+  if (filter.user) {
+    AND.push({
+      submittedById: filter.user,
+    });
+  }
+
   const prismaRecipes = await prisma.recipe.findMany({
     ...fullRecipeArgs,
     skip: offset,
@@ -112,6 +118,7 @@ const recipes = async (
         { description: { contains: query } },
       ],
       NOT,
+      AND,
     },
     orderBy,
   });
