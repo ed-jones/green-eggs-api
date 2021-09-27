@@ -440,6 +440,16 @@ export type QueryProfileArgs = {
   userId?: Maybe<Scalars['String']>;
 };
 
+
+export type QueryFollowingUsersArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryFollowedUsersArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
 export type Recipe = {
   __typename?: 'Recipe';
   id: Scalars['String'];
@@ -1059,8 +1069,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   comment?: Resolver<ResolversTypes['CommentResult'], ParentType, ContextType, RequireFields<QueryCommentArgs, 'commentId'>>;
   users?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'offset' | 'limit' | 'query' | 'sort'>>;
   profile?: Resolver<ResolversTypes['FullUserResult'], ParentType, ContextType, RequireFields<QueryProfileArgs, never>>;
-  followingUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType>;
-  followedUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType>;
+  followingUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowingUsersArgs, never>>;
+  followedUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowedUsersArgs, never>>;
 };
 
 export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = {

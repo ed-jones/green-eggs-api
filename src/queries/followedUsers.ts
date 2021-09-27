@@ -1,26 +1,26 @@
 import { User as PrismaUser } from '@prisma/client';
 
 import prisma from '../prisma';
-import { UsersResult } from '../generated/graphql';
+import { QueryFollowedUsersArgs, UsersResult } from '../generated/graphql';
 import Errors from '../errors';
 import prismaToApolloUser from '../core/user/prismaToApolloUser';
 import fullUserArgs from '../core/user/fullUserArgs';
 
 const users = async (
   _parent: any,
-  _args: any,
+  { userId }: QueryFollowedUsersArgs,
   context: PrismaUser | undefined,
 ): Promise<UsersResult> => {
-  if (!context) {
+  if (!userId) {
     return {
       error: {
-        message: Errors.NO_CONTEXT,
+        message: Errors.NO_USER,
       },
     };
   }
   const user = await prisma.user.findUnique({
     where: {
-      id: context.id,
+      id: userId,
     },
     include: {
       followedBy: {

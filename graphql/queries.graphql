@@ -19,6 +19,6 @@ type Query {
   users(offset: Int!, limit: Int!, query: String!, sort: Sort!): UsersResult!
 
   profile(userId: String): FullUserResult!
-  followingUsers: UsersResult!
-  followedUsers: UsersResult!
+  followingUsers(userId: String): UsersResult!
+  followedUsers(userId: String): UsersResult!
 }
