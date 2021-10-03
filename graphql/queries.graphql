@@ -14,7 +14,11 @@ type Query {
   me: FullUserResult!
   allergies: AllergiesResult!
   diets: DietsResult!
-  ingredients: IngredientsResult!
+  ingredients(
+    offset: Int!
+    limit: Int!
+    query: String!
+  ): IngredientsResult!
   comment(commentId: String!): CommentResult!
   users(offset: Int!, limit: Int!, query: String!, sort: Sort!): UsersResult!
 

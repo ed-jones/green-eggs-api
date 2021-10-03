@@ -423,6 +423,13 @@ export type QueryRecipeArgs = {
 };
 
 
+export type QueryIngredientsArgs = {
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+  query: Scalars['String'];
+};
+
+
 export type QueryCommentArgs = {
   commentId: Scalars['String'];
 };
@@ -1065,7 +1072,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   me?: Resolver<ResolversTypes['FullUserResult'], ParentType, ContextType>;
   allergies?: Resolver<ResolversTypes['AllergiesResult'], ParentType, ContextType>;
   diets?: Resolver<ResolversTypes['DietsResult'], ParentType, ContextType>;
-  ingredients?: Resolver<ResolversTypes['IngredientsResult'], ParentType, ContextType>;
+  ingredients?: Resolver<ResolversTypes['IngredientsResult'], ParentType, ContextType, RequireFields<QueryIngredientsArgs, 'offset' | 'limit' | 'query'>>;
   comment?: Resolver<ResolversTypes['CommentResult'], ParentType, ContextType, RequireFields<QueryCommentArgs, 'commentId'>>;
   users?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'offset' | 'limit' | 'query' | 'sort'>>;
   profile?: Resolver<ResolversTypes['FullUserResult'], ParentType, ContextType, RequireFields<QueryProfileArgs, never>>;

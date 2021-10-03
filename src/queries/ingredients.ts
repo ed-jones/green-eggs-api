@@ -1,13 +1,25 @@
 import prisma from '../prisma';
 import {
-  IngredientsResult,
+  IngredientsResult, QueryIngredientsArgs,
 } from '../generated/graphql';
 import Errors from '../errors';
 
-const ingredients = async (): Promise<IngredientsResult> => {
+const ingredients = async (
+  _parent: any,
+  {
+    offset, limit, query,
+  }: QueryIngredientsArgs,
+): Promise<IngredientsResult> => {
   const prismaIngredients = await prisma.ingredient.findMany({
     include: {
       genericIngredient: true,
+    },
+    skip: offset,
+    take: limit,
+    where: {
+      OR: [
+        { genericIngredient: { name: { contains: query } } },
+      ],
     },
   });
   const apolloIngredients = prismaIngredients.map(
