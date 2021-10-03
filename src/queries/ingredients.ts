@@ -18,7 +18,7 @@ const ingredients = async (
     take: limit,
     where: {
       OR: [
-        { genericIngredient: { name: { contains: query } } },
+        { genericIngredient: { name: { contains: query, mode: 'insensitive' } } },
       ],
     },
     orderBy: {
