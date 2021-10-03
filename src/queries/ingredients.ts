@@ -21,6 +21,11 @@ const ingredients = async (
         { genericIngredient: { name: { contains: query } } },
       ],
     },
+    orderBy: {
+      genericIngredient: {
+        name: 'asc',
+      },
+    },
   });
   const apolloIngredients = prismaIngredients.map(
     ({ genericIngredient, ...ingredient }) => ({ ...ingredient, name: genericIngredient.name }),
