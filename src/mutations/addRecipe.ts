@@ -16,8 +16,9 @@ import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
 import FullPrismaRecipeType from '../core/recipe/FullPrismaRecipeType';
 import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 
-export const toLabelCase = (input: string): string => input.replace(/\W/g, '').trim().toUpperCase();
-
+export function toTitleCase(input: string): string {
+  return `${input.toUpperCase()[0]}${input.toLowerCase().slice(1)}`;
+}
 const addRecipe = async (
   _parent: any,
   { recipe }: MutationAddRecipeArgs,
@@ -56,7 +57,7 @@ const addRecipe = async (
     const categories: Prisma.CategoryCreateNestedManyWithoutRecipesInput = {
       connectOrCreate: recipeRest.categories.map((recipeCategory) => {
         if (!recipeCategory) throw new Error('Missing recipe category field');
-        const name = toLabelCase(recipeCategory.name);
+        const name = toTitleCase(recipeCategory.name);
         return {
           where: { name },
           create: { name },
@@ -67,7 +68,7 @@ const addRecipe = async (
     const diets: Prisma.DietCreateNestedManyWithoutRecipesInput = {
       connectOrCreate: recipeRest.diets.map((recipeDiets) => {
         if (!recipeDiets) throw new Error('Missing recipe diets field');
-        const name = toLabelCase(recipeDiets.name);
+        const name = toTitleCase(recipeDiets.name);
         return {
           where: { name },
           create: { name },
@@ -78,7 +79,7 @@ const addRecipe = async (
     const allergies: Prisma.AllergiesCreateNestedManyWithoutRecipesInput = {
       connectOrCreate: recipeRest.allergies.map((recipeAllergies) => {
         if (!recipeAllergies) throw new Error('Missing recipe allergies field');
-        const name = toLabelCase(recipeAllergies.name);
+        const name = toTitleCase(recipeAllergies.name);
         return {
           where: { name },
           create: { name },
@@ -90,7 +91,7 @@ const addRecipe = async (
       create: recipeRest.ingredients.map((recipeIngredients) => {
         if (!recipeIngredients) throw new Error('Missing recipe ingredients field');
         const { name: wrongCaseName, ...rest } = recipeIngredients;
-        const name = toLabelCase(wrongCaseName);
+        const name = toTitleCase(wrongCaseName);
         return {
           ...rest,
           genericIngredient: {
