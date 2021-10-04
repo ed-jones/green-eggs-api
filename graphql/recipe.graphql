@@ -83,6 +83,11 @@ type Ingredient {
   unit: String
 }
 
+type GenericIngredient {
+  id: String!
+  name: String!
+}
+
 type RecipeStep {
   id: String!
   image: String!
@@ -195,6 +200,6 @@ type DietsResult {
 }
 
 type IngredientsResult {
-  data: [Ingredient!]!
+  data: [GenericIngredient!]!
   error: Error
 }

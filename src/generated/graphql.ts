@@ -173,6 +173,12 @@ export type FullUsersResult = {
   error?: Maybe<Error>;
 };
 
+export type GenericIngredient = {
+  __typename?: 'GenericIngredient';
+  id: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type Ingredient = {
   __typename?: 'Ingredient';
   id: Scalars['String'];
@@ -196,7 +202,7 @@ export type IngredientsFilter = {
 
 export type IngredientsResult = {
   __typename?: 'IngredientsResult';
-  data: Array<Ingredient>;
+  data: Array<GenericIngredient>;
   error?: Maybe<Error>;
 };
 
@@ -793,6 +799,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   FullUserResult: ResolverTypeWrapper<FullUserResult>;
   FullUsersResult: ResolverTypeWrapper<FullUsersResult>;
+  GenericIngredient: ResolverTypeWrapper<GenericIngredient>;
   Ingredient: ResolverTypeWrapper<Ingredient>;
   IngredientInput: IngredientInput;
   IngredientsFilter: IngredientsFilter;
@@ -865,6 +872,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   FullUserResult: FullUserResult;
   FullUsersResult: FullUsersResult;
+  GenericIngredient: GenericIngredient;
   Ingredient: Ingredient;
   IngredientInput: IngredientInput;
   IngredientsFilter: IngredientsFilter;
@@ -1027,6 +1035,12 @@ export type FullUsersResultResolvers<ContextType = any, ParentType extends Resol
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type GenericIngredientResolvers<ContextType = any, ParentType extends ResolversParentTypes['GenericIngredient'] = ResolversParentTypes['GenericIngredient']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type IngredientResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ingredient'] = ResolversParentTypes['Ingredient']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1037,7 +1051,7 @@ export type IngredientResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type IngredientsResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['IngredientsResult'] = ResolversParentTypes['IngredientsResult']> = {
-  data?: Resolver<Array<ResolversTypes['Ingredient']>, ParentType, ContextType>;
+  data?: Resolver<Array<ResolversTypes['GenericIngredient']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -1274,6 +1288,7 @@ export type Resolvers<ContextType = any> = {
   FullUser?: FullUserResolvers<ContextType>;
   FullUserResult?: FullUserResultResolvers<ContextType>;
   FullUsersResult?: FullUsersResultResolvers<ContextType>;
+  GenericIngredient?: GenericIngredientResolvers<ContextType>;
   Ingredient?: IngredientResolvers<ContextType>;
   IngredientsResult?: IngredientsResultResolvers<ContextType>;
   LikeCommentResult?: LikeCommentResultResolvers<ContextType>;

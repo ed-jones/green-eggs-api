@@ -10,31 +10,24 @@ const ingredients = async (
     offset, limit, query,
   }: QueryIngredientsArgs,
 ): Promise<IngredientsResult> => {
-  const prismaIngredients = await prisma.ingredient.findMany({
-    include: {
-      genericIngredient: true,
-    },
+  const prismaIngredients = await prisma.genericIngredient.findMany({
     skip: offset,
     take: limit,
     where: {
       OR: [
-        { genericIngredient: { name: { contains: query, mode: 'insensitive' } } },
+        { name: { contains: query, mode: 'insensitive' } },
       ],
     },
     orderBy: {
-      genericIngredient: {
-        name: 'asc',
-      },
+      name: 'asc',
     },
   });
-  const apolloIngredients = prismaIngredients.map(
-    ({ genericIngredient, ...ingredient }) => ({ ...ingredient, name: genericIngredient.name }),
-  );
+
   if (prismaIngredients.length === 0) {
-    return { data: apolloIngredients, error: { message: Errors.NO_INGREDIENTS } };
+    return { data: prismaIngredients, error: { message: Errors.NO_INGREDIENTS } };
   }
 
-  return { data: apolloIngredients };
+  return { data: prismaIngredients };
 };
 
 export default ingredients;
