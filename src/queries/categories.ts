@@ -1,8 +1,24 @@
 import prisma from '../prisma';
-import { CategoriesResult } from '../generated/graphql';
+import { CategoriesResult, QueryCategoriesArgs } from '../generated/graphql';
 
-const categories = async (): Promise<CategoriesResult> => {
-  const data = await prisma.category.findMany();
+const categories = async (
+  _parent: any,
+  {
+    offset, limit, query,
+  }: QueryCategoriesArgs,
+): Promise<CategoriesResult> => {
+  const data = await prisma.category.findMany({
+    skip: offset,
+    take: limit,
+    where: {
+      OR: [
+        { name: { contains: query, mode: 'insensitive' } },
+      ],
+    },
+    orderBy: {
+      name: 'asc',
+    },
+  });
 
   if (data.length === 0) {
     return ({

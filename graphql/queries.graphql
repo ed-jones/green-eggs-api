@@ -9,11 +9,23 @@ type Query {
   newsFeed(offset: Int!, limit: Int!): RecipesResult!
   trending(offset: Int!, limit: Int!): RecipesResult!
   savedRecipes(offset: Int!, limit: Int!): RecipesResult!
-  categories: CategoriesResult!
+  categories(
+    offset: Int!
+    limit: Int!
+    query: String!
+  ): CategoriesResult!
   recipe(recipeId: String!): RecipeResult!
   me: FullUserResult!
-  allergies: AllergiesResult!
-  diets: DietsResult!
+  allergies(
+    offset: Int!
+    limit: Int!
+    query: String!
+  ): AllergiesResult!
+  diets(
+    offset: Int!
+    limit: Int!
+    query: String!
+  ): DietsResult!
   ingredients(
     offset: Int!
     limit: Int!

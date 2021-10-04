@@ -1,11 +1,27 @@
 import prisma from '../prisma';
 import {
-  AllergiesResult,
+  AllergiesResult, QueryAllergiesArgs,
 } from '../generated/graphql';
 import Errors from '../errors';
 
-const allergies = async (): Promise<AllergiesResult> => {
-  const prismaAllergies = await prisma.allergies.findMany();
+const allergies = async (
+  _parent: any,
+  {
+    offset, limit, query,
+  }: QueryAllergiesArgs,
+): Promise<AllergiesResult> => {
+  const prismaAllergies = await prisma.allergies.findMany({
+    skip: offset,
+    take: limit,
+    where: {
+      OR: [
+        { name: { contains: query, mode: 'insensitive' } },
+      ],
+    },
+    orderBy: {
+      name: 'asc',
+    },
+  });
 
   if (prismaAllergies.length === 0) {
     return { data: prismaAllergies, error: { message: Errors.NO_ALLERGIES } };

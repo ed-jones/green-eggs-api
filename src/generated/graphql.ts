@@ -418,8 +418,29 @@ export type QuerySavedRecipesArgs = {
 };
 
 
+export type QueryCategoriesArgs = {
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+  query: Scalars['String'];
+};
+
+
 export type QueryRecipeArgs = {
   recipeId: Scalars['String'];
+};
+
+
+export type QueryAllergiesArgs = {
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+  query: Scalars['String'];
+};
+
+
+export type QueryDietsArgs = {
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+  query: Scalars['String'];
 };
 
 
@@ -1067,11 +1088,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   newsFeed?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QueryNewsFeedArgs, 'offset' | 'limit'>>;
   trending?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QueryTrendingArgs, 'offset' | 'limit'>>;
   savedRecipes?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QuerySavedRecipesArgs, 'offset' | 'limit'>>;
-  categories?: Resolver<ResolversTypes['CategoriesResult'], ParentType, ContextType>;
+  categories?: Resolver<ResolversTypes['CategoriesResult'], ParentType, ContextType, RequireFields<QueryCategoriesArgs, 'offset' | 'limit' | 'query'>>;
   recipe?: Resolver<ResolversTypes['RecipeResult'], ParentType, ContextType, RequireFields<QueryRecipeArgs, 'recipeId'>>;
   me?: Resolver<ResolversTypes['FullUserResult'], ParentType, ContextType>;
-  allergies?: Resolver<ResolversTypes['AllergiesResult'], ParentType, ContextType>;
-  diets?: Resolver<ResolversTypes['DietsResult'], ParentType, ContextType>;
+  allergies?: Resolver<ResolversTypes['AllergiesResult'], ParentType, ContextType, RequireFields<QueryAllergiesArgs, 'offset' | 'limit' | 'query'>>;
+  diets?: Resolver<ResolversTypes['DietsResult'], ParentType, ContextType, RequireFields<QueryDietsArgs, 'offset' | 'limit' | 'query'>>;
   ingredients?: Resolver<ResolversTypes['IngredientsResult'], ParentType, ContextType, RequireFields<QueryIngredientsArgs, 'offset' | 'limit' | 'query'>>;
   comment?: Resolver<ResolversTypes['CommentResult'], ParentType, ContextType, RequireFields<QueryCommentArgs, 'commentId'>>;
   users?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'offset' | 'limit' | 'query' | 'sort'>>;
