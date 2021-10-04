@@ -35,8 +35,6 @@ const fileUpload = async (fileName: string, fileStream: (options?:{encoding?: st
 
   const key = `${cubeName}/public/${fileName}`;
 
-  console.log(data.byteLength);
-
   const uploadParams = {
     Bucket: bucketName,
     Key: key,
