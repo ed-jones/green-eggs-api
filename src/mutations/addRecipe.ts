@@ -6,6 +6,7 @@ import {
 import prisma from '../prisma';
 import { unixToISO } from '../utils';
 import {
+  Maybe,
   MutationAddRecipeArgs,
   RecipeResult,
   RecipeStepInput,
@@ -108,9 +109,12 @@ const addRecipe = async (
       create: await Promise.all(recipeRest.steps.map(async (step) => {
         if (!step) throw new Error('Missing recipe step field');
         const { image, ...stepRest } = step as RecipeStepInput;
-        const { filename: stepFilename, createReadStream: createStepReadStream } = await image;
-        const imageURI = await fileUpload(stepFilename, createStepReadStream);
-        if (!imageURI) throw new Error('Failed to upload image');
+        let imageURI: Maybe<string> | undefined = undefined;
+        if (image) {
+          const { filename: stepFilename, createReadStream: createStepReadStream } = await image;
+          imageURI = await fileUpload(stepFilename, createStepReadStream);
+          if (!imageURI) throw new Error('Failed to upload image');
+        }
         return {
           ...stepRest,
           imageURI,

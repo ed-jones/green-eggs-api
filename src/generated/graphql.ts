@@ -184,14 +184,14 @@ export type Ingredient = {
   id: Scalars['String'];
   name: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  quantity: Scalars['Int'];
+  quantity?: Maybe<Scalars['Float']>;
   unit?: Maybe<Scalars['String']>;
 };
 
 export type IngredientInput = {
   name: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  quantity: Scalars['Int'];
+  quantity?: Maybe<Scalars['Int']>;
   unit?: Maybe<Scalars['String']>;
 };
 
@@ -574,14 +574,14 @@ export enum RecipeStatus {
 export type RecipeStep = {
   __typename?: 'RecipeStep';
   id: Scalars['String'];
-  image: Scalars['String'];
+  image?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   description: Scalars['String'];
 };
 
 export type RecipeStepInput = {
-  image: Scalars['Upload'];
-  title: Scalars['String'];
+  image?: Maybe<Scalars['Upload']>;
+  title?: Maybe<Scalars['String']>;
   description: Scalars['String'];
 };
 
@@ -801,6 +801,7 @@ export type ResolversTypes = {
   FullUsersResult: ResolverTypeWrapper<FullUsersResult>;
   GenericIngredient: ResolverTypeWrapper<GenericIngredient>;
   Ingredient: ResolverTypeWrapper<Ingredient>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   IngredientInput: IngredientInput;
   IngredientsFilter: IngredientsFilter;
   IngredientsResult: ResolverTypeWrapper<IngredientsResult>;
@@ -874,6 +875,7 @@ export type ResolversParentTypes = {
   FullUsersResult: FullUsersResult;
   GenericIngredient: GenericIngredient;
   Ingredient: Ingredient;
+  Float: Scalars['Float'];
   IngredientInput: IngredientInput;
   IngredientsFilter: IngredientsFilter;
   IngredientsResult: IngredientsResult;
@@ -1045,7 +1047,7 @@ export type IngredientResolvers<ContextType = any, ParentType extends ResolversP
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  quantity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  quantity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   unit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -1172,7 +1174,7 @@ export type RecipeResultResolvers<ContextType = any, ParentType extends Resolver
 
 export type RecipeStepResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeStep'] = ResolversParentTypes['RecipeStep']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

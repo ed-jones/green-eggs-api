@@ -68,8 +68,8 @@ model RecipeStep {
   id          String @id @default(uuid())
   recipe      Recipe @relation(fields: [recipeId], references: [id])
   recipeId    String
-  imageURI    String
-  title       String
+  imageURI    String?
+  title       String?
   description String
 }
 
