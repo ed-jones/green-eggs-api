@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Ingredient" ALTER COLUMN "quantity" DROP NOT NULL,
+ALTER COLUMN "quantity" SET DATA TYPE DOUBLE PRECISION;

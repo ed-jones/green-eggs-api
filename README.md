@@ -6,11 +6,11 @@ This is a GraphQL API designed to be consumed by the Green Eggs mobile app.
 
 ## Commands
 
-Install NodeJS dependencies: `docker-compose run apollo yarn install`
+Install NodeJS dependencies: `docker compose run apollo yarn install`
 
-Migrate db (dev): `docker-compose run prisma yarn prisma migrate dev`
+Migrate db (dev): `docker compose run prisma yarn prisma migrate dev`
 
-Start: `docker-compose up -d --remove-orphans`
+Start: `docker compose up -d --remove-orphans`
 
 ## Web Interfaces
 

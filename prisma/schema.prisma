@@ -92,7 +92,7 @@ model Ingredient {
   id                  String            @id @default(uuid())
   genericIngredient   GenericIngredient @relation(fields: [genericIngredientId], references: [id])
   description         String?
-  quantity            Int
+  quantity            Float?
   unit                String?
   recipe              Recipe            @relation(fields: [recipeId], references: [id])
   recipeId            String

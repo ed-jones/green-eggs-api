@@ -79,7 +79,7 @@ type Ingredient {
   id: String!
   name: String!
   description: String
-  quantity: Int!
+  quantity: Float
   unit: String
 }
 
