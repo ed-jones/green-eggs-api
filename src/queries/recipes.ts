@@ -25,12 +25,16 @@ const recipes = async (
       break;
     // Sorted by by most likes, then by newest to oldest
     case Sort.Relevant:
-      orderBy = {
-        likedBy: {
-          count: 'desc',
+      orderBy = [
+        {
+          likedBy: {
+            count: 'desc',
+          },
         },
-        createdAt: 'desc',
-      };
+        {
+          createdAt: 'desc',
+        },
+      ];
       break;
     // Sorted by most likes
     case Sort.Popular:
@@ -41,13 +45,21 @@ const recipes = async (
         },
       };
   }
+
+  const OR: Prisma.Enumerable<Prisma.RecipeWhereInput> = [];
+  OR.push(
+    { title: { contains: query, mode: 'insensitive' } },
+    { subtitle: { contains: query, mode: 'insensitive' } },
+    { description: { contains: query, mode: 'insensitive' } },
+  );
+
   // Exclude allergies and excluded ingredients
   const NOT: Prisma.Enumerable<Prisma.RecipeWhereInput> = [];
   filter.allergies?.forEach((allergy) => {
     NOT.push({
       allergies: {
         some: {
-          name: allergy,
+          id: allergy,
         },
       },
     });
@@ -57,7 +69,7 @@ const recipes = async (
       ingredients: {
         some: {
           genericIngredient: {
-            name: excludedIngredient,
+            id: excludedIngredient,
           },
         },
       },
@@ -70,7 +82,7 @@ const recipes = async (
     AND.push({
       categories: {
         some: {
-          name: category,
+          id: category,
         },
       },
     });
@@ -79,7 +91,7 @@ const recipes = async (
     AND.push({
       diets: {
         some: {
-          name: diet,
+          id: diet,
         },
       },
     });
@@ -89,7 +101,7 @@ const recipes = async (
       ingredients: {
         some: {
           genericIngredient: {
-            name: includedIngredient,
+            id: includedIngredient,
           },
         },
       },
@@ -112,11 +124,7 @@ const recipes = async (
     skip: offset,
     take: limit,
     where: {
-      OR: [
-        { title: { contains: query, mode: 'insensitive' } },
-        { subtitle: { contains: query, mode: 'insensitive' } },
-        { description: { contains: query, mode: 'insensitive' } },
-      ],
+      OR,
       NOT,
       AND,
     },
