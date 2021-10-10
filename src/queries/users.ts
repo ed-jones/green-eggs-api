@@ -1,9 +1,7 @@
 import { Prisma } from '@prisma/client';
 
 import prisma from '../prisma';
-import {
-  QueryUsersArgs, Sort, UsersResult,
-} from '../generated/graphql';
+import { QueryUsersArgs, Sort, UsersResult } from '../generated/graphql';
 import Errors from '../errors';
 import prismaToApolloUser from '../core/user/prismaToApolloUser';
 import fullUserArgs from '../core/user/fullUserArgs';
@@ -25,12 +23,16 @@ const users = async (
       break;
     // Sorted by by most followers, then by newest to oldest
     case Sort.Relevant:
-      orderBy = {
-        createdAt: 'desc',
-        followedBy: {
-          _count: 'desc',
+      orderBy = [
+        {
+          createdAt: 'desc',
         },
-      };
+        {
+          followedBy: {
+            _count: 'desc',
+          },
+        },
+      ];
       break;
     // Sorted by most followers
     case Sort.Popular:
@@ -49,19 +51,24 @@ const users = async (
     orderBy,
     where: {
       OR: [
-        { firstName: { contains: query } },
-        { firstName: { in: query } },
-        { lastName: { contains: query } },
-        { lastName: { in: query } },
+        { firstName: { contains: query, mode: 'insensitive' } },
+        { firstName: { in: query, mode: 'insensitive' } },
+        { lastName: { contains: query, mode: 'insensitive' } },
+        { lastName: { in: query, mode: 'insensitive' } },
       ],
     },
   });
 
   if (prismaUsers.length === 0) {
-    return { data: prismaUsers.map(prismaUser => prismaToApolloUser(prismaUser)), error: { message: Errors.NO_USERS } };
+    return {
+      data: prismaUsers.map((prismaUser) => prismaToApolloUser(prismaUser)),
+      error: { message: Errors.NO_USERS },
+    };
   }
 
-  return { data: prismaUsers.map(prismaUser => prismaToApolloUser(prismaUser)) };
+  return {
+    data: prismaUsers.map((prismaUser) => prismaToApolloUser(prismaUser)),
+  };
 };
 
 export default users;
