@@ -113,9 +113,9 @@ const recipes = async (
     take: limit,
     where: {
       OR: [
-        { title: { contains: query } },
-        { subtitle: { contains: query } },
-        { description: { contains: query } },
+        { title: { contains: query, mode: 'insensitive' } },
+        { subtitle: { contains: query, mode: 'insensitive' } },
+        { description: { contains: query, mode: 'insensitive' } },
       ],
       NOT,
       AND,
