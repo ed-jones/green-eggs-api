@@ -191,7 +191,7 @@ export type Ingredient = {
 export type IngredientInput = {
   name: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  quantity?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Float']>;
   unit?: Maybe<Scalars['String']>;
 };
 
@@ -476,12 +476,18 @@ export type QueryProfileArgs = {
 
 
 export type QueryFollowingUsersArgs = {
-  userId?: Maybe<Scalars['String']>;
+  userId: Scalars['String'];
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+  query: Scalars['String'];
 };
 
 
 export type QueryFollowedUsersArgs = {
-  userId?: Maybe<Scalars['String']>;
+  userId: Scalars['String'];
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+  query: Scalars['String'];
 };
 
 export type Recipe = {
@@ -1113,8 +1119,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   comment?: Resolver<ResolversTypes['CommentResult'], ParentType, ContextType, RequireFields<QueryCommentArgs, 'commentId'>>;
   users?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'offset' | 'limit' | 'query' | 'sort'>>;
   profile?: Resolver<ResolversTypes['FullUserResult'], ParentType, ContextType, RequireFields<QueryProfileArgs, never>>;
-  followingUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowingUsersArgs, never>>;
-  followedUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowedUsersArgs, never>>;
+  followingUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowingUsersArgs, 'userId' | 'offset' | 'limit' | 'query'>>;
+  followedUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowedUsersArgs, 'userId' | 'offset' | 'limit' | 'query'>>;
 };
 
 export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = {

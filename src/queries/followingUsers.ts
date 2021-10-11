@@ -1,15 +1,13 @@
-import { User as PrismaUser } from '@prisma/client';
-
 import prisma from '../prisma';
 import { QueryFollowingUsersArgs, UsersResult } from '../generated/graphql';
 import Errors from '../errors';
 import prismaToApolloUser from '../core/user/prismaToApolloUser';
-import fullUserArgs from '../core/user/fullUserArgs';
 
-const users = async (
+const followingUsers = async (
   _parent: any,
-  { userId }: QueryFollowingUsersArgs,
-  context: PrismaUser | undefined,
+  {
+    userId, offset, limit, query,
+  }: QueryFollowingUsersArgs,
 ): Promise<UsersResult> => {
   if (!userId) {
     return {
@@ -18,27 +16,23 @@ const users = async (
       },
     };
   }
-  const user = await prisma.user.findUnique({
+
+  const following = await prisma.follows.findMany({
     where: {
-      id: userId,
+      followingId: userId,
+      OR: [
+        { follower: { firstName: { contains: query, mode: 'insensitive' } } },
+        { follower: { lastName: { contains: query, mode: 'insensitive' } } },
+      ],
     },
     include: {
-      following: {
-        include: {
-          follower: fullUserArgs,
-        }
-      },
-    }
+      follower: true,
+    },
+    skip: offset,
+    take: limit,
   });
 
-  if (!user) {
-    return {
-      error: {
-        message: Errors.NO_USER,
-      },
-    };
-  }
-  return { data: user.following.map(following => prismaToApolloUser(following.follower))};
+  return { data: following.map((user) => prismaToApolloUser(user.follower)) };
 };
 
-export default users;
+export default followingUsers;
