@@ -65,6 +65,7 @@ export type Category = {
   __typename?: 'Category';
   id: Scalars['String'];
   name: Scalars['String'];
+  coverImage?: Maybe<Scalars['String']>;
 };
 
 export type CategoryInput = {
@@ -952,6 +953,7 @@ export type CategoriesResultResolvers<ContextType = any, ParentType extends Reso
 export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  coverImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -37,9 +37,10 @@ model Recipe {
 }
 
 model Category {
-  id      String   @id @default(uuid())
-  name    String   @unique
-  recipes Recipe[]
+  id         String   @id @default(uuid())
+  name       String   @unique
+  coverImage String?
+  recipes    Recipe[]
 }
 
 model Allergies {

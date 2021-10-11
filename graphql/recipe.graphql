@@ -63,6 +63,7 @@ input AllergyInput {
 type Category {
   id: String!
   name: String!
+  coverImage: String
 }
 
 type Diet {

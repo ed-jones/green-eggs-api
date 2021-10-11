@@ -15,9 +15,14 @@ const categories = async (
         { name: { contains: query, mode: 'insensitive' } },
       ],
     },
-    orderBy: {
-      name: 'asc',
-    },
+    orderBy: [
+      {
+        coverImage: 'asc',
+      },
+      {
+        name: 'asc',
+      },
+    ],
   });
 
   if (data.length === 0) {
