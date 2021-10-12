@@ -355,6 +355,27 @@ export type MutationUnfollowUserArgs = {
   userId: Scalars['String'];
 };
 
+export type Notification = {
+  __typename?: 'Notification';
+  type: NotificationType;
+  concerns: User;
+  createdAt: Scalars['String'];
+  read: Scalars['Boolean'];
+};
+
+export enum NotificationType {
+  RecipeLiked = 'RECIPE_LIKED',
+  RecipeCommented = 'RECIPE_COMMENTED',
+  CommentLiked = 'COMMENT_LIKED',
+  CommentReplied = 'COMMENT_REPLIED'
+}
+
+export type NotificationsResult = {
+  __typename?: 'NotificationsResult';
+  data: Array<Notification>;
+  error?: Maybe<Error>;
+};
+
 export type Pagination = {
   __typename?: 'Pagination';
   offset?: Maybe<Scalars['Int']>;
@@ -395,6 +416,7 @@ export type Query = {
   profile: FullUserResult;
   followingUsers: UsersResult;
   followedUsers: UsersResult;
+  notifications: NotificationsResult;
 };
 
 
@@ -816,6 +838,9 @@ export type ResolversTypes = {
   LikeRecipeResult: ResolverTypeWrapper<LikeRecipeResult>;
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
+  Notification: ResolverTypeWrapper<Notification>;
+  NotificationType: NotificationType;
+  NotificationsResult: ResolverTypeWrapper<NotificationsResult>;
   Pagination: ResolverTypeWrapper<Pagination>;
   Privacy: Privacy;
   ProfileDetails: ProfileDetails;
@@ -890,6 +915,8 @@ export type ResolversParentTypes = {
   LikeRecipeResult: LikeRecipeResult;
   LoginInput: LoginInput;
   Mutation: {};
+  Notification: Notification;
+  NotificationsResult: NotificationsResult;
   Pagination: Pagination;
   ProfileDetails: ProfileDetails;
   ProfileVisibilityDetails: ProfileVisibilityDetails;
@@ -1101,6 +1128,20 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   unfollowUser?: Resolver<ResolversTypes['UnfollowUserResult'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'userId'>>;
 };
 
+export type NotificationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Notification'] = ResolversParentTypes['Notification']> = {
+  type?: Resolver<ResolversTypes['NotificationType'], ParentType, ContextType>;
+  concerns?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  read?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type NotificationsResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['NotificationsResult'] = ResolversParentTypes['NotificationsResult']> = {
+  data?: Resolver<Array<ResolversTypes['Notification']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type PaginationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Pagination'] = ResolversParentTypes['Pagination']> = {
   offset?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   limit?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -1123,6 +1164,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   profile?: Resolver<ResolversTypes['FullUserResult'], ParentType, ContextType, RequireFields<QueryProfileArgs, never>>;
   followingUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowingUsersArgs, 'userId' | 'offset' | 'limit' | 'query'>>;
   followedUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowedUsersArgs, 'userId' | 'offset' | 'limit' | 'query'>>;
+  notifications?: Resolver<ResolversTypes['NotificationsResult'], ParentType, ContextType>;
 };
 
 export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = {
@@ -1304,6 +1346,8 @@ export type Resolvers<ContextType = any> = {
   LikeCommentResult?: LikeCommentResultResolvers<ContextType>;
   LikeRecipeResult?: LikeRecipeResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Notification?: NotificationResolvers<ContextType>;
+  NotificationsResult?: NotificationsResultResolvers<ContextType>;
   Pagination?: PaginationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Recipe?: RecipeResolvers<ContextType>;

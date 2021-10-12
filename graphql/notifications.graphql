@@ -1,0 +1,18 @@
+enum NotificationType {
+  RECIPE_LIKED
+  RECIPE_COMMENTED
+  COMMENT_LIKED
+  COMMENT_REPLIED
+}
+
+type NotificationsResult {
+  data: [Notification!]!
+  error: Error
+}
+
+type Notification {
+  type: NotificationType!
+  concerns: User!
+  createdAt: String!
+  read: Boolean!
+}

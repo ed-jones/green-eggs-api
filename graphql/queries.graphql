@@ -33,8 +33,8 @@ type Query {
   ): IngredientsResult!
   comment(commentId: String!): CommentResult!
   users(offset: Int!, limit: Int!, query: String!, sort: Sort!): UsersResult!
-
   profile(userId: String): FullUserResult!
   followingUsers(userId: String!, offset: Int!, limit: Int!, query: String!): UsersResult!
   followedUsers(userId: String!, offset: Int!, limit: Int!, query: String!): UsersResult!
+  notifications: NotificationsResult!
 }
