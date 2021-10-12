@@ -18,9 +18,10 @@ const prismaToApolloRecipe = (
     ...prismaRecipeIngredient,
     name: prismaRecipeIngredient.genericIngredient.name,
   })),
-  steps: prismaRecipe.steps.map((step) => ({
+  steps: prismaRecipe.steps.map(({ imageURI, title, ...step }, index) => ({
     ...step,
-    image: step.imageURI,
+    image: imageURI,
+    title: title ?? `Step ${index + 1}`,
   })),
   createdAt: String(prismaRecipe.createdAt.getTime()),
   timeEstimate: String(prismaRecipe.timeEstimate.getTime()),
