@@ -1,4 +1,5 @@
 import {
+  NotificationType,
   User as PrismaUser,
 } from '@prisma/client';
 import Errors from '../errors';
@@ -54,6 +55,15 @@ export default async (_parent: any,
     if (!updateComment.likedBy.map((liker) => liker.id).includes(context.id)) {
       throw new Error('Comment was not liked successfully');
     }
+
+    // Create a like notification
+    await prisma.notification.create({
+      data: {
+        type: NotificationType.COMMENT_LIKED,
+        forId: comment.userId,
+        concernsId: context.id,
+      },
+    });
 
     return {};
   } catch ({ message }) {
