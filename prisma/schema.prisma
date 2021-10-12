@@ -66,8 +66,8 @@ enum Privacy {
 }
 
 model RecipeStep {
-  id          String @id @default(uuid())
-  recipe      Recipe @relation(fields: [recipeId], references: [id])
+  id          String  @id @default(uuid())
+  recipe      Recipe  @relation(fields: [recipeId], references: [id])
   recipeId    String
   imageURI    String?
   title       String?
@@ -126,6 +126,8 @@ model User {
   followedBy         Follows[]       @relation("followers")
   createdAt          DateTime        @default(now())
   visibility         Privacy         @default(PUBLIC)
+  notifications      Notification[]  @relation("for")
+  inNotifications    Notification[]  @relation("concerns")
 }
 
 model Follows {
@@ -135,4 +137,21 @@ model Follows {
   followingId String
 
   @@id([followingId, followerId])
+}
+
+enum NotificationType {
+  RECIPE_LIKED
+  RECIPE_COMMENTED
+  COMMENT_LIKED
+  COMMENT_REPLIED
+}
+
+model Notification {
+  id         String           @id @default(uuid())
+  type       NotificationType
+  read       Boolean
+  for        User             @relation("for", fields: [forId], references: [id])
+  forId      String
+  concerns   User             @relation("concerns", fields: [concernsId], references: [id])
+  concernsId String
 }
