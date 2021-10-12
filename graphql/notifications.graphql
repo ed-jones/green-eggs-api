@@ -5,12 +5,18 @@ enum NotificationType {
   COMMENT_REPLIED
 }
 
+type NotificationResult {
+  data: Notification
+  error: Error
+}
+
 type NotificationsResult {
   data: [Notification!]!
   error: Error
 }
 
 type Notification {
+  id: String!
   type: NotificationType!
   concerns: User!
   createdAt: String!

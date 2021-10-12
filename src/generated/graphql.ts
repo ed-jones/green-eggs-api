@@ -246,6 +246,7 @@ export type Mutation = {
   editProfile: EditProfileResult;
   followUser: FollowUserResult;
   unfollowUser: UnfollowUserResult;
+  readNotification: NotificationResult;
 };
 
 
@@ -355,12 +356,24 @@ export type MutationUnfollowUserArgs = {
   userId: Scalars['String'];
 };
 
+
+export type MutationReadNotificationArgs = {
+  notificationId: Scalars['String'];
+};
+
 export type Notification = {
   __typename?: 'Notification';
+  id: Scalars['String'];
   type: NotificationType;
   concerns: User;
   createdAt: Scalars['String'];
   read: Scalars['Boolean'];
+};
+
+export type NotificationResult = {
+  __typename?: 'NotificationResult';
+  data?: Maybe<Notification>;
+  error?: Maybe<Error>;
 };
 
 export enum NotificationType {
@@ -839,6 +852,7 @@ export type ResolversTypes = {
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
   Notification: ResolverTypeWrapper<Notification>;
+  NotificationResult: ResolverTypeWrapper<NotificationResult>;
   NotificationType: NotificationType;
   NotificationsResult: ResolverTypeWrapper<NotificationsResult>;
   Pagination: ResolverTypeWrapper<Pagination>;
@@ -916,6 +930,7 @@ export type ResolversParentTypes = {
   LoginInput: LoginInput;
   Mutation: {};
   Notification: Notification;
+  NotificationResult: NotificationResult;
   NotificationsResult: NotificationsResult;
   Pagination: Pagination;
   ProfileDetails: ProfileDetails;
@@ -1126,13 +1141,21 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   editProfile?: Resolver<ResolversTypes['EditProfileResult'], ParentType, ContextType, RequireFields<MutationEditProfileArgs, 'profileDetails'>>;
   followUser?: Resolver<ResolversTypes['FollowUserResult'], ParentType, ContextType, RequireFields<MutationFollowUserArgs, 'userId'>>;
   unfollowUser?: Resolver<ResolversTypes['UnfollowUserResult'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'userId'>>;
+  readNotification?: Resolver<ResolversTypes['NotificationResult'], ParentType, ContextType, RequireFields<MutationReadNotificationArgs, 'notificationId'>>;
 };
 
 export type NotificationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Notification'] = ResolversParentTypes['Notification']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['NotificationType'], ParentType, ContextType>;
   concerns?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   read?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type NotificationResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['NotificationResult'] = ResolversParentTypes['NotificationResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['Notification']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1347,6 +1370,7 @@ export type Resolvers<ContextType = any> = {
   LikeRecipeResult?: LikeRecipeResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Notification?: NotificationResolvers<ContextType>;
+  NotificationResult?: NotificationResultResolvers<ContextType>;
   NotificationsResult?: NotificationsResultResolvers<ContextType>;
   Pagination?: PaginationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

@@ -15,7 +15,6 @@ type Mutation {
     changePasswordDetails: ChangePasswordDetails!
   ): ChangePasswordResult!
   deleteAccount: DeleteAccountResult!
-
   updateDietaryPreferences(
     dietaryPreferenceDetails: DietaryPreferenceDetails!
   ): UpdateDietaryPreferencesResult!
@@ -32,7 +31,7 @@ type Mutation {
     allergyPreferenceDetails: AllergyPreferenceDetails!
   ): RemoveAllergyPreferencesResult!
   editProfile(profileDetails: ProfileDetails!): EditProfileResult!
-
   followUser(userId: String!): FollowUserResult!
   unfollowUser(userId: String!): UnfollowUserResult!
+  readNotification(notificationId: String!): NotificationResult!
 }

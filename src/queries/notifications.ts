@@ -8,7 +8,7 @@ type FullPrismaNotificationType = Prisma.Notification & {
   concerns: Prisma.User;
 }
 
-function prismaToApolloNotification(notification: FullPrismaNotificationType): Apollo.Notification {
+export function prismaToApolloNotification(notification: FullPrismaNotificationType): Apollo.Notification {
   return ({
     ...notification,
     type: notification.type as Apollo.NotificationType,
