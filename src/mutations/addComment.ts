@@ -67,17 +67,16 @@ export default async (_parent: any,
     ) as FullPrismaCommentType;
 
     if (comment) {
+      // Create a comment notification
+      await prisma.notification.create({
+        data: {
+          type: NotificationType.RECIPE_COMMENTED,
+          forId: recipe.submittedById,
+          concernsId: context.id,
+        },
+      });
       return { data: prismaToApolloComment(comment, context?.id) };
     }
-
-    // Create a like notification
-    await prisma.notification.create({
-      data: {
-        type: NotificationType.RECIPE_COMMENTED,
-        forId: recipe.submittedById,
-        concernsId: context.id,
-      },
-    });
 
     throw new Error('Comment was not added successfully');
   } catch ({ message }) {

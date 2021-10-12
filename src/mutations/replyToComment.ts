@@ -1,4 +1,5 @@
 import {
+  NotificationType,
   User as PrismaUser,
 } from '@prisma/client';
 import fullCommentArgs from '../core/comment/fullCommentArgs';
@@ -69,6 +70,14 @@ export default async (_parent: any,
     ) as FullPrismaCommentType;
 
     if (comment) {
+      // Create a reply notification
+      await prisma.notification.create({
+        data: {
+          type: NotificationType.COMMENT_REPLIED,
+          forId: comment.userId,
+          concernsId: context.id,
+        },
+      });
       return { data: prismaToApolloComment(comment, context?.id) };
     }
     throw new Error('Reply was not added successfully');
