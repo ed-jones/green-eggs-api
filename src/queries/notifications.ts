@@ -19,7 +19,7 @@ export function prismaToApolloNotification(notification: FullPrismaNotificationT
 
 const Notifications = async (
   _parent: any,
-  _args: any,
+  { offset, limit }: Apollo.QueryNotificationsArgs,
   context?: Prisma.User,
 ): Promise<Apollo.NotificationsResult> => {
   const notifications = await prisma.notification.findMany({
@@ -29,6 +29,13 @@ const Notifications = async (
     include: {
       concerns: true,
     },
+    orderBy: [
+      {
+        createdAt: 'desc',
+      }
+    ],
+    skip: offset,
+    take: limit,
   });
 
   return { data: notifications.map((notification) => prismaToApolloNotification(notification)) };

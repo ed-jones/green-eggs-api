@@ -526,6 +526,12 @@ export type QueryFollowedUsersArgs = {
   query: Scalars['String'];
 };
 
+
+export type QueryNotificationsArgs = {
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+};
+
 export type Recipe = {
   __typename?: 'Recipe';
   id: Scalars['String'];
@@ -1187,7 +1193,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   profile?: Resolver<ResolversTypes['FullUserResult'], ParentType, ContextType, RequireFields<QueryProfileArgs, never>>;
   followingUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowingUsersArgs, 'userId' | 'offset' | 'limit' | 'query'>>;
   followedUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowedUsersArgs, 'userId' | 'offset' | 'limit' | 'query'>>;
-  notifications?: Resolver<ResolversTypes['NotificationsResult'], ParentType, ContextType>;
+  notifications?: Resolver<ResolversTypes['NotificationsResult'], ParentType, ContextType, RequireFields<QueryNotificationsArgs, 'offset' | 'limit'>>;
 };
 
 export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = {

@@ -36,5 +36,5 @@ type Query {
   profile(userId: String): FullUserResult!
   followingUsers(userId: String!, offset: Int!, limit: Int!, query: String!): UsersResult!
   followedUsers(userId: String!, offset: Int!, limit: Int!, query: String!): UsersResult!
-  notifications: NotificationsResult!
+  notifications(offset: Int!, limit: Int!): NotificationsResult!
 }
