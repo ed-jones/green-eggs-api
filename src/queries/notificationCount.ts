@@ -10,6 +10,7 @@ const Notifications = async (
   const notifications = await prisma.notification.findMany({
     where: {
       forId: context?.id,
+      read: false,
     },
   });
 

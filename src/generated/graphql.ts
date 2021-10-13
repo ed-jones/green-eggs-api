@@ -434,6 +434,7 @@ export type Query = {
   trending: RecipesResult;
   savedRecipes: RecipesResult;
   categories: CategoriesResult;
+  categoriesWithImages: CategoriesResult;
   recipe: RecipeResult;
   me: FullUserResult;
   allergies: AllergiesResult;
@@ -477,6 +478,13 @@ export type QuerySavedRecipesArgs = {
 
 
 export type QueryCategoriesArgs = {
+  offset: Scalars['Int'];
+  limit: Scalars['Int'];
+  query: Scalars['String'];
+};
+
+
+export type QueryCategoriesWithImagesArgs = {
   offset: Scalars['Int'];
   limit: Scalars['Int'];
   query: Scalars['String'];
@@ -1222,6 +1230,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   trending?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QueryTrendingArgs, 'offset' | 'limit'>>;
   savedRecipes?: Resolver<ResolversTypes['RecipesResult'], ParentType, ContextType, RequireFields<QuerySavedRecipesArgs, 'offset' | 'limit'>>;
   categories?: Resolver<ResolversTypes['CategoriesResult'], ParentType, ContextType, RequireFields<QueryCategoriesArgs, 'offset' | 'limit' | 'query'>>;
+  categoriesWithImages?: Resolver<ResolversTypes['CategoriesResult'], ParentType, ContextType, RequireFields<QueryCategoriesWithImagesArgs, 'offset' | 'limit' | 'query'>>;
   recipe?: Resolver<ResolversTypes['RecipeResult'], ParentType, ContextType, RequireFields<QueryRecipeArgs, 'recipeId'>>;
   me?: Resolver<ResolversTypes['FullUserResult'], ParentType, ContextType>;
   allergies?: Resolver<ResolversTypes['AllergiesResult'], ParentType, ContextType, RequireFields<QueryAllergiesArgs, 'offset' | 'limit' | 'query'>>;
