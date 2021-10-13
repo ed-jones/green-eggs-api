@@ -1,6 +1,8 @@
 import {
   User as PrismaUser,
 } from '@prisma/client';
+import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
+import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
 import Errors from '../errors';
 import {
   SaveRecipeResult,
@@ -46,16 +48,14 @@ export default async (_parent: any,
           ],
         },
       },
-      include: {
-        savedBy: true,
-      },
+      ...fullRecipeArgs,
     });
 
     if (!updateRecipe.savedBy.map((saver) => saver.id).includes(context.id)) {
       throw new Error('Recipe was not saved successfully');
     }
 
-    return {};
+    return { data: prismaToApolloRecipe(updateRecipe, user.id) };
   } catch ({ message }) {
     return {
       error: {

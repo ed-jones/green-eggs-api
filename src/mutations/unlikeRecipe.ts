@@ -1,6 +1,8 @@
 import {
   User as PrismaUser,
 } from '@prisma/client';
+import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
+import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 import Errors from '../errors';
 import {
   UnlikeRecipeResult,
@@ -46,16 +48,14 @@ export default async (_parent: any,
           ],
         },
       },
-      include: {
-        likedBy: true,
-      },
+      ...fullRecipeArgs,
     });
 
     if (updateRecipe.likedBy.map((liker) => liker.id).includes(context.id)) {
       throw new Error('Recipe was not unliked successfully');
     }
 
-    return {};
+    return { data: prismaToApolloRecipe(updateRecipe, user.id) };
   } catch ({ message }) {
     return {
       error: {

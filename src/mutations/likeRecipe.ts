@@ -2,6 +2,8 @@ import {
   NotificationType,
   User as PrismaUser,
 } from '@prisma/client';
+import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
+import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
 import Errors from '../errors';
 import {
   LikeRecipeResult,
@@ -47,9 +49,7 @@ export default async (_parent: any,
           ],
         },
       },
-      include: {
-        likedBy: true,
-      },
+      ...fullRecipeArgs,
     });
 
     if (!updateRecipe.likedBy.map((liker) => liker.id).includes(context.id)) {
@@ -66,7 +66,7 @@ export default async (_parent: any,
       },
     });
 
-    return {};
+    return { data: prismaToApolloRecipe(updateRecipe, user.id) };
   } catch ({ message }) {
     return {
       error: {

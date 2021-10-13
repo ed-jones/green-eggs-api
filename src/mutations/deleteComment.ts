@@ -1,6 +1,6 @@
-import {
-  User as PrismaUser,
-} from '@prisma/client';
+import { User as PrismaUser } from '@prisma/client';
+import fullCommentArgs from '../core/comment/fullCommentArgs';
+import prismaToApolloComment from '../core/comment/prismaToApolloComment';
 import Errors from '../errors';
 import {
   MutationDeleteCommentArgs,
@@ -8,9 +8,11 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
-export default async (_parent: any,
+export default async (
+  _parent: any,
   { commentId }: MutationDeleteCommentArgs,
-  context?: PrismaUser): Promise<DeleteCommentResult> => {
+  context?: PrismaUser,
+): Promise<DeleteCommentResult> => {
   try {
     // Find user in order to ensure they have permissionto delete
     if (!context?.id) {
@@ -50,16 +52,15 @@ export default async (_parent: any,
           contents: '[deleted]',
           deleted: true,
         },
+        ...fullCommentArgs,
       });
 
       if (!(updateComment.deleted && updateComment.contents === '')) {
         throw new Error('Comment was not liked successfully');
       }
-    } else {
-      throw new Error('User does not have permission to delete this comment');
+      return { data: prismaToApolloComment(updateComment, user.id) };
     }
-
-    return {};
+    throw new Error('User does not have permission to delete this comment');
   } catch ({ message }) {
     return {
       error: {

@@ -2,6 +2,8 @@ import {
   NotificationType,
   User as PrismaUser,
 } from '@prisma/client';
+import fullCommentArgs from '../core/comment/fullCommentArgs';
+import prismaToApolloComment from '../core/comment/prismaToApolloComment';
 import Errors from '../errors';
 import {
   MutationLikeCommentArgs,
@@ -47,9 +49,7 @@ export default async (_parent: any,
           ],
         },
       },
-      include: {
-        likedBy: true,
-      },
+      ...fullCommentArgs,
     });
 
     if (!updateComment.likedBy.map((liker) => liker.id).includes(context.id)) {
@@ -66,7 +66,7 @@ export default async (_parent: any,
       },
     });
 
-    return {};
+    return { data: prismaToApolloComment(updateComment, user.id) };
   } catch ({ message }) {
     return {
       error: {

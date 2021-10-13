@@ -153,14 +153,17 @@ type RecipesResult {
 }
 
 type LikeRecipeResult {
+  data: Recipe
   error: Error
 }
 
 type UnlikeRecipeResult {
+  data: Recipe
   error: Error
 }
 
 type DeleteCommentResult {
+  data: RecipeComment
   error: Error
 }
 
@@ -170,18 +173,22 @@ type CommentResult {
 }
 
 type LikeCommentResult {
+  data: RecipeComment
   error: Error
 }
 
 type UnlikeCommentResult {
+  data: RecipeComment
   error: Error
 }
 
 type SaveRecipeResult {
+  data: Recipe
   error: Error
 }
 
 type UnsaveRecipeResult {
+  data: Recipe
   error: Error
 }
 

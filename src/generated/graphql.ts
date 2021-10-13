@@ -96,6 +96,7 @@ export type DeleteAccountResult = {
 
 export type DeleteCommentResult = {
   __typename?: 'DeleteCommentResult';
+  data?: Maybe<RecipeComment>;
   error?: Maybe<Error>;
 };
 
@@ -209,11 +210,13 @@ export type IngredientsResult = {
 
 export type LikeCommentResult = {
   __typename?: 'LikeCommentResult';
+  data?: Maybe<RecipeComment>;
   error?: Maybe<Error>;
 };
 
 export type LikeRecipeResult = {
   __typename?: 'LikeRecipeResult';
+  data?: Maybe<Recipe>;
   error?: Maybe<Error>;
 };
 
@@ -368,6 +371,7 @@ export type Notification = {
   concerns: User;
   createdAt: Scalars['String'];
   read: Scalars['Boolean'];
+  linkId?: Maybe<Scalars['String']>;
 };
 
 export type NotificationResult = {
@@ -653,6 +657,7 @@ export type RemoveDietaryPreferencesResult = {
 
 export type SaveRecipeResult = {
   __typename?: 'SaveRecipeResult';
+  data?: Maybe<Recipe>;
   error?: Maybe<Error>;
 };
 
@@ -678,16 +683,19 @@ export type UnfollowUserResult = {
 
 export type UnlikeCommentResult = {
   __typename?: 'UnlikeCommentResult';
+  data?: Maybe<RecipeComment>;
   error?: Maybe<Error>;
 };
 
 export type UnlikeRecipeResult = {
   __typename?: 'UnlikeRecipeResult';
+  data?: Maybe<Recipe>;
   error?: Maybe<Error>;
 };
 
 export type UnsaveRecipeResult = {
   __typename?: 'UnsaveRecipeResult';
+  data?: Maybe<Recipe>;
   error?: Maybe<Error>;
 };
 
@@ -1022,6 +1030,7 @@ export type DeleteAccountResultResolvers<ContextType = any, ParentType extends R
 };
 
 export type DeleteCommentResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteCommentResult'] = ResolversParentTypes['DeleteCommentResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['RecipeComment']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -1115,11 +1124,13 @@ export type IngredientsResultResolvers<ContextType = any, ParentType extends Res
 };
 
 export type LikeCommentResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['LikeCommentResult'] = ResolversParentTypes['LikeCommentResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['RecipeComment']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type LikeRecipeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['LikeRecipeResult'] = ResolversParentTypes['LikeRecipeResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -1156,6 +1167,7 @@ export type NotificationResolvers<ContextType = any, ParentType extends Resolver
   concerns?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   read?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  linkId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1278,6 +1290,7 @@ export type RemoveDietaryPreferencesResultResolvers<ContextType = any, ParentTyp
 };
 
 export type SaveRecipeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SaveRecipeResult'] = ResolversParentTypes['SaveRecipeResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -1289,16 +1302,19 @@ export type UnfollowUserResultResolvers<ContextType = any, ParentType extends Re
 };
 
 export type UnlikeCommentResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnlikeCommentResult'] = ResolversParentTypes['UnlikeCommentResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['RecipeComment']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UnlikeRecipeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnlikeRecipeResult'] = ResolversParentTypes['UnlikeRecipeResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UnsaveRecipeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnsaveRecipeResult'] = ResolversParentTypes['UnsaveRecipeResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
