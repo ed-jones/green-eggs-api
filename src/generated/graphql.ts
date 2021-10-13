@@ -374,6 +374,17 @@ export type Notification = {
   linkId?: Maybe<Scalars['String']>;
 };
 
+export type NotificationCount = {
+  __typename?: 'NotificationCount';
+  notificationCount: Scalars['Int'];
+};
+
+export type NotificationCountResult = {
+  __typename?: 'NotificationCountResult';
+  data?: Maybe<NotificationCount>;
+  error?: Maybe<Error>;
+};
+
 export type NotificationResult = {
   __typename?: 'NotificationResult';
   data?: Maybe<Notification>;
@@ -434,6 +445,7 @@ export type Query = {
   followingUsers: UsersResult;
   followedUsers: UsersResult;
   notifications: NotificationsResult;
+  notificationCount: NotificationCountResult;
 };
 
 
@@ -866,6 +878,8 @@ export type ResolversTypes = {
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
   Notification: ResolverTypeWrapper<Notification>;
+  NotificationCount: ResolverTypeWrapper<NotificationCount>;
+  NotificationCountResult: ResolverTypeWrapper<NotificationCountResult>;
   NotificationResult: ResolverTypeWrapper<NotificationResult>;
   NotificationType: NotificationType;
   NotificationsResult: ResolverTypeWrapper<NotificationsResult>;
@@ -944,6 +958,8 @@ export type ResolversParentTypes = {
   LoginInput: LoginInput;
   Mutation: {};
   Notification: Notification;
+  NotificationCount: NotificationCount;
+  NotificationCountResult: NotificationCountResult;
   NotificationResult: NotificationResult;
   NotificationsResult: NotificationsResult;
   Pagination: Pagination;
@@ -1171,6 +1187,17 @@ export type NotificationResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type NotificationCountResolvers<ContextType = any, ParentType extends ResolversParentTypes['NotificationCount'] = ResolversParentTypes['NotificationCount']> = {
+  notificationCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type NotificationCountResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['NotificationCountResult'] = ResolversParentTypes['NotificationCountResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['NotificationCount']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type NotificationResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['NotificationResult'] = ResolversParentTypes['NotificationResult']> = {
   data?: Resolver<Maybe<ResolversTypes['Notification']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
@@ -1206,6 +1233,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   followingUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowingUsersArgs, 'userId' | 'offset' | 'limit' | 'query'>>;
   followedUsers?: Resolver<ResolversTypes['UsersResult'], ParentType, ContextType, RequireFields<QueryFollowedUsersArgs, 'userId' | 'offset' | 'limit' | 'query'>>;
   notifications?: Resolver<ResolversTypes['NotificationsResult'], ParentType, ContextType, RequireFields<QueryNotificationsArgs, 'offset' | 'limit'>>;
+  notificationCount?: Resolver<ResolversTypes['NotificationCountResult'], ParentType, ContextType>;
 };
 
 export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = {
@@ -1392,6 +1420,8 @@ export type Resolvers<ContextType = any> = {
   LikeRecipeResult?: LikeRecipeResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Notification?: NotificationResolvers<ContextType>;
+  NotificationCount?: NotificationCountResolvers<ContextType>;
+  NotificationCountResult?: NotificationCountResultResolvers<ContextType>;
   NotificationResult?: NotificationResultResolvers<ContextType>;
   NotificationsResult?: NotificationsResultResolvers<ContextType>;
   Pagination?: PaginationResolvers<ContextType>;

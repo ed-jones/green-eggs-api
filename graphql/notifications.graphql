@@ -23,3 +23,12 @@ type Notification {
   read: Boolean!
   linkId: String
 }
+
+type NotificationCount {
+  notificationCount: Int!
+}
+
+type NotificationCountResult {
+  data: NotificationCount
+  error: Error
+}

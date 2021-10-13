@@ -37,4 +37,5 @@ type Query {
   followingUsers(userId: String!, offset: Int!, limit: Int!, query: String!): UsersResult!
   followedUsers(userId: String!, offset: Int!, limit: Int!, query: String!): UsersResult!
   notifications(offset: Int!, limit: Int!): NotificationsResult!
+  notificationCount: NotificationCountResult!
 }
