@@ -21,4 +21,5 @@ type Notification {
   concerns: User!
   createdAt: String!
   read: Boolean!
+  linkId: String
 }

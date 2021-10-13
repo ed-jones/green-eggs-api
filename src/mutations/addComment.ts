@@ -73,6 +73,7 @@ export default async (_parent: any,
           type: NotificationType.RECIPE_COMMENTED,
           forId: recipe.submittedById,
           concernsId: context.id,
+          linkId: comment.id,
         },
       });
       return { data: prismaToApolloComment(comment, context?.id) };

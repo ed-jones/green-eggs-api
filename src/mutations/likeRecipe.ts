@@ -62,6 +62,7 @@ export default async (_parent: any,
         type: NotificationType.RECIPE_LIKED,
         forId: recipe.submittedById,
         concernsId: context.id,
+        linkId: recipe.id,
       },
     });
 

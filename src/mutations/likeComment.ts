@@ -62,6 +62,7 @@ export default async (_parent: any,
         type: NotificationType.COMMENT_LIKED,
         forId: comment.userId,
         concernsId: context.id,
+        linkId: comment.id,
       },
     });
 

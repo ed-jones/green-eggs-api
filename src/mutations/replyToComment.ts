@@ -76,6 +76,7 @@ export default async (_parent: any,
           type: NotificationType.COMMENT_REPLIED,
           forId: comment.userId,
           concernsId: context.id,
+          linkId: replyComment.id,
         },
       });
       return { data: prismaToApolloComment(comment, context?.id) };
