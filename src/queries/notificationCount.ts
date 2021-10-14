@@ -9,8 +9,19 @@ const Notifications = async (
 ): Promise<Apollo.NotificationCountResult> => {
   const notifications = await prisma.notification.findMany({
     where: {
-      forId: context?.id,
-      read: false,
+      AND: [
+        {
+          forId: context?.id,
+        },
+        {
+          read: false,
+        },
+        {
+          concernsId: {
+            not: context?.id,
+          },
+        },
+      ],
     },
   });
 

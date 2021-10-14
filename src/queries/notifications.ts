@@ -38,7 +38,7 @@ const Notifications = async (
     take: limit,
   });
 
-  return { data: notifications.map((notification) => prismaToApolloNotification(notification)) };
+  return { data: notifications.filter((notification) => notification.concernsId !== context?.id).map((notification) => prismaToApolloNotification(notification)) };
 };
 
 export default Notifications;
