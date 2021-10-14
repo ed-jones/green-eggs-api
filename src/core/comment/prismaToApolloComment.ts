@@ -1,24 +1,24 @@
-import { RecipeComment as ApolloRecipeComment } from '../../generated/graphql';
+import { FullUser, RecipeComment as ApolloRecipeComment } from '../../generated/graphql';
 import prismaToApolloUser from '../user/prismaToApolloUser';
 import FullPrismaCommentType from './FullPrismaCommentType';
 
-const prismaToApolloRecipe = (
+const prismaToApolloComment = (
   prismaComment: FullPrismaCommentType,
-  userId?: string,
+  me?: FullUser,
 ): ApolloRecipeComment => ({
   ...prismaComment,
-  liked: userId ? prismaComment.likedBy.map((liker) => liker.id).includes(userId) : false,
+  liked: me?.id ? prismaComment.likedBy.map((liker) => liker.id).includes(me.id) : false,
   likeCount: prismaComment.likedBy.length,
   replyCount: prismaComment.replies.length,
   submittedBy: prismaToApolloUser(prismaComment.author),
   createdAt: String(prismaComment.createdAt.getTime()),
   replies: prismaComment.replies.map((reply) => ({
     ...reply,
-    liked: userId ? reply.likedBy.map((liker) => liker.id).includes(userId) : false,
+    liked: me?.id ? reply.likedBy.map((liker) => liker.id).includes(me.id) : false,
     likeCount: reply.likedBy.length,
     replyCount: reply.replies.length,
     submittedBy: prismaToApolloUser(reply.author),
   })),
 });
 
-export default prismaToApolloRecipe;
+export default prismaToApolloComment;

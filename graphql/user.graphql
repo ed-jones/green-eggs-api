@@ -27,6 +27,11 @@ type User {
   visibility: Privacy!
 }
 
+type PrivateUser {
+  id: String!
+  visibility: Privacy!
+}
+
 input UserInput {
   firstName: String!
   lastName: String!
@@ -34,23 +39,31 @@ input UserInput {
   avatarURI: String
 }
 
+union FullUserUnion = FullUser | PrivateUser
+union UserUnion = User | PrivateUser
+
 type UserResult {
-  data: User
+  data: UserUnion
   error: Error
 }
 
-type FullUserResult {
+type MeResult {
   data: FullUser
   error: Error
 }
 
+type FullUserResult {
+  data: FullUserUnion
+  error: Error
+}
+
 type UsersResult {
-  data: [User!]
+  data: [UserUnion!]
   error: Error
 }
 
 type FullUsersResult {
-  data: [FullUser!]
+  data: [FullUserUnion!]
   error: Error
 }
 

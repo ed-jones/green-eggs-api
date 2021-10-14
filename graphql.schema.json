@@ -1129,8 +1129,8 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "FullUser",
+              "kind": "UNION",
+              "name": "FullUserUnion",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1155,6 +1155,27 @@
         "possibleTypes": null
       },
       {
+        "kind": "UNION",
+        "name": "FullUserUnion",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "FullUser",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "PrivateUser",
+            "ofType": null
+          }
+        ]
+      },
+      {
         "kind": "OBJECT",
         "name": "FullUsersResult",
         "description": null,
@@ -1170,8 +1191,8 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "FullUser",
+                  "kind": "UNION",
+                  "name": "FullUserUnion",
                   "ofType": null
                 }
               }
@@ -1600,6 +1621,41 @@
           }
         ],
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MeResult",
+        "description": null,
+        "fields": [
+          {
+            "name": "data",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "FullUser",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "error",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Error",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -2433,8 +2489,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "User",
+                "kind": "UNION",
+                "name": "UserUnion",
                 "ofType": null
               }
             },
@@ -2732,6 +2788,49 @@
             "deprecationReason": null
           }
         ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PrivateUser",
+        "description": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibility",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "Privacy",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
         "possibleTypes": null
       },
       {
@@ -3241,7 +3340,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "FullUserResult",
+                "name": "MeResult",
                 "ofType": null
               }
             },
@@ -3896,8 +3995,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "User",
+                "kind": "UNION",
+                "name": "UserUnion",
                 "ofType": null
               }
             },
@@ -4347,8 +4446,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "User",
+                "kind": "UNION",
+                "name": "UserUnion",
                 "ofType": null
               }
             },
@@ -4486,8 +4585,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "User",
+                "kind": "UNION",
+                "name": "UserUnion",
                 "ofType": null
               }
             },
@@ -5835,8 +5934,8 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "User",
+              "kind": "UNION",
+              "name": "UserUnion",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5861,6 +5960,27 @@
         "possibleTypes": null
       },
       {
+        "kind": "UNION",
+        "name": "UserUnion",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "User",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "PrivateUser",
+            "ofType": null
+          }
+        ]
+      },
+      {
         "kind": "OBJECT",
         "name": "UsersResult",
         "description": null,
@@ -5876,8 +5996,8 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "User",
+                  "kind": "UNION",
+                  "name": "UserUnion",
                   "ofType": null
                 }
               }

@@ -1,13 +1,23 @@
 import {
+  Privacy as PrismaPrivacy,
+} from '@prisma/client';
+import {
   Privacy as ApolloPrivacy,
-  FullUser as ApolloFullUser,
+  FullUserUnion as ApolloFullUserUnion,
+  FullUser,
 } from '../../generated/graphql';
 import FullPrismaUserType from './FullPrismaUserType';
 
 export default function prismaToApolloFullUser(
   prismaUser: FullPrismaUserType,
-  me?: FullPrismaUserType,
-): ApolloFullUser {
+  me?: FullUser,
+): ApolloFullUserUnion {
+  if (prismaUser.visibility === PrismaPrivacy.PRIVATE && me?.id !== prismaUser.id) {
+    return ({
+      id: prismaUser.id,
+      visibility: prismaUser.visibility as ApolloPrivacy,
+    });
+  }
   const isFollowing = me?.following.some(
     (following) => following.followerId === prismaUser.id,
   );

@@ -20,7 +20,7 @@ type Query {
     query: String!
   ): CategoriesResult!
   recipe(recipeId: String!): RecipeResult!
-  me: FullUserResult!
+  me: MeResult!
   allergies(
     offset: Int!
     limit: Int!

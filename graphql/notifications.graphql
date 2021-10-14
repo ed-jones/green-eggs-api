@@ -18,7 +18,7 @@ type NotificationsResult {
 type Notification {
   id: String!
   type: NotificationType!
-  concerns: User!
+  concerns: UserUnion!
   createdAt: String!
   read: Boolean!
   linkId: String

@@ -11,6 +11,7 @@ import {
   MutationAddCommentArgs,
 } from '../generated/graphql';
 import prisma from '../prisma';
+import { me } from '../queries';
 
 export default async (_parent: any,
   { recipeId, comment: commentContent }: MutationAddCommentArgs,
@@ -20,12 +21,9 @@ export default async (_parent: any,
     if (!context?.id) {
       throw new Error(Errors.NO_CONTEXT);
     }
-    const user = await prisma.user.findUnique({
-      where: {
-        id: context.id,
-      },
-    });
-    if (!user?.id) {
+    const { data: meResult } = await me(undefined, undefined, context);
+
+    if (!meResult?.id) {
       throw new Error(Errors.NO_USER);
     }
 
@@ -48,7 +46,7 @@ export default async (_parent: any,
           create: [
             {
               author: {
-                connect: { id: user.id },
+                connect: { id: meResult.id },
               },
               contents: commentContent,
             },
@@ -76,7 +74,7 @@ export default async (_parent: any,
           linkId: comment.id,
         },
       });
-      return { data: prismaToApolloComment(comment, context?.id) };
+      return { data: prismaToApolloComment(comment, meResult) };
     }
 
     throw new Error('Comment was not added successfully');

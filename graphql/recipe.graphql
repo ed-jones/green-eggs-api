@@ -102,7 +102,7 @@ type RecipeCommentReply {
   liked: Boolean!
   likeCount: Int!
   replyCount: Int!
-  submittedBy: User!
+  submittedBy: UserUnion!
 }
 
 type RecipeComment {
@@ -112,7 +112,7 @@ type RecipeComment {
   liked: Boolean!
   likeCount: Int!
   replyCount: Int!
-  submittedBy: User!
+  submittedBy: UserUnion!
   deleted: Boolean!
   createdAt: String!
 }
@@ -122,7 +122,7 @@ type Recipe {
   title: String!
   subtitle: String!
   description: String!
-  submittedBy: User!
+  submittedBy: UserUnion!
   commentCount: Int!
   likeCount: Int!
   createdAt: String!
