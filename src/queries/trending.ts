@@ -7,6 +7,7 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 import me from './me';
+import buildRecipeArgsForUser from '../core/buildRecipeArgsForUser';
 
 const trending = async (
   parent: any,
@@ -27,6 +28,7 @@ const trending = async (
       },
     },
     where: {
+      ... await buildRecipeArgsForUser(context),
       createdAt: {
         gte: new Date(Date.now() - (7 * 24 * 60 * 60 * 1000)),
       },

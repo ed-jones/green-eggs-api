@@ -6,6 +6,7 @@ import {
 } from '../generated/graphql';
 import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
 import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
+import buildRecipeArgsForUser from '../core/buildRecipeArgsForUser';
 
 const recipes = async (
   _parent: any,
@@ -117,6 +118,14 @@ const recipes = async (
     AND.push({
       submittedById: filter.user,
     });
+  }
+
+  const recipeArgsForUser = await buildRecipeArgsForUser(context);
+  if (Array.isArray(recipeArgsForUser?.AND) && recipeArgsForUser?.AND !== undefined) {
+    AND.push(...recipeArgsForUser?.AND);
+  }
+  if (Array.isArray(recipeArgsForUser?.OR) && recipeArgsForUser?.OR !== undefined) {
+    OR.push(...recipeArgsForUser?.OR);
   }
 
   const prismaRecipes = await prisma.recipe.findMany({

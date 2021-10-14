@@ -7,6 +7,7 @@ import {
 import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 import prisma from '../prisma';
 import me from './me';
+import buildRecipeArgsForUser from '../core/buildRecipeArgsForUser';
 
 const newsFeed = async (
   parent: any,
@@ -26,6 +27,7 @@ const newsFeed = async (
       createdAt: 'desc'
     },
     where: {
+      ...await buildRecipeArgsForUser(context),
       submittedBy: {
         followedBy: {
           some: {
