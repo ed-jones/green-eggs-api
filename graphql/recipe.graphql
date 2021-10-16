@@ -20,19 +20,16 @@ enum RecipeStatus {
 
 input RecipeInput {
   title: String!
-  subtitle: String!
-  description: String!
-  servingCount: Int!
-  timeEstimate: String!
+  subtitle: String
+  description: String
+  servingCount: Int
+  timeEstimate: String
   coverImage: FileUpload!
-  categories: [CategoryInput!]!
-  diets: [DietInput!]!
-  allergies: [AllergyInput!]!
-  ingredients: [IngredientInput!]!
-  steps: [RecipeStepInput!]!
-  visibility: Privacy!
-  likeability: Privacy!
-  commentability: Privacy!
+  categories: [CategoryInput!]
+  diets: [DietInput!]
+  allergies: [AllergyInput!]
+  ingredients: [IngredientInput!]
+  steps: [RecipeStepInput!]
 }
 
 input RecipeStepInput {
@@ -120,23 +117,20 @@ type RecipeComment {
 type Recipe {
   id: String!
   title: String!
-  subtitle: String!
-  description: String!
+  subtitle: String
+  description: String
   submittedBy: User!
   commentCount: Int!
   likeCount: Int!
   createdAt: String!
-  servingCount: Int!
-  timeEstimate: String!
+  servingCount: Int
+  timeEstimate: String
   coverImage: String!
   categories: [Category!]!
   diets: [Diet!]!
   allergies: [Allergy!]!
   ingredients: [Ingredient!]!
   steps: [RecipeStep!]!
-  visibility: Privacy!
-  likeability: Privacy!
-  commentability: Privacy!
   comments: [RecipeComment!]!
   liked: Boolean!
   saved: Boolean!

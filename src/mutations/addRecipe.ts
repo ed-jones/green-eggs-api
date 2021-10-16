@@ -56,7 +56,7 @@ const addRecipe = async (
 
     // Create category if it doesn't exist, else create
     const categories: Prisma.CategoryCreateNestedManyWithoutRecipesInput = {
-      connectOrCreate: recipeRest.categories.map((recipeCategory) => {
+      connectOrCreate: recipeRest.categories?.map((recipeCategory) => {
         if (!recipeCategory) throw new Error('Missing recipe category field');
         const name = toTitleCase(recipeCategory.name);
         return {
@@ -67,7 +67,7 @@ const addRecipe = async (
     };
 
     const diets: Prisma.DietCreateNestedManyWithoutRecipesInput = {
-      connectOrCreate: recipeRest.diets.map((recipeDiets) => {
+      connectOrCreate: recipeRest.diets?.map((recipeDiets) => {
         if (!recipeDiets) throw new Error('Missing recipe diets field');
         const name = toTitleCase(recipeDiets.name);
         return {
@@ -78,7 +78,7 @@ const addRecipe = async (
     };
 
     const allergies: Prisma.AllergiesCreateNestedManyWithoutRecipesInput = {
-      connectOrCreate: recipeRest.allergies.map((recipeAllergies) => {
+      connectOrCreate: recipeRest.allergies?.map((recipeAllergies) => {
         if (!recipeAllergies) throw new Error('Missing recipe allergies field');
         const name = toTitleCase(recipeAllergies.name);
         return {
@@ -89,7 +89,7 @@ const addRecipe = async (
     };
 
     const ingredients: Prisma.IngredientCreateNestedManyWithoutRecipeInput = {
-      create: recipeRest.ingredients.map((recipeIngredients) => {
+      create: recipeRest.ingredients?.map((recipeIngredients) => {
         if (!recipeIngredients) throw new Error('Missing recipe ingredients field');
         const { name: wrongCaseName, ...rest } = recipeIngredients;
         const name = toTitleCase(wrongCaseName);
@@ -106,7 +106,7 @@ const addRecipe = async (
     };
 
     const steps: Prisma.RecipeStepCreateNestedManyWithoutRecipeInput = {
-      create: await Promise.all(recipeRest.steps.map(async (step) => {
+      create: recipeRest.steps && await Promise.all(recipeRest.steps?.map(async (step) => {
         if (!step) throw new Error('Missing recipe step field');
         const { image, ...stepRest } = step as RecipeStepInput;
         let imageURI: Maybe<string> | undefined = undefined;
@@ -119,7 +119,7 @@ const addRecipe = async (
           ...stepRest,
           imageURI,
         };
-      })),
+      })) || undefined,
     };
 
     // Create prisma object from apollo object and user found in previous step
@@ -136,7 +136,7 @@ const addRecipe = async (
       allergies,
       ingredients,
       steps,
-      timeEstimate: unixToISO(recipe.timeEstimate),
+      timeEstimate: recipe.timeEstimate && unixToISO(recipe.timeEstimate),
     };
 
     // Add recipe to database and fetch this recipe once in the database

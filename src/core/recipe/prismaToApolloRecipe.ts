@@ -1,5 +1,5 @@
 import {
-  Privacy as ApolloPrivacy, Recipe as ApolloRecipe,
+  Recipe as ApolloRecipe,
 } from '../../generated/graphql';
 import prismaToApolloComment from '../comment/prismaToApolloComment';
 import FullPrismaRecipeType from './FullPrismaRecipeType';
@@ -10,9 +10,6 @@ const prismaToApolloRecipe = (
 ): ApolloRecipe => ({
   ...prismaRecipe,
   submittedBy: prismaToApolloUser(prismaRecipe.submittedBy),
-  visibility: prismaRecipe.visibility as ApolloPrivacy,
-  commentability: prismaRecipe.commentability as ApolloPrivacy,
-  likeability: prismaRecipe.likeability as ApolloPrivacy,
   coverImage: prismaRecipe.previewURI,
   ingredients: prismaRecipe.ingredients.map((prismaRecipeIngredient) => ({
     ...prismaRecipeIngredient,
@@ -24,7 +21,7 @@ const prismaToApolloRecipe = (
     title: title ?? `Step ${index + 1}`,
   })),
   createdAt: String(prismaRecipe.createdAt.getTime()),
-  timeEstimate: String(prismaRecipe.timeEstimate.getTime()),
+  timeEstimate: prismaRecipe.timeEstimate && String(prismaRecipe.timeEstimate.getTime()),
   liked: userId ? prismaRecipe.likedBy.map((liker) => liker.id).includes(userId) : false,
   saved: userId ? prismaRecipe.savedBy.map((saver) => saver.id).includes(userId) : false,
   comments: prismaRecipe.recipeComments.filter(

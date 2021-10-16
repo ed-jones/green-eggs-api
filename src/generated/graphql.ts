@@ -560,23 +560,20 @@ export type Recipe = {
   __typename?: 'Recipe';
   id: Scalars['String'];
   title: Scalars['String'];
-  subtitle: Scalars['String'];
-  description: Scalars['String'];
+  subtitle?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   submittedBy: User;
   commentCount: Scalars['Int'];
   likeCount: Scalars['Int'];
   createdAt: Scalars['String'];
-  servingCount: Scalars['Int'];
-  timeEstimate: Scalars['String'];
+  servingCount?: Maybe<Scalars['Int']>;
+  timeEstimate?: Maybe<Scalars['String']>;
   coverImage: Scalars['String'];
   categories: Array<Category>;
   diets: Array<Diet>;
   allergies: Array<Allergy>;
   ingredients: Array<Ingredient>;
   steps: Array<RecipeStep>;
-  visibility: Privacy;
-  likeability: Privacy;
-  commentability: Privacy;
   comments: Array<RecipeComment>;
   liked: Scalars['Boolean'];
   saved: Scalars['Boolean'];
@@ -616,19 +613,16 @@ export type RecipeFilter = {
 
 export type RecipeInput = {
   title: Scalars['String'];
-  subtitle: Scalars['String'];
-  description: Scalars['String'];
-  servingCount: Scalars['Int'];
-  timeEstimate: Scalars['String'];
+  subtitle?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  servingCount?: Maybe<Scalars['Int']>;
+  timeEstimate?: Maybe<Scalars['String']>;
   coverImage: Scalars['Upload'];
-  categories: Array<CategoryInput>;
-  diets: Array<DietInput>;
-  allergies: Array<AllergyInput>;
-  ingredients: Array<IngredientInput>;
-  steps: Array<RecipeStepInput>;
-  visibility: Privacy;
-  likeability: Privacy;
-  commentability: Privacy;
+  categories?: Maybe<Array<CategoryInput>>;
+  diets?: Maybe<Array<DietInput>>;
+  allergies?: Maybe<Array<AllergyInput>>;
+  ingredients?: Maybe<Array<IngredientInput>>;
+  steps?: Maybe<Array<RecipeStepInput>>;
 };
 
 export type RecipeResult = {
@@ -1248,23 +1242,20 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  subtitle?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   submittedBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   commentCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  servingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  timeEstimate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  servingCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  timeEstimate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   coverImage?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
   diets?: Resolver<Array<ResolversTypes['Diet']>, ParentType, ContextType>;
   allergies?: Resolver<Array<ResolversTypes['Allergy']>, ParentType, ContextType>;
   ingredients?: Resolver<Array<ResolversTypes['Ingredient']>, ParentType, ContextType>;
   steps?: Resolver<Array<ResolversTypes['RecipeStep']>, ParentType, ContextType>;
-  visibility?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
-  likeability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
-  commentability?: Resolver<ResolversTypes['Privacy'], ParentType, ContextType>;
   comments?: Resolver<Array<ResolversTypes['RecipeComment']>, ParentType, ContextType>;
   liked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   saved?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;

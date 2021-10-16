@@ -15,22 +15,19 @@ generator client {
 model Recipe {
   id             String          @id @default(uuid())
   title          String
-  subtitle       String
-  description    String
+  subtitle       String?
+  description    String?
   submittedBy    User            @relation("submittedRecipes", fields: [submittedById], references: [id])
   submittedById  String
   createdAt      DateTime        @default(now())
-  servingCount   Int
-  timeEstimate   DateTime
+  servingCount   Int?
+  timeEstimate   DateTime?
   previewURI     String
   steps          RecipeStep[]
   ingredients    Ingredient[]
   recipeComments RecipeComment[]
   likedBy        User[]          @relation("likedRecipes")
   savedBy        User[]          @relation("savedRecipes")
-  visibility     Privacy         @default(FRIENDS)
-  commentability Privacy         @default(PRIVATE)
-  likeability    Privacy         @default(PRIVATE)
   categories     Category[]
   diets          Diet[]
   allergies      Allergies[]
