@@ -1,7 +1,7 @@
 import { Prisma, User } from "@prisma/client";
 const csv = require("csv-parser");
 import * as fs from "fs";
-import bcrypt from "bcryptjs";
+const bcrypt = require('bcryptjs');
 import prisma from "../src/prisma";
 import fullRecipeArgs from "../src/core/recipe/fullRecipeArgs";
 import { toTitleCase } from "../src/mutations/addRecipe";
