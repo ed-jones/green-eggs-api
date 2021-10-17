@@ -15,7 +15,8 @@
     "watch:dev": "nodemon",
     "start:host": "func start",
     "test": "echo \"No tests yet...\"",
-    "postinstall": "node_modules/.bin/prisma generate"
+    "postinstall": "node_modules/.bin/prisma generate",
+    "loadsql": "ts-node ./scripts/insertDefaultSQL.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.20.0",
