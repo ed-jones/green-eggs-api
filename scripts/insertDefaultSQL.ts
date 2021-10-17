@@ -4,11 +4,14 @@ import * as fs from "fs";
 import bcrypt from "bcryptjs";
 import prisma from "../src/prisma";
 import fullRecipeArgs from "../src/core/recipe/fullRecipeArgs";
+import { toTitleCase } from "../src/mutations/addRecipe";
 
 const comments = [
   "Great recipe!",
   "That was really cool.",
   "I liked this one.",
+  "I just made this recipe. It was delicious!",
+  "Me and my partner enjoyed cooking this recipe together.",
 ];
 
 async function arrayFromCSV<T>(filename: string): Promise<T[]> {
@@ -23,11 +26,12 @@ async function arrayFromCSV<T>(filename: string): Promise<T[]> {
   });
 }
 
-function parseArray(arrayAsString: string): string[] {
+function parseArray(arrayAsString: string): (string)[] {
   return arrayAsString
     .replace(/\"|\[|\]/g, "")
     .split(",")
-    .map((s) => s.trim());
+    .filter(Boolean)
+    .map((s) => toTitleCase(s.trim()));
 }
 
 // Create Diets
@@ -52,7 +56,13 @@ arrayFromCSV<Prisma.AllergiesCreateManyInput>("./csv/allergies.csv").then(
 arrayFromCSV<Prisma.CategoryCreateManyInput>("./csv/categories.csv").then(
   async (data) => {
     await prisma.category.createMany({
-      data,
+      data: data.map(
+        (category) =>
+          ({
+            name: category.name,
+            coverImage: category.coverImage || null,
+          })
+      ),
     });
   }
 );
@@ -75,73 +85,80 @@ arrayFromCSV<Prisma.UserCreateInput>("./csv/users.csv")
     // Create Recipes
     arrayFromCSV<any>("./csv/recipes.csv").then(async (data) => {
       data.forEach(async (datum) => {
-        console.log(
-          await prisma.recipe.create({
-            data: {
-              ...datum,
-              servingCount: Math.floor(Math.random() * 8) + 1,
-              timeEstimate: new Date(
-                (Math.floor(Math.random() * 8) + 1) * 1000 * 60 * 60 * 15
-              ),
-              likedBy: {
-                connect: (
-                  await Promise.all(
-                    users.map(async () => ({
-                      id: (await getRandomUser()).id,
-                    }))
-                  )
-                ).slice(0, Math.floor(Math.random() * (users.length - 1))),
-              },
-              submittedBy: {
-                connect: {
-                  id: (await getRandomUser()).id,
-                },
-              },
-              recipeComments: {
-                create: {
-                  author: {
-                    connect: {
-                      id: (await getRandomUser()).id,
-                    },
-                  },
-                  contents:
-                    comments[Math.floor(Math.random() * (comments.length - 1))],
-                },
-              },
-              description:
-                "Et nemo officiis consequatur. Esse assumenda voluptatem laudantium ipsam alias autem dolore unde. Nostrum tenetur libero nihil libero. Quos repellendus ullam at.\nProvident non doloremque et excepturi ut. Reprehenderit accusantium eius in. Ab dicta amet doloribus rerum exercitationem. Odit non optio repudiandae quas. Commodi eos et quas sint minima molestiae quod.",
-              ingredients: {
-                create: parseArray(datum.ingredients).map((name) => ({
-                  genericIngredient: {
-                    connectOrCreate: {
-                      where: { name },
-                      create: { name },
-                    },
-                  },
-                })),
-              },
-              categories: {
-                connectOrCreate: parseArray(datum.categories).map((name) => ({
-                  where: { name },
-                  create: { name },
-                })),
-              },
-              diets: {
-                connectOrCreate: parseArray(datum.diets).map((name) => ({
-                  where: { name },
-                  create: { name },
-                })),
-              },
-              allergies: {
-                connectOrCreate: parseArray(datum.allergies).map((name) => ({
-                  where: { name },
-                  create: { name },
-                })),
+        await prisma.recipe.create({
+          data: {
+            ...datum,
+            createdAt: new Date(
+              Date.now() - (Math.random() * 365 + 1) * 60 * 60 * 24 * 1000
+            ),
+            servingCount: Math.floor(Math.random() * 8) + 1,
+            timeEstimate: new Date(
+              (Math.floor(Math.random() * 8) + 1) * 60 * 15 * 1000
+            ),
+            likedBy: {
+              connect: (
+                await Promise.all(
+                  users.map(async () => ({
+                    id: (await getRandomUser()).id,
+                  }))
+                )
+              ).slice(0, Math.floor(Math.random() * (users.length - 1))),
+            },
+            submittedBy: {
+              connect: {
+                id: (await getRandomUser()).id,
               },
             },
-            ...fullRecipeArgs,
-          })
-        );
+            recipeComments: {
+              create: (
+                await Promise.all(
+                  users.map(async () => ({
+                    author: {
+                      connect: {
+                        id: (await getRandomUser()).id,
+                      },
+                    },
+                    contents:
+                      comments[
+                        Math.floor(Math.random() * (comments.length - 1))
+                      ],
+                  }))
+                )
+              ).slice(0, Math.floor(Math.random() * (users.length - 1))),
+            },
+            description:
+              "Et nemo officiis consequatur. Esse assumenda voluptatem laudantium ipsam alias autem dolore unde. Nostrum tenetur libero nihil libero. Quos repellendus ullam at.\nProvident non doloremque et excepturi ut. Reprehenderit accusantium eius in. Ab dicta amet doloribus rerum exercitationem. Odit non optio repudiandae quas. Commodi eos et quas sint minima molestiae quod.",
+            ingredients: {
+              create: parseArray(datum.ingredients).map((name) => ({
+                genericIngredient: {
+                  connectOrCreate: {
+                    where: { name },
+                    create: { name },
+                  },
+                },
+              })),
+            },
+            categories: {
+              connectOrCreate: parseArray(datum.categories).map((name) => ({
+                where: { name },
+                create: { name },
+              })),
+            },
+            diets: {
+              connectOrCreate: parseArray(datum.diets).map((name) => ({
+                where: { name },
+                create: { name },
+              })),
+            },
+            allergies: {
+              connectOrCreate: parseArray(datum.allergies).map((name) => ({
+                where: { name },
+                create: { name },
+              })),
+            },
+          },
+          ...fullRecipeArgs,
+        });
       });
     });
   });
