@@ -1,13 +1,15 @@
-import { User as PrismaUser } from '@prisma/client';
+import { User as PrismaUser } from "@prisma/client";
 
-import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
-import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
+import fullRecipeArgs from "../core/recipe/fullRecipeArgs";
+import prismaToApolloRecipe from "../core/recipe/prismaToApolloRecipe";
 import {
-  QueryTrendingArgs, RecipesResult, Recipe as ApolloRecipe
-} from '../generated/graphql';
-import prisma from '../prisma';
-import me from './me';
-import buildRecipeArgsForUser from '../core/buildRecipeArgsForUser';
+  QueryTrendingArgs,
+  RecipesResult,
+  Recipe as ApolloRecipe,
+} from "../generated/graphql";
+import prisma from "../prisma";
+import me from "./me";
+import buildRecipeArgsForUser from "../core/buildRecipeArgsForUser";
 
 const trending = async (
   parent: any,
@@ -18,29 +20,30 @@ const trending = async (
   if (meResult.error) return { error: meResult.error };
 
   // Return a list of paginated recipes, sorted by like count in the past 7 days
-  const prismaRecipes = await prisma.recipe.findMany({ 
+  const prismaRecipes = await prisma.recipe.findMany({
     ...fullRecipeArgs,
     skip: offset,
     take: limit,
-    orderBy: {
-      likedBy: {
-        count: 'desc',
+    orderBy: [
+      {
+        createdAt: "desc",
       },
-    },
+      {
+        likedBy: {
+          count: "desc",
+        },
+      },
+    ],
     where: {
-      ... await buildRecipeArgsForUser(context),
-      createdAt: {
-        gte: new Date(Date.now() - (7 * 24 * 60 * 60 * 1000)),
-      },
+      ...(await buildRecipeArgsForUser(context)),
     },
   });
 
-  const data: ApolloRecipe[] = prismaRecipes.map(
-    (recipe) => prismaToApolloRecipe(recipe, context?.id),
+  const data: ApolloRecipe[] = prismaRecipes.map((recipe) =>
+    prismaToApolloRecipe(recipe, context?.id)
   );
 
   return { data };
-
 };
 
 export default trending;
