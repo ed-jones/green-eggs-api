@@ -560,7 +560,6 @@ export type Recipe = {
   __typename?: 'Recipe';
   id: Scalars['String'];
   title: Scalars['String'];
-  subtitle?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   submittedBy: User;
   commentCount: Scalars['Int'];
@@ -613,7 +612,6 @@ export type RecipeFilter = {
 
 export type RecipeInput = {
   title: Scalars['String'];
-  subtitle?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   servingCount?: Maybe<Scalars['Int']>;
   timeEstimate?: Maybe<Scalars['String']>;
@@ -1242,7 +1240,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   submittedBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   commentCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;

@@ -50,7 +50,6 @@ const recipes = async (
   const OR: Prisma.Enumerable<Prisma.RecipeWhereInput> = [];
   OR.push(
     { title: { contains: query, mode: 'insensitive' } },
-    { subtitle: { contains: query, mode: 'insensitive' } },
     { description: { contains: query, mode: 'insensitive' } },
   );
 

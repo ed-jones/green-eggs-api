@@ -15,7 +15,6 @@ generator client {
 model Recipe {
   id             String          @id @default(uuid())
   title          String
-  subtitle       String?
   description    String?
   submittedBy    User            @relation("submittedRecipes", fields: [submittedById], references: [id])
   submittedById  String

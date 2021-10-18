@@ -20,7 +20,6 @@ enum RecipeStatus {
 
 input RecipeInput {
   title: String!
-  subtitle: String
   description: String
   servingCount: Int
   timeEstimate: String
@@ -117,7 +116,6 @@ type RecipeComment {
 type Recipe {
   id: String!
   title: String!
-  subtitle: String
   description: String
   submittedBy: User!
   commentCount: Int!
