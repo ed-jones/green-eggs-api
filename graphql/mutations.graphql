@@ -34,4 +34,5 @@ type Mutation {
   followUser(userId: String!): FollowUserResult!
   unfollowUser(userId: String!): UnfollowUserResult!
   readNotification(notificationId: String!): NotificationResult!
+  deleteRecipe(recipeId: String!): DeleteRecipeResult!
 }

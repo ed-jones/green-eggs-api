@@ -100,6 +100,12 @@ export type DeleteCommentResult = {
   error?: Maybe<Error>;
 };
 
+export type DeleteRecipeResult = {
+  __typename?: 'DeleteRecipeResult';
+  data?: Maybe<Recipe>;
+  error?: Maybe<Error>;
+};
+
 export type Diet = {
   __typename?: 'Diet';
   id: Scalars['String'];
@@ -250,6 +256,7 @@ export type Mutation = {
   followUser: FollowUserResult;
   unfollowUser: UnfollowUserResult;
   readNotification: NotificationResult;
+  deleteRecipe: DeleteRecipeResult;
 };
 
 
@@ -362,6 +369,11 @@ export type MutationUnfollowUserArgs = {
 
 export type MutationReadNotificationArgs = {
   notificationId: Scalars['String'];
+};
+
+
+export type MutationDeleteRecipeArgs = {
+  recipeId: Scalars['String'];
 };
 
 export type Notification = {
@@ -854,6 +866,7 @@ export type ResolversTypes = {
   CommentResult: ResolverTypeWrapper<CommentResult>;
   DeleteAccountResult: ResolverTypeWrapper<DeleteAccountResult>;
   DeleteCommentResult: ResolverTypeWrapper<DeleteCommentResult>;
+  DeleteRecipeResult: ResolverTypeWrapper<DeleteRecipeResult>;
   Diet: ResolverTypeWrapper<Diet>;
   DietInput: DietInput;
   DietaryPreferenceDetails: DietaryPreferenceDetails;
@@ -934,6 +947,7 @@ export type ResolversParentTypes = {
   CommentResult: CommentResult;
   DeleteAccountResult: DeleteAccountResult;
   DeleteCommentResult: DeleteCommentResult;
+  DeleteRecipeResult: DeleteRecipeResult;
   Diet: Diet;
   DietInput: DietInput;
   DietaryPreferenceDetails: DietaryPreferenceDetails;
@@ -1047,6 +1061,12 @@ export type DeleteAccountResultResolvers<ContextType = any, ParentType extends R
 
 export type DeleteCommentResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteCommentResult'] = ResolversParentTypes['DeleteCommentResult']> = {
   data?: Resolver<Maybe<ResolversTypes['RecipeComment']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type DeleteRecipeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteRecipeResult'] = ResolversParentTypes['DeleteRecipeResult']> = {
+  data?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes['Error']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -1175,6 +1195,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   followUser?: Resolver<ResolversTypes['FollowUserResult'], ParentType, ContextType, RequireFields<MutationFollowUserArgs, 'userId'>>;
   unfollowUser?: Resolver<ResolversTypes['UnfollowUserResult'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'userId'>>;
   readNotification?: Resolver<ResolversTypes['NotificationResult'], ParentType, ContextType, RequireFields<MutationReadNotificationArgs, 'notificationId'>>;
+  deleteRecipe?: Resolver<ResolversTypes['DeleteRecipeResult'], ParentType, ContextType, RequireFields<MutationDeleteRecipeArgs, 'recipeId'>>;
 };
 
 export type NotificationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Notification'] = ResolversParentTypes['Notification']> = {
@@ -1401,6 +1422,7 @@ export type Resolvers<ContextType = any> = {
   CommentResult?: CommentResultResolvers<ContextType>;
   DeleteAccountResult?: DeleteAccountResultResolvers<ContextType>;
   DeleteCommentResult?: DeleteCommentResultResolvers<ContextType>;
+  DeleteRecipeResult?: DeleteRecipeResultResolvers<ContextType>;
   Diet?: DietResolvers<ContextType>;
   DietsResult?: DietsResultResolvers<ContextType>;
   EditProfileResult?: EditProfileResultResolvers<ContextType>;

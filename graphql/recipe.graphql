@@ -203,3 +203,8 @@ type IngredientsResult {
   data: [GenericIngredient!]!
   error: Error
 }
+
+type DeleteRecipeResult {
+  data: Recipe
+  error: Error
+}

@@ -21,3 +21,4 @@ export { default as removeAllergyPreferences } from './removeAllergyPreferences'
 export { default as followUser } from './followUser';
 export { default as unfollowUser } from './unfollowUser';
 export { default as readNotification } from './readNotification';
+export { default as deleteRecipe } from './deleteRecipe';
