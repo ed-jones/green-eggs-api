@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 export default {
   include: {
     author: true,

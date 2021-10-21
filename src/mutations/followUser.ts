@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import { User as PrismaUser } from '@prisma/client';
 import fullUserArgs from '../core/user/fullUserArgs';
 import prismaToApolloUser from '../core/user/prismaToApolloUser';
@@ -55,7 +58,7 @@ export default async (
   } catch ({ message }) {
     return {
       error: {
-        message,
+        message: message as string,
       },
     };
   }

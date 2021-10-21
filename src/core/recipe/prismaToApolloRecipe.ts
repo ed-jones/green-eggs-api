@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import {
   Recipe as ApolloRecipe,
 } from '../../generated/graphql';

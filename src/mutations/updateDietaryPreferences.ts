@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import {
   User as PrismaUser,
 } from '@prisma/client';
@@ -37,11 +40,11 @@ export default async (_parent: any,
         dietaryPreferences: {
           connect: diets.map((diet) => ({
             id: diet,
-          }))
-        }
-      }
-    })
-    
+          })),
+        },
+      },
+    });
+
     return { data: updatedUser.dietaryPreferences };
   } catch ({ message }) {
     return {

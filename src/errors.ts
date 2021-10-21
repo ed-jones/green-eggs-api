@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 enum Errors {
   NO_CONTEXT = 'Context Not Supplied',
   NO_USER = 'User Not Found',

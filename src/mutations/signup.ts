@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { User as PrismaUser } from '@prisma/client';

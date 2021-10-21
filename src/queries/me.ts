@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import { User as PrismaUser } from '@prisma/client';
 
 import { FullUserResult } from '../generated/graphql';

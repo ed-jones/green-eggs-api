@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import { Prisma, User } from "@prisma/client";
 const csv = require("csv-parser");
 import * as fs from "fs";

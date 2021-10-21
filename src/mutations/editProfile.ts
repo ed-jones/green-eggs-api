@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import { User as PrismaUser } from '@prisma/client';
 
 import { MutationEditProfileArgs, EditProfileResult, User as ApolloUser, Privacy as ApolloPrivacy } from '../generated/graphql';
@@ -51,7 +54,7 @@ const editProfile = async (
   } catch ({ message }) {
     return {
       error: {
-        message,
+        message: message as string,
         },
       };
     }

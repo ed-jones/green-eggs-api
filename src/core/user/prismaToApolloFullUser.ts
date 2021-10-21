@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import {
   Privacy as ApolloPrivacy,
   FullUser as ApolloFullUser,

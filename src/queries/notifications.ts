@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import * as Prisma from '@prisma/client';
 import prismaToApolloUser from '../core/user/prismaToApolloUser';
 

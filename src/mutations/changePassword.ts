@@ -1,6 +1,7 @@
-import {
-  User as PrismaUser,
-} from '@prisma/client';
+/**
+ * Author: Edward Jones
+ */
+import { User as PrismaUser } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
 import Errors from '../errors';
@@ -10,9 +11,13 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
-export default async (_parent: any,
-  { changePasswordDetails: { newPassword, oldPassword, confirmNewPassword} }: MutationChangePasswordArgs,
-  context?: PrismaUser): Promise<ChangePasswordResult> => {
+export default async (
+  _parent: any,
+  {
+    changePasswordDetails: { newPassword, oldPassword, confirmNewPassword },
+  }: MutationChangePasswordArgs,
+  context?: PrismaUser,
+): Promise<ChangePasswordResult> => {
   try {
     // Find user to change password for
     if (!context?.id) {
@@ -50,9 +55,9 @@ export default async (_parent: any,
       },
       data: {
         password: hash,
-      }
-    })
-    
+      },
+    });
+
     return {};
   } catch ({ message }) {
     return {

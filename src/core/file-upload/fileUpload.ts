@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { ReadStream } from 'fs-capacitor';
 

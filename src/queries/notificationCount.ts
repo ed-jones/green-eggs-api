@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import * as Prisma from '@prisma/client';
 import * as Apollo from '../generated/graphql';
 import prisma from '../prisma';

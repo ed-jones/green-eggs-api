@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import fullRecipeArgs from '../recipe/fullRecipeArgs';
 
 export default {

@@ -1,5 +1,6 @@
-// import { Prisma } from '@prisma/client';
-
+/**
+ * Author: Edward Jones
+ */
 import fullCommentArgs from '../comment/fullCommentArgs';
 
 export default {

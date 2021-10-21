@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import prisma from '../prisma';
 import { CategoriesResult, QueryCategoriesArgs } from '../generated/graphql';
 

@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import {
   NotificationType,
   User as PrismaUser,

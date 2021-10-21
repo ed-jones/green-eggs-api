@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import { User as PrismaUser } from '@prisma/client';
 import fullCommentArgs from '../core/comment/fullCommentArgs';
 import prismaToApolloComment from '../core/comment/prismaToApolloComment';

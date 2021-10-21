@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import {
   Recipe as PrismaRecipe,
   User as PrismaUser,

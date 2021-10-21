@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import { Prisma, User as PrismaUser } from '@prisma/client';
 import me from '../queries/me';
 

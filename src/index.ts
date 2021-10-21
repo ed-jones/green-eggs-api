@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import { GraphQLUpload, graphqlUploadExpress } from 'graphql-upload';
 import { loadSchema, GraphQLFileLoader } from 'graphql-tools';
 import { graphqlHTTP } from 'express-graphql';

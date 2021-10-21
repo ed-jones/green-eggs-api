@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import {
   User as PrismaUser,
 } from '@prisma/client';
@@ -37,11 +40,11 @@ export default async (_parent: any,
         allergyPreferences: {
           disconnect: allergies.map((allergy) => ({
             id: allergy,
-          }))
-        }
-      }
-    })
-    
+          })),
+        },
+      },
+    });
+
     return { data: updatedUser.allergyPreferences };
   } catch ({ message }) {
     return {

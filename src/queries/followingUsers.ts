@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import prisma from '../prisma';
 import { QueryFollowingUsersArgs, UsersResult } from '../generated/graphql';
 import Errors from '../errors';

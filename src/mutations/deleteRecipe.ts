@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import { User as PrismaUser } from '@prisma/client';
 import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 import fullRecipeArgs from '../core/recipe/fullRecipeArgs';

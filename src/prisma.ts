@@ -1,3 +1,7 @@
+/**
+ * Author: Edward Jones
+ */
+
 import { PrismaClient } from '@prisma/client';
 
 const Prisma = new PrismaClient();

@@ -1,3 +1,6 @@
+/**
+ * Author: Edward Jones
+ */
 import { RecipeComment as ApolloRecipeComment } from '../../generated/graphql';
 import prismaToApolloUser from '../user/prismaToApolloUser';
 import FullPrismaCommentType from './FullPrismaCommentType';
