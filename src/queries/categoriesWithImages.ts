@@ -4,6 +4,9 @@
 import prisma from '../prisma';
 import { CategoriesResult, QueryCategoriesArgs } from '../generated/graphql';
 
+/**
+ * Resolver that returns a paginated list of categories (with images) within the database
+ */
 const categories = async (
   _parent: any,
   {

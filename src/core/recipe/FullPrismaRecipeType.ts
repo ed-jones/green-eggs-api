@@ -14,6 +14,9 @@ import {
 } from "@prisma/client";
 import FullPrismaCommentType from "../comment/FullPrismaCommentType";
 
+/**
+ * Type of a recipe (in prisma format) with all included fields
+ */
 type FullPrismaRecipeType = PrismaRecipe & {
     submittedBy: PrismaUser;
   } & {

@@ -11,6 +11,9 @@ import Errors from '../errors';
 
 const secret = process.env.SECRET;
 
+/**
+ * Resolver that creates a new user and returns a token.
+ */
 const signup = async (_: any, { signupDetails }: MutationSignupArgs): Promise<AuthResult> => {
   if (signupDetails.password !== signupDetails.confirmPassword) {
     return {

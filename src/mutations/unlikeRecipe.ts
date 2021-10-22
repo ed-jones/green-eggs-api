@@ -13,6 +13,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that removes a recipe from the list of liked recipes for the logged in user
+ */
 export default async (_parent: any,
   { recipeId }: MutationUnlikeRecipeArgs,
   context?: PrismaUser): Promise<UnlikeRecipeResult> => {

@@ -12,6 +12,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that updates the allergy preferences of the logged in user
+ */
 export default async (_parent: any,
   { allergyPreferenceDetails: { allergies } }: MutationUpdateAllergyPreferencesArgs,
   context?: PrismaUser): Promise<UpdateAllergyPreferencesResult> => {

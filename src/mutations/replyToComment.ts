@@ -15,6 +15,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that creates a comment reply to another comment on behalf of the logged in user.
+ */
 export default async (_parent: any,
   { commentId, comment: commentContent }: MutationReplyToCommentArgs,
   context?: PrismaUser): Promise<CommentResult> => {

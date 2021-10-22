@@ -1,6 +1,10 @@
 /**
  * Author: Edward Jones
  */
+
+/**
+ * Arguments for a prisma operation that includes all comment fields
+ */
 export default {
   include: {
     author: true,

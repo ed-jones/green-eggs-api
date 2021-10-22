@@ -1,5 +1,7 @@
 /**
  * Author: Edward Jones
+ * 
+ * Adds demo data to the database
  */
 import { Prisma, User } from "@prisma/client";
 const csv = require("csv-parser");
@@ -17,6 +19,9 @@ const comments = [
   "Me and my partner enjoyed cooking this recipe together.",
 ];
 
+/**
+ * Creates an array of objects from a supplied CSV file
+ */
 async function arrayFromCSV<T>(filename: string): Promise<T[]> {
   return new Promise((resolve) => {
     const results: T[] = [];
@@ -29,6 +34,9 @@ async function arrayFromCSV<T>(filename: string): Promise<T[]> {
   });
 }
 
+/**
+ * Creates a JS array from an array string
+ */
 function parseArray(arrayAsString: string): (string)[] {
   return arrayAsString
     .replace(/\"|\[|\]/g, "")

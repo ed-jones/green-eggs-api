@@ -13,6 +13,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that updates the profile visibility of the logged in user
+ */
 export default async (_parent: any,
   { profileVisibilityDetails: { visibility } }: MutationUpdateProfileVisibilityArgs,
   context?: PrismaUser): Promise<UpdateProfileVisibilityResult> => {

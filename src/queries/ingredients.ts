@@ -7,6 +7,9 @@ import {
 } from '../generated/graphql';
 import Errors from '../errors';
 
+/**
+ * Resolver that returns a paginated list of all ingredients
+ */
 const ingredients = async (
   _parent: any,
   {

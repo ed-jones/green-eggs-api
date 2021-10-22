@@ -5,6 +5,9 @@ import { RecipeComment as ApolloRecipeComment } from '../../generated/graphql';
 import prismaToApolloUser from '../user/prismaToApolloUser';
 import FullPrismaCommentType from './FullPrismaCommentType';
 
+/**
+ * Converts a comment (in prisma format) to a comment (in apollo format)
+ */
 const prismaToApolloRecipe = (
   prismaComment: FullPrismaCommentType,
   userId?: string,

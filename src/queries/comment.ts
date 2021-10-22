@@ -10,6 +10,9 @@ import prismaToApolloComment from '../core/comment/prismaToApolloComment';
 import fullCommentArgs from '../core/comment/fullCommentArgs';
 import FullPrismaCommentType from '../core/comment/FullPrismaCommentType';
 
+/**
+ * Resolver that returns a comment from a comment id
+ */
 export default async (
   _parent: any,
   { commentId }: QueryCommentArgs,

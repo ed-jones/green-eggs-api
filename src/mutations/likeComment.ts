@@ -14,6 +14,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that adds a comment to the list of liked comments for the logged in user
+ */
 export default async (_parent: any,
   { commentId }: MutationLikeCommentArgs,
   context?: PrismaUser): Promise<LikeCommentResult> => {

@@ -1,6 +1,10 @@
 /**
  * Author: Edward Jones
  */
+
+/**
+ * A list of reusable error messages within the API
+ */
 enum Errors {
   NO_CONTEXT = 'Context Not Supplied',
   NO_USER = 'User Not Found',

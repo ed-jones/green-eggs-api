@@ -12,6 +12,10 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that removes a dietary preference from the list of dietary preferences
+ * for the logged in user
+ */
 export default async (_parent: any,
   { dietaryPreferenceDetails: { diets } }: MutationRemoveDietaryPreferencesArgs,
   context?: PrismaUser): Promise<RemoveDietaryPreferencesResult> => {

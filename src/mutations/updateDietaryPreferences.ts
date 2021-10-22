@@ -12,6 +12,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that updates the dietary preferences of the logged in user
+ */
 export default async (_parent: any,
   { dietaryPreferenceDetails: { diets } }: MutationUpdateDietaryPreferencesArgs,
   context?: PrismaUser): Promise<UpdateDietaryPreferencesResult> => {

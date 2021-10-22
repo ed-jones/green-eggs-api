@@ -7,6 +7,9 @@ import {
 
 import { Privacy as ApolloPrivacy, User as ApolloUser } from '../../generated/graphql';
 
+/**
+ * Converts a user (in prisma format) to a user (in apollo format)
+ */
 export default function prismaToApolloUser(prismaUser: PrismaUser): ApolloUser {
   return ({
     ...prismaUser,

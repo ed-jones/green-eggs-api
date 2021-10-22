@@ -9,6 +9,9 @@ import Errors from '../errors';
 import prismaToApolloUser from '../core/user/prismaToApolloUser';
 import fullUserArgs from '../core/user/fullUserArgs';
 
+/**
+ * Resolver that returns a searchable and sortable paginated list of users within the app
+ */
 const users = async (
   _parent: any,
   {

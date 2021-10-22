@@ -8,6 +8,9 @@ import Errors from '../errors';
 import { FollowUserResult, MutationFollowUserArgs } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that adds a user to the list of followed users for the logged in user
+ */
 export default async (
   _parent: any,
   { userId }: MutationFollowUserArgs,

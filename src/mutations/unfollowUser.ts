@@ -13,6 +13,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that removes a user from the list of followed users for the logged in user
+ */
 export default async (_parent: any,
   { userId }: MutationUnfollowUserArgs,
   context?: PrismaUser): Promise<UnfollowUserResult> => {

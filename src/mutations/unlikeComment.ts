@@ -13,6 +13,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that removes a comment from the list of liked comments for the logged in user
+ */
 export default async (_parent: any,
   { commentId }: MutationUnlikeCommentArgs,
   context?: PrismaUser): Promise<UnlikeCommentResult> => {

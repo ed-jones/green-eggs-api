@@ -8,6 +8,9 @@ import prismaToApolloComment from '../comment/prismaToApolloComment';
 import FullPrismaRecipeType from './FullPrismaRecipeType';
 import prismaToApolloUser from '../user/prismaToApolloUser';
 
+/**
+ * Converts a recipe (in prisma format) to a recipe (in apollo format)
+ */
 const prismaToApolloRecipe = (
   prismaRecipe: FullPrismaRecipeType, userId?: string,
 ): ApolloRecipe => ({

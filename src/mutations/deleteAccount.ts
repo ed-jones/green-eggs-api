@@ -11,6 +11,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that deletes the account of the logged in user
+ */
 export default async (_parent: any,
   _args: any,
   context?: PrismaUser): Promise<DeleteAccountResult> => {

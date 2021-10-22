@@ -12,6 +12,9 @@ import prisma from '../prisma';
 import me from './me';
 import buildRecipeArgsForUser from '../core/buildRecipeArgsForUser';
 
+/**
+ * Resolver that returns a list of recipes from users followed by the logged in user
+ */
 const newsFeed = async (
   parent: any,
   { offset, limit }: QueryNewsFeedArgs,

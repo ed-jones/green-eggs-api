@@ -13,6 +13,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that adds a recipe to the list of saved recipes for the logged in user
+ */
 export default async (_parent: any,
   { recipeId }: MutationSaveRecipeArgs,
   context?: PrismaUser): Promise<SaveRecipeResult> => {

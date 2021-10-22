@@ -3,6 +3,9 @@
  */
 import { RecipeComment as PrismaRecipeComment, User as PrismaUser } from '@prisma/client';
 
+/**
+ * Type of a comment (in prisma format) with all included fields
+ */
 type FullPrismaCommentType = PrismaRecipeComment & {
   author: PrismaUser;
   likedBy: PrismaUser[];

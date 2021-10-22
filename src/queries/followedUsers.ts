@@ -6,6 +6,9 @@ import { QueryFollowedUsersArgs, UsersResult } from '../generated/graphql';
 import Errors from '../errors';
 import prismaToApolloUser from '../core/user/prismaToApolloUser';
 
+/**
+ * Resolver that returns a paginated list of users followed by a user
+ */
 const followedUsers = async (
   _parent: any,
   {

@@ -23,6 +23,10 @@ import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 export function toTitleCase(input: string): string {
   return `${input.toUpperCase()[0]}${input.toLowerCase().slice(1)}`;
 }
+
+/**
+ * Resolver that creates a new recipe, associated with the current logged in user
+ */
 const addRecipe = async (
   _parent: any,
   { recipe }: MutationAddRecipeArgs,
@@ -57,7 +61,7 @@ const addRecipe = async (
       throw new Error('Failed to upload image');
     }
 
-    // Create category if it doesn't exist, else create
+    // Create category if it doesn't exist, else connect
     const categories: Prisma.CategoryCreateNestedManyWithoutRecipesInput = {
       connectOrCreate: recipeRest.categories?.map((recipeCategory) => {
         if (!recipeCategory) throw new Error('Missing recipe category field');
@@ -69,6 +73,7 @@ const addRecipe = async (
       }),
     };
 
+    // Create diet if it doesn't exist, else connect
     const diets: Prisma.DietCreateNestedManyWithoutRecipesInput = {
       connectOrCreate: recipeRest.diets?.map((recipeDiets) => {
         if (!recipeDiets) throw new Error('Missing recipe diets field');
@@ -80,6 +85,7 @@ const addRecipe = async (
       }),
     };
 
+    // Create allergy if it doesn't exist, else connect
     const allergies: Prisma.AllergiesCreateNestedManyWithoutRecipesInput = {
       connectOrCreate: recipeRest.allergies?.map((recipeAllergies) => {
         if (!recipeAllergies) throw new Error('Missing recipe allergies field');
@@ -91,6 +97,7 @@ const addRecipe = async (
       }),
     };
 
+    // Create ingredient if it doesn't exist, else connect
     const ingredients: Prisma.IngredientCreateNestedManyWithoutRecipeInput = {
       create: recipeRest.ingredients?.map((recipeIngredients) => {
         if (!recipeIngredients) throw new Error('Missing recipe ingredients field');
@@ -108,6 +115,7 @@ const addRecipe = async (
       }),
     };
 
+    // Create a step, including the description and image
     const steps: Prisma.RecipeStepCreateNestedManyWithoutRecipeInput = {
       create: recipeRest.steps && await Promise.all(recipeRest.steps?.map(async (step) => {
         if (!step) throw new Error('Missing recipe step field');

@@ -11,6 +11,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that updates the password of the logged in user
+ */
 export default async (
   _parent: any,
   {

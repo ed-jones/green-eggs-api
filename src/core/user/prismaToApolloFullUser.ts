@@ -7,6 +7,9 @@ import {
 } from '../../generated/graphql';
 import FullPrismaUserType from './FullPrismaUserType';
 
+/**
+ * Converts a user (in prisma format) to a *full user* (in apollo format)
+ */
 export default function prismaToApolloFullUser(
   prismaUser: FullPrismaUserType,
   me?: FullPrismaUserType,

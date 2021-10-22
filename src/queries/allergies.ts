@@ -7,6 +7,9 @@ import {
 } from '../generated/graphql';
 import Errors from '../errors';
 
+/**
+ * Resolver that returns a paginated list of allergies within the database
+ */
 const allergies = async (
   _parent: any,
   {

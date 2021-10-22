@@ -7,6 +7,9 @@ import {
 } from '../generated/graphql';
 import Errors from '../errors';
 
+/**
+ * Resolver that returns a paginated list of diets within the database
+ */
 const diets = async (
   _parent: any,
   {

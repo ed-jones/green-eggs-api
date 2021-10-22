@@ -12,6 +12,9 @@ import * as Query from './queries';
 import * as Mutation from './mutations';
 import express from 'express';
 
+/**
+ * Asynchronously loads all graphql schema files, resolvers and loaders
+ */
 const schemaPromise = loadSchema('./graphql/**/*.graphql', {
   resolvers: { Query, Mutation, FileUpload: GraphQLUpload! },
   loaders: [
@@ -21,12 +24,18 @@ const schemaPromise = loadSchema('./graphql/**/*.graphql', {
 
 const secret = process.env.SECRET;
 
+/**
+ * Decodes the JWT provided by the GraphQL context into a user object
+ */
 const getContext = (token?: string): PrismaUser | undefined => {
   return token ? (
     jwt.verify(token, secret || '') as PrismaUser
   ) : undefined;
 }
 
+/**
+ * When the Apollo schema is loaded, starts a GraphQL server.
+ */
 schemaPromise.then((schema) => {
   express()
   .use(

@@ -7,13 +7,16 @@ import * as Apollo from '../generated/graphql';
 import prisma from '../prisma';
 import { prismaToApolloNotification } from '../queries/notifications';
 
+/**
+ * Resolver that marks a notification as read for a logged in user.
+ */
 export default async (
   _parent: any,
   { notificationId }: Apollo.MutationReadNotificationArgs,
   context?: Prisma.User,
 ): Promise<Apollo.NotificationResult> => {
   try {
-    // Find user to associate with liked recipe
+    // Find user to associate with notification
     if (!context?.id) {
       throw new Error(Errors.NO_CONTEXT);
     }

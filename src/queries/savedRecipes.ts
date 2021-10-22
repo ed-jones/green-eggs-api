@@ -9,7 +9,10 @@ import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
 import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 import me from './me';
 
-const recipes = async (
+/**
+ * Resolver that returns a paginated list of saved recipes
+ */
+const savedRecipes = async (
   parent: any,
   { offset, limit }: QuerySavedRecipesArgs,
   context?: PrismaUser,
@@ -37,4 +40,4 @@ const recipes = async (
   return { data };
 };
 
-export default recipes;
+export default savedRecipes;

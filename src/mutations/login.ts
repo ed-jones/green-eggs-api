@@ -10,6 +10,9 @@ import Errors from '../errors';
 
 const secret = process.env.SECRET;
 
+/**
+ * Resolver that returns a token if the email and password match an entry in the database.
+ */
 const login = async (_: any, { loginDetails }: MutationLoginArgs): Promise<AuthResult> => {
   const user = await prisma.user.findUnique({
     where: {

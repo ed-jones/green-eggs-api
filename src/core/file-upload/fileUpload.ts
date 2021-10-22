@@ -4,6 +4,9 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { ReadStream } from 'fs-capacitor';
 
+/**
+ * Function that enables the uploading of files to an S3 Bucket
+ */
 const fileUpload = async (fileName: string, fileStream: (options?:{encoding?: string, highWaterMark?: number}) => ReadStream): Promise<string | null> => {
   const accessKeyId = process.env.ACCESS_KEY_ID;
   const secretAccessKey = process.env.SECRET_ACCESS_KEY;

@@ -3,13 +3,16 @@
  */
 import { User as PrismaUser } from '@prisma/client';
 
-import { MutationEditProfileArgs, EditProfileResult, User as ApolloUser, Privacy as ApolloPrivacy } from '../generated/graphql';
+import { MutationEditProfileArgs, EditProfileResult } from '../generated/graphql';
 import prisma from '../prisma';
 import Errors from '../errors';
 import fileUpload from '../core/file-upload/fileUpload';
 import prismaToApolloFullUser from '../core/user/prismaToApolloFullUser';
 import fullUserArgs from '../core/user/fullUserArgs';
 
+/**
+ * Resolver that updates the logged in user's profile data
+ */
 const editProfile = async (
   _: any,
   {profileDetails: { firstName, lastName, bio, profileImage } }: MutationEditProfileArgs,

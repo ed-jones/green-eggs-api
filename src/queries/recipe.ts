@@ -12,7 +12,10 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
-const recipes = async (
+/**
+ * Resolver that returns the recipe details of a given recipe
+ */
+const recipe = async (
   _parent: any,
   { recipeId }: QueryRecipeArgs,
   context?: PrismaUser,
@@ -27,4 +30,4 @@ const recipes = async (
   return { data: prismaToApolloRecipe(prismaRecipe, context?.id) };
 };
 
-export default recipes;
+export default recipe;

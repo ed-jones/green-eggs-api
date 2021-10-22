@@ -9,7 +9,10 @@ import Errors from '../errors';
 import fullUserArgs from '../core/user/fullUserArgs';
 import prismaToFullApolloUser from '../core/user/prismaToApolloFullUser';
 
-const me = async (
+/**
+ * Resolver that returns the profile details of a given user
+ */
+const profile = async (
   _parent: any, { userId }: QueryProfileArgs, context: PrismaUser | undefined,
 ): Promise<FullUserResult> => {
   if (!userId) {
@@ -58,4 +61,4 @@ const me = async (
   return { data: prismaToFullApolloUser(user, me) };
 };
 
-export default me;
+export default profile;

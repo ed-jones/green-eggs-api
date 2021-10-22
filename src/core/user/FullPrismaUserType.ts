@@ -10,6 +10,9 @@ import {
 
 import FullPrismaRecipeType from '../recipe/FullPrismaRecipeType';
 
+/**
+ * Type of a user (in prisma format) with *all* included fields
+ */
 type FullPrismaUserType = PrismaUser & {
     dietaryPreferences: PrismaDiet[];
   } & {

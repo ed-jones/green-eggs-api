@@ -15,6 +15,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that adds a comment to a recipe on behalf of the logged in user
+ */
 export default async (_parent: any,
   { recipeId, comment: commentContent }: MutationAddCommentArgs,
   context?: PrismaUser): Promise<CommentResult> => {

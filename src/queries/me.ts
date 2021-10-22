@@ -9,6 +9,9 @@ import Errors from '../errors';
 import fullUserArgs from '../core/user/fullUserArgs';
 import prismaToApolloFullUser from '../core/user/prismaToApolloFullUser';
 
+/**
+ * Resolver that returns profile details for the logged in user
+ */
 const me = async (
   _parent: any, _args: any, context: PrismaUser | undefined,
 ): Promise<FullUserResult> => {

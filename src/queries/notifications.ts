@@ -20,6 +20,9 @@ export function prismaToApolloNotification(notification: FullPrismaNotificationT
   });
 }
 
+/**
+ * Resolver that returns a paginated list of notifications for the logged in user
+ */
 const Notifications = async (
   _parent: any,
   { offset, limit }: Apollo.QueryNotificationsArgs,

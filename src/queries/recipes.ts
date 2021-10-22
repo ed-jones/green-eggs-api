@@ -11,6 +11,9 @@ import fullRecipeArgs from '../core/recipe/fullRecipeArgs';
 import prismaToApolloRecipe from '../core/recipe/prismaToApolloRecipe';
 import buildRecipeArgsForUser from '../core/buildRecipeArgsForUser';
 
+/**
+ * Resolver that returns a paginated list of recipes that be queried, filtered and sorted
+ */
 const recipes = async (
   _parent: any,
   {

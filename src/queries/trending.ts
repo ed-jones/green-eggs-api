@@ -14,6 +14,9 @@ import prisma from "../prisma";
 import me from "./me";
 import buildRecipeArgsForUser from "../core/buildRecipeArgsForUser";
 
+/**
+ * Resolver that returns a paginated list of recipes that are popular and new
+ */
 const trending = async (
   parent: any,
   { offset, limit }: QueryTrendingArgs,

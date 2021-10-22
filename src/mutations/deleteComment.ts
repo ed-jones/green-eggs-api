@@ -11,6 +11,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that deletes a given comment as long as it was created by the logged in user
+ */
 export default async (
   _parent: any,
   { commentId }: MutationDeleteCommentArgs,

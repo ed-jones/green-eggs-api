@@ -14,6 +14,9 @@ import {
 } from '../generated/graphql';
 import prisma from '../prisma';
 
+/**
+ * Resolver that adds a recipe to the list of liked recipes for the logged in user
+ */
 export default async (_parent: any,
   { recipeId }: MutationLikeRecipeArgs,
   context?: PrismaUser): Promise<LikeRecipeResult> => {
